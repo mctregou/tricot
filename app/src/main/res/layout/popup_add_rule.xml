@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape_rectangle_white"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/rule_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Nom du point à rajouter"
+        android:imeOptions="actionNext"
+        android:inputType="textAutoComplete"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/rule_frequence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Fréquence du point"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_title" />
+
+    <EditText
+        android:id="@+id/rule_offset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Rang concerné par le changement"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_frequence" />
+
+    <EditText
+        android:id="@+id/rule_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="Description du point"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_offset" />
+
+    <TextView
+        android:id="@+id/validate_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shape_rectangle_pink"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="OK"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule_description" />
+
+</android.support.constraint.ConstraintLayout>

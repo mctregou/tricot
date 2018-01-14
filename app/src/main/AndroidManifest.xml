@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tregouet.tricot">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/tricot"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/tricot"
+        android:supportsRtl="true"
+        android:name=".module.Tricot"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".module.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".module.main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.project.ProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.step.StepActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+
+</manifest>
