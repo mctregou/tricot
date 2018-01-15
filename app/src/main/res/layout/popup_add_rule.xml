@@ -7,6 +7,28 @@
     android:background="@drawable/shape_rectangle_white"
     android:padding="20dp">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nouveau point"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rule_title_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nouveau point"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
     <EditText
         android:id="@+id/rule_title"
         android:layout_width="match_parent"
@@ -19,7 +41,18 @@
         android:lines="1"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rule_title_label" />
+
+    <TextView
+        android:id="@+id/rule_frequence_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fréquence du point"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_title"/>
 
     <EditText
         android:id="@+id/rule_frequence"
@@ -27,13 +60,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@android:color/white"
-        android:hint="Fréquence du point"
+        android:hint="ex: 10"
         android:imeOptions="actionNext"
         android:inputType="number"
         android:lines="1"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/rule_title" />
+        app:layout_constraintTop_toBottomOf="@+id/rule_frequence_label" />
+
+    <TextView
+        android:id="@+id/rule_offset_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rang concerné par le changement"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_frequence"/>
 
     <EditText
         android:id="@+id/rule_offset"
@@ -41,13 +85,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@android:color/white"
-        android:hint="Rang concerné par le changement"
+        android:hint="ex : 3"
         android:imeOptions="actionNext"
         android:inputType="number"
         android:lines="1"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/rule_frequence" />
+        app:layout_constraintTop_toBottomOf="@+id/rule_offset_label" />
+
+    <TextView
+        android:id="@+id/rule_description_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description du point"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/rule_offset"/>
 
     <EditText
         android:id="@+id/rule_description"
@@ -55,12 +110,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@android:color/white"
-        android:hint="Description du point"
+        android:hint="ex: 2m. endroit puis 2m. envers"
         android:imeOptions="actionDone"
-        android:lines="1"
-        android:singleLine="true"
+        android:lines="4"
+        android:gravity="start"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/rule_offset" />
+        app:layout_constraintTop_toBottomOf="@+id/rule_description_label" />
 
     <TextView
         android:id="@+id/validate_rule"

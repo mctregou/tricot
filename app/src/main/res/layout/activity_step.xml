@@ -67,7 +67,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:background="@drawable/shape_round_blue"
+                        android:background="@drawable/shape_round_pink"
                         android:tint="@android:color/white"
                         app:srcCompat="@drawable/ic_remove"
                         tools:ignore="VectorDrawableCompat" />
@@ -90,7 +90,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:background="@drawable/shape_round_blue"
+                        android:background="@drawable/shape_round_pink"
                         android:tint="@android:color/white"
                         app:srcCompat="@drawable/ic_add"
                         tools:ignore="VectorDrawableCompat" />
