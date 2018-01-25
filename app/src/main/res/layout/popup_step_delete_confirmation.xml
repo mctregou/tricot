@@ -48,7 +48,7 @@
             android:background="@drawable/shape_rectangle_pink"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Annuler"
+            android:text="@string/cancel"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -63,7 +63,7 @@
             android:background="@drawable/shape_rectangle_pink"
             android:gravity="center"
             android:padding="10dp"
-            android:text="OK"
+            android:text="@string/ok"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

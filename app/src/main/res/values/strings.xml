@@ -6,10 +6,14 @@
     <string name="delete">Supprimer</string>
     <string name="update">Modifier</string>
     <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
 
     <string name="step_name">Étape : %s</string>
     <string name="step_length">Longueur de l\'étape : %s</string>
     <string name="frequence_ranks">%d rangs</string>
+
+    //Project popup
+    <string name="delete_project_confirmation">Voulez-vous vraiment supprimer ce projet ?</string>
 
     //Stitch popup
     <string name="new_stitch">Nouveau point</string>

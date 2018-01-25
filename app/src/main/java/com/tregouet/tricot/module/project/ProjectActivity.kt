@@ -6,8 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.model.Step
@@ -16,6 +15,7 @@ import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.popup_add_step.*
+import kotlinx.android.synthetic.main.popup_step_delete_confirmation.*
 
 class ProjectActivity : AppCompatActivity() {
 
@@ -52,51 +52,50 @@ class ProjectActivity : AppCompatActivity() {
         RealmManager.open()
         project = RealmManager.createProjectDao().loadBy(intent.getIntExtra(Constants().PROJECT_ID, 0))
         RealmManager.close()
-        toolbar.title = project?.name
+        subtitle.text = project?.name
 
         getSteps()
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_project, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_rename -> {
-                val dialog = Dialog(this)
-                dialog.setContentView(R.layout.popup_add_project)
-                dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.project_title.setText(project?.name)
-                dialog.validate_project.setOnClickListener {
-                    if (dialog.project_title.text.toString() != "") {
-                        project?.name = dialog.project_title.text.toString()
-                        RealmManager.open()
-                        RealmManager.createProjectDao().save(project)
-                        RealmManager.close()
-                        title = project?.name
-                    }
-                    dialog.dismiss()
+        settings.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.popup_add_project)
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.project_title.setText(project?.name)
+            dialog.update_project_buttons.visibility = View.VISIBLE
+            dialog.validate_project.visibility = View.GONE
+            dialog.update_project.setOnClickListener {
+                if (dialog.project_title.text.toString() != "") {
+                    project?.name = dialog.project_title.text.toString()
+                    RealmManager.open()
+                    RealmManager.createProjectDao().save(project)
+                    RealmManager.close()
+                    subtitle.text = project?.name
+                    getSteps()
                 }
-                dialog.show()
-                true
+                dialog.dismiss()
             }
-            R.id.action_delete -> {
-                RealmManager.open()
-                RealmManager.createRuleDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
-                RealmManager.createStepDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
-                RealmManager.createProjectDao().removeById(intent.getIntExtra(Constants().PROJECT_ID, 0))
-                RealmManager.close()
+            dialog.update_project_buttons.visibility = View.VISIBLE
+            dialog.validate_project.visibility = View.GONE
+            dialog.delete_project.setOnClickListener {
+                dialog.dismiss()
 
-                onBackPressed()
-                true
+                val confirmationDialog = Dialog(this)
+                confirmationDialog.setContentView(R.layout.popup_step_delete_confirmation)
+                confirmationDialog.message.text = getString(R.string.delete_project_confirmation)
+                confirmationDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                confirmationDialog.ok_delete_step.setOnClickListener {
+                    RealmManager.open()
+                    RealmManager.createRuleDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
+                    RealmManager.createStepDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
+                    RealmManager.createProjectDao().removeById(intent.getIntExtra(Constants().PROJECT_ID, 0))
+                    RealmManager.close()
+                    confirmationDialog.dismiss()
+                    onBackPressed()
+                }
+                confirmationDialog.cancel_delete_step.setOnClickListener { confirmationDialog.dismiss() }
+                confirmationDialog.show()
             }
-            else -> super.onOptionsItemSelected(item)
+            dialog.show()
         }
     }
 
