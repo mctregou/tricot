@@ -6,9 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
@@ -18,6 +15,7 @@ import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.activity_step.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
+import kotlinx.android.synthetic.main.popup_step_delete_confirmation.*
 
 class StepActivity : AppCompatActivity() {
 
@@ -42,61 +40,59 @@ class StepActivity : AppCompatActivity() {
         step = RealmManager.createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
         RealmManager.close()
 
-        title = step?.name
+        //toolbar.title = step?.name
+        step_name.text = getString(R.string.step_name, step?.name)
+
         current_rank.text = step!!.currentRank.toString()
-        end.text = "Longueur de l'étape : " + step!!.end.toString()
+        end.text = getString(R.string.step_length, step?.end.toString())
 
         add_rule.setOnClickListener { _ ->
             addRule()
         }
 
+        settings.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.popup_add_step)
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.step_title.setText(step?.name)
+            dialog.size.setText(step?.end)
+            dialog.update_step.setOnClickListener {
+                if (dialog.step_title.text.toString() != "" && dialog.size.text.toString() != "") {
+                    step?.name = dialog.step_title.text.toString()
+                    step?.end = dialog.size.text.toString()
+                    RealmManager.open()
+                    RealmManager.createStepDao().save(step)
+                    RealmManager.close()
+                    title = step?.name
+                    end.text = getString(R.string.step_length, step?.end.toString())
+                }
+                dialog.dismiss()
+            }
+            dialog.update_buttons.visibility = View.VISIBLE
+            dialog.validate_step.visibility = View.GONE
+            dialog.delete_step.setOnClickListener {
+                dialog.dismiss()
+
+                val confirmationDialog = Dialog(this)
+                confirmationDialog.setContentView(R.layout.popup_step_delete_confirmation)
+                confirmationDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                confirmationDialog.ok_delete_step.setOnClickListener {
+                    RealmManager.open()
+                    RealmManager.createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
+                    RealmManager.createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
+                    RealmManager.close()
+                    confirmationDialog.dismiss()
+                    onBackPressed()
+                }
+                confirmationDialog.cancel_delete_step.setOnClickListener { confirmationDialog.dismiss() }
+                confirmationDialog.show()
+            }
+            dialog.show()
+        }
+
         getRules()
 
         checkRule()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_step, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_rename_step -> {
-                val dialog = Dialog(this)
-                dialog.setContentView(R.layout.popup_add_step)
-                dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.step_title.setText(step?.name)
-                dialog.size.setText(step?.end)
-                dialog.validate_step.setOnClickListener {
-                    if (dialog.step_title.text.toString() != "" && dialog.size.text.toString() != "") {
-                        step?.name = dialog.step_title.text.toString()
-                        step?.end = dialog.size.text.toString()
-                        RealmManager.open()
-                        RealmManager.createStepDao().save(step)
-                        RealmManager.close()
-                        title = step?.name
-                        end.text = "Longueur de l'étape : " + step?.end.toString()
-                    }
-                    dialog.dismiss()
-                }
-                dialog.show()
-                true
-            }
-            R.id.action_delete_step -> {
-                RealmManager.open()
-                RealmManager.createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
-                RealmManager.createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
-                RealmManager.close()
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     fun getRules() {
@@ -118,8 +114,7 @@ class StepActivity : AppCompatActivity() {
                     && dialog.rule_frequence.text.toString() != ""
                     && dialog.rule_description.text.toString() != "") {
                 RealmManager.open()
-                System.out.println("test = " + RealmManager.createRuleDao().nextId())
-                var index = RealmManager.createRuleDao().nextId()
+                val index = RealmManager.createRuleDao().nextId()
                 RealmManager.createRuleDao().save(Rule(index,
                         intent.getIntExtra(Constants().STEP_ID,0),
                         intent.getIntExtra(Constants().PROJECT_ID,0),
@@ -164,7 +159,6 @@ class StepActivity : AppCompatActivity() {
 
         rules.filterTo(currentRules) { (step?.currentRank!! - it.offset!!) % it.frequency!! == 0 }
 
-        Log.i("StepActivity", "checkRule rules=" + rules.size + ", currentRules=" + currentRules.size)
         current_rules_recyclerview.layoutManager = LinearLayoutManager(this)
         currentRuleAdapter = CurrentRulesAdapter(currentRules)
         current_rules_recyclerview.adapter = currentRuleAdapter

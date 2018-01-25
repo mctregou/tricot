@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">Tricot</string>
     <string name="action_settings">Settings</string>
+
+    //Global
+    <string name="delete">Supprimer</string>
+    <string name="update">Modifier</string>
+    <string name="ok">OK</string>
+
+    <string name="step_name">Étape : %s</string>
+    <string name="step_length">Longueur de l\'étape : %s</string>
+    <string name="frequence_ranks">%d rangs</string>
+
+    //Stitch popup
+    <string name="new_stitch">Nouveau point</string>
+    <string name="stitch_to_add">Nom du point à rajouter</string>
+    <string name="stitch_frequency">Fréquence du point</string>
+    <string name="stitch_frequency_example">ex: 10</string>
+    <string name="rank_change">Rang concerné par le changement</string>
+    <string name="rank_change_example">ex : 3</string>
+    <string name="stitch_description">Description du point</string>
+    <string name="stitch_description_example">ex: 2m. endroit puis 2m. envers</string>
 </resources>

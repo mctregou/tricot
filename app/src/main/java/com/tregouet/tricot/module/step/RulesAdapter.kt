@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
+import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.item_rule.view.*
+import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_confirmation.*
 
 /**
@@ -26,9 +28,8 @@ class RulesAdapter(private val stepActivity : StepActivity, private val projects
 
     class ViewHolder(itemView: View, private val stepActivity : StepActivity) : RecyclerView.ViewHolder(itemView) {
         fun bind(rule: Rule) = with(itemView) {
-            System.out.println("Test " + rule.stitch + "/" + rule.id)
             itemView.title.text = rule.stitch
-            itemView.frequency.text = rule.frequency.toString() + " rangs"
+            itemView.frequency.text = stepActivity.getString(R.string.frequence_ranks, rule.frequency)
             itemView.description.text = rule.description
 
             itemView.setOnClickListener {
@@ -40,17 +41,38 @@ class RulesAdapter(private val stepActivity : StepActivity, private val projects
             }
 
             itemView.setOnLongClickListener {
-                val dialog = Dialog(stepActivity)
-                dialog.setContentView(R.layout.popup_confirmation)
+                val dialog = Dialog(context)
+                dialog.setContentView(R.layout.popup_add_rule)
                 dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.ok.setOnClickListener {
+                dialog.validate_rule.visibility = View.GONE
+                dialog.update_rule_buttons.visibility = View.VISIBLE
+                dialog.rule_title.setText(rule.stitch)
+                dialog.rule_frequence.setText(rule.frequency.toString())
+                dialog.rule_offset.setText(rule.offset.toString())
+                dialog.rule_description.setText(rule.description)
+                dialog.update_rule.setOnClickListener {
+                    if (dialog.rule_title.text.toString() != ""
+                            && dialog.rule_frequence.text.toString() != ""
+                            && dialog.rule_description.text.toString() != "") {
+                        rule.stitch = dialog.rule_title.text.toString()
+                        rule.frequency = dialog.rule_frequence.text.toString().toInt()
+                        rule.offset = dialog.rule_offset.text.toString().toInt()
+                        rule.description = dialog.rule_description.text.toString()
+                        RealmManager.open()
+                        RealmManager.createRuleDao().save(rule)
+                        RealmManager.close()
+
+                        stepActivity.getRules()
+                    }
+                    dialog.dismiss()
+                }
+                dialog.delete_rule.setOnClickListener {
                     RealmManager.open()
                     RealmManager.createRuleDao().removeById(rule.id!!)
                     RealmManager.close()
                     stepActivity.getRules()
                     dialog.dismiss()
                 }
-                dialog.cancel.setOnClickListener { dialog.dismiss() }
                 dialog.show()
                 true
             }

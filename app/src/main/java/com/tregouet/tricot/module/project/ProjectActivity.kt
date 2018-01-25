@@ -52,7 +52,7 @@ class ProjectActivity : AppCompatActivity() {
         RealmManager.open()
         project = RealmManager.createProjectDao().loadBy(intent.getIntExtra(Constants().PROJECT_ID, 0))
         RealmManager.close()
-        title = project?.name
+        toolbar.title = project?.name
 
         getSteps()
     }
