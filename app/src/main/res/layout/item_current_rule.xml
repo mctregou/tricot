@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="• Torsade"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="Nom de l'étape"
         android:textAllCaps="true"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
         android:imeOptions="actionDone"
         android:lines="1"
         android:singleLine="true"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -47,7 +47,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:text="Longueur : "
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -65,7 +65,7 @@
             android:imeOptions="actionDone"
             android:lines="1"
             android:singleLine="true"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="italic" />
 
     </RelativeLayout>
@@ -92,7 +92,7 @@
             android:padding="10dp"
             android:text="Supprimer"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -107,7 +107,7 @@
             android:padding="10dp"
             android:text="Modifier"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
 
@@ -125,7 +125,7 @@
         android:padding="10dp"
         android:text="OK"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

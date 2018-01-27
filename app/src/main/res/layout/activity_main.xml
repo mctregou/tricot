@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tregouet.tricot.module.main.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_bar"/>
+
+    <include layout="@layout/content_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            app:title="@string/app_name"
-            android:gravity="center_horizontal"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_bar"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -34,6 +24,8 @@
         app:srcCompat="@drawable/ic_add"
         android:tint="@android:color/white"
         app:rippleColor="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         tools:ignore="VectorDrawableCompat" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -8,13 +8,14 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Project
+import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.utils.RealmManager
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.popup_add_project.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var adapter : ProjectsAdapter?=null
     private var projects : ArrayList<Project> = ArrayList<Project>()
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
         fab.setOnClickListener { _ ->
             val dialog = Dialog(this)

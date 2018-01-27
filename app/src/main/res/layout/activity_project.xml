@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="center_horizontal"
-            android:background="?attr/colorPrimary"
-            android:gravity="center_horizontal"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name" />
-
-    </android.support.design.widget.AppBarLayout>
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/top_bar"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/top_bar"
         android:background="@color/colorPrimaryDark"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ImageView
@@ -65,7 +54,7 @@
                     android:text="Etapes du projet"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
 
                 <TextView
@@ -74,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="Etapes du projet"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -97,6 +86,8 @@
         android:tint="@android:color/white"
         app:rippleColor="@color/colorAccent"
         app:srcCompat="@drawable/ic_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         tools:ignore="VectorDrawableCompat" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

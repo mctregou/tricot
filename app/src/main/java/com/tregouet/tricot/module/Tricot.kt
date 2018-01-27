@@ -1,15 +1,12 @@
 package com.tregouet.tricot.module
 
 import android.app.Application
+import com.tregouet.tricot.R
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.FieldAttribute
-import io.realm.RealmSchema
 import io.realm.DynamicRealm
 import io.realm.RealmMigration
-
-
-
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
 /**
@@ -26,6 +23,11 @@ class Tricot : Application() {
                 .migration(MyMigration())
                 .build()
         Realm.setDefaultConfiguration(config)
+
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Summer_in_December.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build())
     }
 
     inner class MyMigration : RealmMigration {

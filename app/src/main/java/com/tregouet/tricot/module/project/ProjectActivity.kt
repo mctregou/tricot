@@ -10,6 +10,7 @@ import android.view.View
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.model.Step
+import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.activity_project.*
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.popup_add_step.*
 import kotlinx.android.synthetic.main.popup_step_delete_confirmation.*
 
-class ProjectActivity : AppCompatActivity() {
+class ProjectActivity : BaseActivity() {
 
     var adapter: StepsAdapter? = null
     var project: Project? = null
@@ -26,7 +27,6 @@ class ProjectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project)
-        setSupportActionBar(toolbar)
 
         fab.setOnClickListener { _ ->
             val dialog = Dialog(this)

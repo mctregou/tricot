@@ -14,7 +14,7 @@
         android:gravity="center"
         android:text="Attention"
         android:textAllCaps="true"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:background="@android:color/white"
         android:gravity="center"
         android:text="Voulez-vous vraiment supprimer ce point ?"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:padding="10dp"
             android:text="Annuler"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:padding="10dp"
             android:text="OK"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
     </LinearLayout>

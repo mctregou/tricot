@@ -10,6 +10,7 @@ import android.view.View
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
 import com.tregouet.tricot.model.Step
+import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.activity_step.*
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
 import kotlinx.android.synthetic.main.popup_step_delete_confirmation.*
 
-class StepActivity : AppCompatActivity() {
+class StepActivity : BaseActivity() {
 
     private var adapter: RulesAdapter? = null
     private var currentRuleAdapter: CurrentRulesAdapter? = null
@@ -27,7 +28,6 @@ class StepActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step)
-        setSupportActionBar(toolbar)
 
         minus.setOnClickListener { minus() }
         plus.setOnClickListener { plus() }
