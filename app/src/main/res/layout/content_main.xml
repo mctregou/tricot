@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tregouet.tricot.module.main.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mes projets"
+        android:text="@string/my_projects"
         android:padding="20dp"
         android:gravity="center"
         android:textAllCaps="true"

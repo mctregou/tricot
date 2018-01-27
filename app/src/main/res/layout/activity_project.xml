@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="20dp"
-                    android:text="Etapes du projet"
+                    android:text="@string/steps_project"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/title_text_size"
@@ -61,7 +61,6 @@
                     android:id="@+id/subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Etapes du projet"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
@@ -88,6 +87,7 @@
         app:srcCompat="@drawable/ic_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>

@@ -14,7 +14,6 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Torsade"
         android:textAllCaps="true"
         android:textStyle="bold"
         android:textSize="@dimen/title_text_size"
@@ -24,7 +23,6 @@
         android:id="@+id/frequency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Torsade"
         android:textStyle="italic"
         android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -33,7 +31,6 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Torsade"
         android:textSize="@dimen/title_text_size"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/frequency" />

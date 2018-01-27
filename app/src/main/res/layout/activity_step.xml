@@ -20,7 +20,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark">
 
             <ImageView
@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="20dp"
-                android:text="Rang en cours"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
@@ -62,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingTop="20dp"
-                    android:text="Rang en cours"
+                    android:text="@string/current_rank"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/title_text_size"
@@ -92,7 +91,6 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="20dp"
-                        android:text="5"
                         fontPath="fonts/TheBlacklist.ttf"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimaryDark"
@@ -117,11 +115,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_warning"
+                    android:drawableStart="@drawable/ic_warning"
                     android:drawableTint="@color/colorPrimaryDark"
                     android:paddingTop="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="Spécificité du rang"
+                    android:text="@string/rank_specialities"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold"
@@ -141,7 +140,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:text="Longueur de l'étape : 5 rangs"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"
@@ -171,6 +169,7 @@
         app:rippleColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>

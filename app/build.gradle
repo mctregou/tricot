@@ -35,4 +35,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    implementation 'com.instabug.library:instabug:4.9.0'
 }

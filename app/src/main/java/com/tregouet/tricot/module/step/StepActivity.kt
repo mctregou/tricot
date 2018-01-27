@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.tregouet.tricot.R
@@ -13,6 +12,7 @@ import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
+import com.tregouet.tricot.utils.Utils
 import kotlinx.android.synthetic.main.activity_step.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
@@ -41,7 +41,7 @@ class StepActivity : BaseActivity() {
         RealmManager.close()
 
         //toolbar.title = step?.name
-        step_name.text = getString(R.string.step_name, step?.name)
+        step_name.text = getString(R.string.step, step?.name)
 
         current_rank.text = step!!.currentRank.toString()
         end.text = getString(R.string.step_length, step?.end.toString())
@@ -73,18 +73,13 @@ class StepActivity : BaseActivity() {
             dialog.delete_step.setOnClickListener {
                 dialog.dismiss()
 
-                val confirmationDialog = Dialog(this)
-                confirmationDialog.setContentView(R.layout.popup_step_delete_confirmation)
-                confirmationDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                confirmationDialog.ok_delete_step.setOnClickListener {
+                val confirmationDialog = Utils().showDialog(this, R.string.warning, R.string.step_delete_confirmation, View.OnClickListener {
                     RealmManager.open()
                     RealmManager.createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
                     RealmManager.createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
                     RealmManager.close()
-                    confirmationDialog.dismiss()
                     onBackPressed()
-                }
-                confirmationDialog.cancel_delete_step.setOnClickListener { confirmationDialog.dismiss() }
+                })
                 confirmationDialog.show()
             }
             dialog.show()

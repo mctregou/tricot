@@ -7,8 +7,28 @@
     <string name="update">Modifier</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
+    <string name="warning">Attention</string>
 
-    <string name="step_name">Étape : %s</string>
+    //Main
+    <string name="my_projects">Mes projets</string>
+
+    //Popup add project
+    <string name="name_project">Nom du projet</string>
+    <string name="write_project_name">Entrez le nom de votre projet</string>
+
+    //Project
+    <string name="steps_project">Etapes du projet</string>
+
+    //Popup add step
+    <string name="step_name">Nom de l\'étape</string>
+    <string name="write_step_name">Entrez le nom de l\'étape</string>
+    <string name="length">Longueur : </string>
+    <string name="length_example">10rangs, 10cm, etc...</string>
+
+    //Step
+    <string name="current_rank">Rang en cours</string>
+    <string name="rank_specialities">Spécificité du rang</string>
+    <string name="step">Étape : %s</string>
     <string name="step_length">Longueur de l\'étape : %s</string>
     <string name="frequence_ranks">%d rangs</string>
 
@@ -24,4 +44,8 @@
     <string name="rank_change_example">ex : 3</string>
     <string name="stitch_description">Description du point</string>
     <string name="stitch_description_example">ex: 2m. endroit puis 2m. envers</string>
+
+    //Delete
+    <string name="stitch_delete_confirmation">Voulez-vous vraiment supprimer ce point ?</string>
+    <string name="step_delete_confirmation">Voulez-vous vraiment supprimer cette étape ?</string>
 </resources>

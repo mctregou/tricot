@@ -13,6 +13,7 @@ import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
+import com.tregouet.tricot.utils.Utils
 import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.popup_add_step.*
@@ -35,7 +36,7 @@ class ProjectActivity : BaseActivity() {
             dialog.validate_step.setOnClickListener {
                 if (dialog.step_title.text.toString() != "" && dialog.size.text.toString() != "") {
                     RealmManager.open()
-                    var index = RealmManager.createStepDao().nextId()
+                    val index = RealmManager.createStepDao().nextId()
                     RealmManager.createStepDao().save(Step(index, intent.getIntExtra(Constants().PROJECT_ID, 0), dialog.step_title.text.toString(), dialog.size.text.toString()))
                     RealmManager.close()
                     getSteps()
@@ -79,21 +80,15 @@ class ProjectActivity : BaseActivity() {
             dialog.delete_project.setOnClickListener {
                 dialog.dismiss()
 
-                val confirmationDialog = Dialog(this)
-                confirmationDialog.setContentView(R.layout.popup_step_delete_confirmation)
-                confirmationDialog.message.text = getString(R.string.delete_project_confirmation)
-                confirmationDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                confirmationDialog.ok_delete_step.setOnClickListener {
+                val confirmationPopup = Utils().showDialog(this, R.string.warning, R.string.delete_project_confirmation, View.OnClickListener {
                     RealmManager.open()
                     RealmManager.createRuleDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
                     RealmManager.createStepDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
                     RealmManager.createProjectDao().removeById(intent.getIntExtra(Constants().PROJECT_ID, 0))
                     RealmManager.close()
-                    confirmationDialog.dismiss()
                     onBackPressed()
-                }
-                confirmationDialog.cancel_delete_step.setOnClickListener { confirmationDialog.dismiss() }
-                confirmationDialog.show()
+                })
+                confirmationPopup.show()
             }
             dialog.show()
         }

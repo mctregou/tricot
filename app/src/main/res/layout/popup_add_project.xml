@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nom du projet"
+        android:text="@string/name_project"
         android:textAllCaps="true"
         android:gravity="center"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
         android:imeOptions="actionDone"
         android:singleLine="true"
         android:lines="1"
-        android:hint="Entrez le nom de votre projet"
+        android:hint="@string/write_project_name"
         android:textStyle="italic"
         android:textSize="@dimen/title_text_size"
         android:background="@android:color/white"/>
