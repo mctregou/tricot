@@ -1,5 +1,6 @@
 package com.tregouet.tricot.model
 
+import com.tregouet.tricot.utils.RealmManager
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
@@ -18,4 +19,14 @@ open class Project (
      * Name of the project
      */
     var name: String?=null
-) : RealmObject()
+) : RealmObject() {
+
+    fun getRanksNumber() : Int {
+        var ranks = 0
+        val steps = RealmManager.createStepDao().loadByProjectId(id!!)
+        for (step in steps){
+            ranks = step.currentRank.minus(1)
+        }
+        return ranks
+    }
+}

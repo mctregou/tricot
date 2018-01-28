@@ -1,5 +1,6 @@
 package com.tregouet.tricot.model
 
+import com.tregouet.tricot.utils.RealmManager
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 

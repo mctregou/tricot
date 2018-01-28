@@ -11,6 +11,7 @@
 
     //Main
     <string name="my_projects">Mes projets</string>
+    <string name="ranks_number">%d rangs</string>
 
     //Popup add project
     <string name="name_project">Nom du projet</string>

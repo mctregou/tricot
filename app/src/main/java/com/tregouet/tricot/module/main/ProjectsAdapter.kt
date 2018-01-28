@@ -26,6 +26,7 @@ class ProjectsAdapter(private val context: Context, private var projects: ArrayL
     class ViewHolder(private val context: Context, itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(project: Project) = with(itemView) {
             itemView.title.text = project.name
+            itemView.ranks.text = context.getString(R.string.ranks_number, project.getRanksNumber())
             System.out.println("Project id=" + project.id)
             setOnClickListener { openProject(project.id) }
         }

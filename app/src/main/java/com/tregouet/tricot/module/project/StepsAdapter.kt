@@ -26,6 +26,7 @@ class StepsAdapter(private val context: Context, private var steps: ArrayList<St
     class ViewHolder(private val context: Context, itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(step: Step) = with(itemView) {
             itemView.title.text = step.name
+            itemView.ranks.text = context.getString(R.string.ranks_number, step.currentRank.minus(1))
             setOnClickListener { openStep(step) }
         }
 
