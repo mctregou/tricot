@@ -88,6 +88,9 @@ class StepActivity : BaseActivity() {
         getRules()
 
         checkRule()
+
+        rules_recyclerview.isFocusable = false
+        constraint_layout.requestFocus()
     }
 
     fun getRules() {
