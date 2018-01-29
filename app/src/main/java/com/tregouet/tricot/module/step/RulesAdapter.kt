@@ -9,24 +9,38 @@ import android.view.View
 import android.view.ViewGroup
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
-import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import kotlinx.android.synthetic.main.item_rule.view.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
-import kotlinx.android.synthetic.main.popup_confirmation.*
 
 /**
  * Created by mariececile.tregouet on 06/01/2018.
  */
 class RulesAdapter(private val stepActivity : StepActivity, private val projects: ArrayList<Rule>) : RecyclerView.Adapter<RulesAdapter.ViewHolder>() {
 
+    /**
+     * onCreateViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_rule, parent,false), stepActivity)
 
+    /**
+     * onBindViewHolder
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(projects[position])
 
+    /**
+     * getItemCount
+     */
     override fun getItemCount() = projects.size
 
+    /**
+     * ViewHolder
+     */
     class ViewHolder(itemView: View, private val stepActivity : StepActivity) : RecyclerView.ViewHolder(itemView) {
+
+        /**
+         * Bind the rule with the ViewHolder
+         */
         fun bind(rule: Rule) = with(itemView) {
             itemView.title.text = rule.stitch
             itemView.frequency.text = stepActivity.getString(R.string.frequence_ranks, rule.frequency)
@@ -58,18 +72,18 @@ class RulesAdapter(private val stepActivity : StepActivity, private val projects
                         rule.frequency = dialog.rule_frequence.text.toString().toInt()
                         rule.offset = dialog.rule_offset.text.toString().toInt()
                         rule.description = dialog.rule_description.text.toString()
-                        RealmManager.open()
-                        RealmManager.createRuleDao().save(rule)
-                        RealmManager.close()
+                        RealmManager().open()
+                        RealmManager().createRuleDao().save(rule)
+                        RealmManager().close()
 
                         stepActivity.getRules()
                     }
                     dialog.dismiss()
                 }
                 dialog.delete_rule.setOnClickListener {
-                    RealmManager.open()
-                    RealmManager.createRuleDao().removeById(rule.id!!)
-                    RealmManager.close()
+                    RealmManager().open()
+                    RealmManager().createRuleDao().removeById(rule.id!!)
+                    RealmManager().close()
                     stepActivity.getRules()
                     dialog.dismiss()
                 }

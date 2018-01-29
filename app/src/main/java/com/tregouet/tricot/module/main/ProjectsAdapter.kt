@@ -17,29 +17,42 @@ import kotlinx.android.synthetic.main.item_project.view.*
  */
 class ProjectsAdapter(private val context: Context, private var projects: ArrayList<Project>) : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
 
+    /**
+     * onCreateViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(context, LayoutInflater.from(parent.context).inflate(R.layout.item_project, parent, false))
 
+    /**
+     * onBindViewHolder
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(projects[position])
 
+    /**
+     * getItemCount
+     */
     override fun getItemCount() = projects.size
 
+    /**
+     * ViewHolder
+     */
     class ViewHolder(private val context: Context, itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        /**
+         * Bind project to the ViewHolder
+         */
         fun bind(project: Project) = with(itemView) {
             itemView.title.text = project.name
             itemView.ranks.text = context.getString(R.string.ranks_number, project.getRanksNumber())
-            System.out.println("Project id=" + project.id)
             setOnClickListener { openProject(project.id) }
         }
 
+        /**
+         * Open project screen
+         */
         private fun openProject(projectId:Int?){
             val intent = Intent(Intent(context, ProjectActivity::class.java))
             intent.putExtra(Constants().PROJECT_ID, projectId)
             context.startActivity(intent)
         }
-    }
-
-    fun setProjects(projects: ArrayList<Project>) {
-        this.projects = projects
-        notifyDataSetChanged()
     }
 }

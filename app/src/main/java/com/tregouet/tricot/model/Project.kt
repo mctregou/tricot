@@ -21,9 +21,12 @@ open class Project (
     var name: String?=null
 ) : RealmObject() {
 
+    /**
+     * Calculate all ranks of the project
+     */
     fun getRanksNumber() : Int {
         var ranks = 0
-        val steps = RealmManager.createStepDao().loadByProjectId(id!!)
+        val steps = RealmManager().createStepDao().loadByProjectId(id!!)
         for (step in steps){
             ranks = step.currentRank.minus(1)
         }

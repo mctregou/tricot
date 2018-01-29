@@ -32,6 +32,7 @@
     <string name="step">Étape : %s</string>
     <string name="step_length">Longueur de l\'étape : %s</string>
     <string name="frequence_ranks">%d rangs</string>
+    <string name="rule_list">• %s</string>
 
     //Project popup
     <string name="delete_project_confirmation">Voulez-vous vraiment supprimer ce projet ?</string>

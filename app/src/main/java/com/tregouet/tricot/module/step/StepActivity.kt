@@ -16,7 +16,6 @@ import com.tregouet.tricot.utils.Utils
 import kotlinx.android.synthetic.main.activity_step.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
-import kotlinx.android.synthetic.main.popup_step_delete_confirmation.*
 
 class StepActivity : BaseActivity() {
 
@@ -36,9 +35,9 @@ class StepActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        RealmManager.open()
-        step = RealmManager.createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
-        RealmManager.close()
+        RealmManager().open()
+        step = RealmManager().createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
+        RealmManager().close()
 
         //toolbar.title = step?.name
         step_name.text = getString(R.string.step, step?.name)
@@ -60,9 +59,9 @@ class StepActivity : BaseActivity() {
                 if (dialog.step_title.text.toString() != "" && dialog.size.text.toString() != "") {
                     step?.name = dialog.step_title.text.toString()
                     step?.end = dialog.size.text.toString()
-                    RealmManager.open()
-                    RealmManager.createStepDao().save(step)
-                    RealmManager.close()
+                    RealmManager().open()
+                    RealmManager().createStepDao().save(step)
+                    RealmManager().close()
                     title = step?.name
                     end.text = getString(R.string.step_length, step?.end.toString())
                 }
@@ -74,10 +73,10 @@ class StepActivity : BaseActivity() {
                 dialog.dismiss()
 
                 val confirmationDialog = Utils().showDialog(this, R.string.warning, R.string.step_delete_confirmation, View.OnClickListener {
-                    RealmManager.open()
-                    RealmManager.createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
-                    RealmManager.createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
-                    RealmManager.close()
+                    RealmManager().open()
+                    RealmManager().createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
+                    RealmManager().createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
+                    RealmManager().close()
                     onBackPressed()
                 })
                 confirmationDialog.show()
@@ -94,9 +93,9 @@ class StepActivity : BaseActivity() {
     }
 
     fun getRules() {
-        RealmManager.open()
-        rules = ArrayList(RealmManager.createRuleDao().loadByStepId(intent.getIntExtra(Constants().STEP_ID, 0)).toList())
-        RealmManager.close()
+        RealmManager().open()
+        rules = ArrayList(RealmManager().createRuleDao().loadByStepId(intent.getIntExtra(Constants().STEP_ID, 0)).toList())
+        RealmManager().close()
 
         rules_recyclerview.layoutManager = LinearLayoutManager(this)
         adapter = RulesAdapter(this, rules)
@@ -111,9 +110,9 @@ class StepActivity : BaseActivity() {
             if (dialog.rule_title.text.toString() != ""
                     && dialog.rule_frequence.text.toString() != ""
                     && dialog.rule_description.text.toString() != "") {
-                RealmManager.open()
-                val index = RealmManager.createRuleDao().nextId()
-                RealmManager.createRuleDao().save(Rule(index,
+                RealmManager().open()
+                val index = RealmManager().createRuleDao().nextId()
+                RealmManager().createRuleDao().save(Rule(index,
                         intent.getIntExtra(Constants().STEP_ID,0),
                         intent.getIntExtra(Constants().PROJECT_ID,0),
                         dialog.rule_title.text.toString(),
@@ -121,7 +120,7 @@ class StepActivity : BaseActivity() {
                         dialog.rule_offset.text.toString().toInt(),
                         dialog.rule_description.text.toString()
                         ))
-                RealmManager.close()
+                RealmManager().close()
 
                 getRules()
             }
@@ -132,10 +131,10 @@ class StepActivity : BaseActivity() {
 
     private fun minus() {
         if (step?.currentRank!! > 1) {
-            RealmManager.open()
+            RealmManager().open()
             step!!.currentRank = (step!!.currentRank - 1)
-            RealmManager.createStepDao().save(step)
-            RealmManager.close()
+            RealmManager().createStepDao().save(step)
+            RealmManager().close()
             current_rank.text = step!!.currentRank.toString()
 
             checkRule()
@@ -143,10 +142,10 @@ class StepActivity : BaseActivity() {
     }
 
     private fun plus() {
-        RealmManager.open()
+        RealmManager().open()
         step?.currentRank = (step?.currentRank!! + 1)
-        RealmManager.createStepDao().save(step)
-        RealmManager.close()
+        RealmManager().createStepDao().save(step)
+        RealmManager().close()
         current_rank.text = step!!.currentRank.toString()
 
         checkRule()

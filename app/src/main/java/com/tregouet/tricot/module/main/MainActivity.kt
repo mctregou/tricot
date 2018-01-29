@@ -20,6 +20,9 @@ class MainActivity : BaseActivity() {
     private var adapter : ProjectsAdapter?=null
     private var projects : ArrayList<Project> = ArrayList<Project>()
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,10 +33,8 @@ class MainActivity : BaseActivity() {
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.validate_project.setOnClickListener{
                 if (dialog.project_title.text.toString() != "") {
-                    RealmManager.open()
-                    var index = RealmManager.createProjectDao().nextId()
-                    RealmManager.createProjectDao().save(Project(index, dialog.project_title.text.toString()))
-                    RealmManager.close()
+                    val index = RealmManager().createProjectDao().nextId()
+                    RealmManager().createProjectDao().save(Project(index, dialog.project_title.text.toString()))
                     getProjects()
                 }
                 dialog.dismiss()
@@ -42,16 +43,22 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * onResume
+     */
     override fun onResume() {
         super.onResume()
 
         getProjects()
     }
 
+    /**
+     * Get all projects from database
+     */
     private fun getProjects(){
-        RealmManager.open()
-        projects = ArrayList(RealmManager.createProjectDao().loadAll().toList())
-        RealmManager.close()
+        RealmManager().open()
+        projects = ArrayList(RealmManager().createProjectDao().loadAll().toList())
+        RealmManager().close()
 
         projects_recyclerview.layoutManager = LinearLayoutManager(this)
         adapter = ProjectsAdapter(this, projects)

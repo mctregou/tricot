@@ -29,7 +29,7 @@ class Tricot : Application() {
     /**
      * Initialization of the database
      */
-    fun initDatabase() {
+    private fun initDatabase() {
         Realm.init(this)
         val config = RealmConfiguration.Builder()
                 .schemaVersion(0)
@@ -41,7 +41,7 @@ class Tricot : Application() {
     /**
      * Initialization of Instabug
      */
-    fun initInstabug() {
+    private fun initInstabug() {
         Instabug.Builder(this, "5c5a71eceb2656fd4dd3dda22c03d3d9")
                 .setInvocationEvent(InstabugInvocationEvent.SHAKE)
                 .build()
@@ -51,13 +51,16 @@ class Tricot : Application() {
     /**
      * Initialization of the custom font
      */
-    fun initDefaultFont() {
+    private fun initDefaultFont() {
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Summer_in_December.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build())
     }
 
+    /**
+     * Database migration
+     */
     inner class MyMigration : RealmMigration {
         override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
             // DynamicRealm exposes an editable schema

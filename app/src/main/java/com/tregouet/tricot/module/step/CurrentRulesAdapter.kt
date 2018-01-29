@@ -14,16 +14,31 @@ import kotlinx.android.synthetic.main.item_current_rule.view.*
  */
 class CurrentRulesAdapter(private val rules: ArrayList<Rule>) : RecyclerView.Adapter<CurrentRulesAdapter.ViewHolder>() {
 
+    /**
+     * onCreateViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_current_rule, parent,false))
 
+    /**
+     * onBindViewHolder
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(rules[position])
 
+    /**
+     * getItemCount
+     */
     override fun getItemCount() = rules.size
 
+    /**
+     * ViewHolder
+     */
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        /**
+         * Bind rule to the ViewHolder
+         */
         fun bind(rule: Rule) = with(itemView) {
-            Log.i("CurrentRulesAdapter", "bind")
-            itemView.title.text = "• " + rule.stitch
+            itemView.title.text = context.getString(R.string.rule_list, rule.stitch)
         }
     }
 }

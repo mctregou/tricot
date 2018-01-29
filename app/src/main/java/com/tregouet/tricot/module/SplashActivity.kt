@@ -7,6 +7,9 @@ import com.tregouet.tricot.module.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
+    /**
+     * onCreate
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startActivity(Intent(this, MainActivity::class.java))
