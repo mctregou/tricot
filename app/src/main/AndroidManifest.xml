@@ -31,6 +31,10 @@
         <activity
             android:name=".module.step.StepActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.menu.InfosActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

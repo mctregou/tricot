@@ -14,6 +14,15 @@
     <string name="my_stats">• Mes stats</string>
     <string name="infos">• Informations</string>
 
+    //Info
+    <string name="infos_titles">Informations</string>
+    <string name="version" >• Version</string>
+    <string name="realisation">• Réalisation</string>
+    <string name="libraries_used">Librairies utilisées</string>
+    <string name="mc">Marie-Cécile Trégouët</string>
+    <string name="contact">• Contact</string>
+    <string name="contact_message">Une remarque ? Un soucis ? Bougez votre téléphone.\nPour comprendre, cliquez ici !</string>
+
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>

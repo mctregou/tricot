@@ -1,6 +1,7 @@
 package com.tregouet.tricot.module.main
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
 import android.view.View
+import com.tregouet.tricot.module.menu.InfosActivity
 import kotlinx.android.synthetic.main.menu.*
 
 
@@ -126,6 +128,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showInfos() {
-        //TODO show infos
+        drawer_layout.closeDrawers()
+        startActivity(Intent(this, InfosActivity::class.java))
     }
 }
