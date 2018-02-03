@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
 import android.view.View
 import com.tregouet.tricot.module.menu.InfosActivity
+import com.tregouet.tricot.module.menu.StatsActivity
 import kotlinx.android.synthetic.main.menu.*
 
 
@@ -124,7 +125,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showMyStats() {
-        //TODO show my stats
+        drawer_layout.closeDrawers()
+        startActivity(Intent(this, StatsActivity::class.java))
     }
 
     private fun showInfos() {

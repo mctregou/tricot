@@ -25,65 +25,27 @@
             android:gravity="center_horizontal"
             android:paddingTop="20dp"
             fontPath="fonts/Bosk.ttf"
-            android:text="@string/infos_titles"
+            android:text="@string/my_profile"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"
-             />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             fontPath="fonts/Bosk.ttf"
-            android:text="@string/version"
+            android:text="@string/ranks_number_title"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/version"
+            android:id="@+id/ranks_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dp"
-            android:text="@string/realisation"
-            android:textAllCaps="true"
-            fontPath="fonts/Bosk.ttf"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mc"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dp"
-            android:text="@string/contact"
-            android:textAllCaps="true"
-            fontPath="fonts/Bosk.ttf"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/contact_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/contact_message"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size" />
 

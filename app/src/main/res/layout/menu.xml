@@ -36,6 +36,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/how_it_works"
+        android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textSize="@dimen/title_text_size"
         android:textStyle="bold" />
@@ -48,6 +49,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/my_stats"
+        android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textSize="@dimen/title_text_size"
         android:textStyle="bold" />
@@ -59,6 +61,7 @@
         android:paddingTop="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:textAllCaps="true"
         android:text="@string/infos"
         android:textColor="@android:color/white"
         android:textSize="@dimen/title_text_size"

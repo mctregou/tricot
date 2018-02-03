@@ -23,6 +23,13 @@
     <string name="contact">• Contact</string>
     <string name="contact_message">Une remarque ? Un soucis ? Bougez votre téléphone.\nPour comprendre, cliquez ici !</string>
 
+    //Stats
+    <string name="my_profile">Mon profil</string>
+    <string name="ranks_number_title">Nombre de rangs</string>
+    <string name="ranks_number_message">Tu as tricoté %d rangs au total! Bravo! Continue de tricoter comme ça !</string>
+    <string name="ranks_number_0">Aucun rang? Allez! C\'est l\'heure de passer à l\'action</string>
+    <string name="ranks_number_10">Pas mal ! Tu as tricoté %d rangs. Il faut passez à la vitesse supérieure maintenant !</string>
+
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>
