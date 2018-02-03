@@ -9,6 +9,11 @@
     <string name="cancel">Annuler</string>
     <string name="warning">Attention</string>
 
+    //Menu
+    <string name="how_it_works">• Comment ça marche ?</string>
+    <string name="my_stats">• Mes stats</string>
+    <string name="infos">• Informations</string>
+
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>
