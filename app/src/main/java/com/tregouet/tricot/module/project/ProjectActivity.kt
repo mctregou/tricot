@@ -1,11 +1,13 @@
 package com.tregouet.tricot.module.project
 
+import android.animation.ValueAnimator
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.animation.TranslateAnimation
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.model.Step
@@ -109,5 +111,23 @@ class ProjectActivity : BaseActivity() {
         steps_recyclerview.layoutManager = LinearLayoutManager(this)
         adapter = StepsAdapter(this, steps)
         steps_recyclerview.adapter = adapter
+
+        if (steps.isEmpty()){
+            no_step_layout.visibility = View.VISIBLE
+            startAnimation()
+        } else {
+            no_step_layout.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Start the arrow animation
+     */
+    private fun startAnimation() {
+        val animation = TranslateAnimation(-100f, 100f, 0f, 0f)
+        animation.duration = 700
+        animation.fillAfter = true
+        animation.repeatCount = ValueAnimator.INFINITE
+        arrow.startAnimation(animation)
     }
 }

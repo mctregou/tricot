@@ -1,5 +1,6 @@
 package com.tregouet.tricot.module.main
 
+import android.animation.ValueAnimator
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -19,8 +20,10 @@ import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
 import android.view.View
+import android.view.animation.TranslateAnimation
 import com.tregouet.tricot.module.menu.InfosActivity
 import com.tregouet.tricot.module.menu.StatsActivity
+import com.tregouet.tricot.module.menu.TutosActivity
 import kotlinx.android.synthetic.main.menu.*
 
 
@@ -109,6 +112,24 @@ class MainActivity : BaseActivity() {
         projects_recyclerview.layoutManager = LinearLayoutManager(this)
         adapter = ProjectsAdapter(this, projects)
         projects_recyclerview.adapter = adapter
+
+        if (projects.isEmpty()){
+            no_step_layout.visibility = View.VISIBLE
+            startAnimation()
+        } else {
+            no_step_layout.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Start the arrow animation
+     */
+    private fun startAnimation() {
+        val animation = TranslateAnimation(-100f, 100f, 0f, 0f)
+        animation.duration = 700
+        animation.fillAfter = true
+        animation.repeatCount = ValueAnimator.INFINITE
+        arrow.startAnimation(animation)
     }
 
     override fun onBackPressed() {
@@ -121,7 +142,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showHowItWorks() {
-        //TODO show how it works
+        drawer_layout.closeDrawers()
+        startActivity(Intent(this, TutosActivity::class.java))
     }
 
     private fun showMyStats() {

@@ -22,6 +22,34 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/top_bar" />
 
+        <LinearLayout
+            android:id="@+id/no_step_layout"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_toLeftOf="@+id/fab"
+            android:layout_toStartOf="@+id/fab">
+
+            <TextView
+                android:id="@+id/no_step"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/here_to_add_project"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/arrow" />
+
+        </LinearLayout>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

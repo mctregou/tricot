@@ -7,4 +7,6 @@ class Constants {
 
     val PROJECT_ID = "project_id"
     val STEP_ID = "step_id"
+    val TUTO_TEXT = "tuto_text"
+    val TUTO_IMAGE_RESOURCE = "tuto_image_resource"
 }

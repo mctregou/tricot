@@ -14,6 +14,13 @@
     <string name="my_stats">• Mes stats</string>
     <string name="infos">• Informations</string>
 
+    //Tutos
+    <string name="how_it_works_title">Comment ça marche ?</string>
+    <string name="tuto1">Ici, tu trouveras tous tes projets. Pour en ajouter, il suffit de cliquer sur +.</string>
+    <string name="tuto2">Au click sur un de tes projets, tu retrouveras les différents étapes de ton ouvrage. Pour en ajouter, il te suffit de cliquer sur +.</string>
+    <string name="tuto3">Au click sur une des étapes, tu retrouves le rang en cours. Tu peux y associer les différents points en cliquant sur +.</string>
+    <string name="tuto4">Maintenant que tout est prêt, il ne te reste plus qu\'à incrémenter ton compteur pour savoir quels points sont concernés par ce rang.</string>
+
     //Info
     <string name="infos_titles">Informations</string>
     <string name="version" >• Version</string>
@@ -54,6 +61,7 @@
     <string name="step_length">Longueur de l\'étape : %s</string>
     <string name="frequence_ranks">%d rangs</string>
     <string name="rule_list">• %s</string>
+    <string name="here_to_add_project">Clique ici pour\najouter une étape !</string>
 
     //Project popup
     <string name="delete_project_confirmation">Voulez-vous vraiment supprimer ce projet ?</string>

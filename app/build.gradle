@@ -41,4 +41,8 @@ dependencies {
     //Burger menu
     implementation 'com.balysv.materialmenu:material-menu:2.0.0'
 
+    //View pager indicator
+    implementation 'com.romandanylyk:pageindicatorview:1.0.0'
+
+
 }

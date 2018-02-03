@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/top_bar"
-        layout="@layout/top_bar"/>
+        layout="@layout/top_bar" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,10 +21,10 @@
             android:id="@+id/settings"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:paddingTop="10dp"
             android:layout_margin="10dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/settings"/>
+            android:paddingTop="10dp"
+            android:src="@drawable/settings"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <LinearLayout
             android:id="@+id/title_layout"
@@ -42,8 +42,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -76,18 +76,47 @@
 
     </android.support.constraint.ConstraintLayout>
 
+
+    <LinearLayout
+        android:id="@+id/no_step_layout"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/fab"
+        android:layout_toStartOf="@+id/fab">
+
+        <TextView
+            android:id="@+id/no_step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/here_to_add_project"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/arrow" />
+
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:tint="@android:color/white"
         app:rippleColor="@color/colorAccent"
         app:srcCompat="@drawable/ic_add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>

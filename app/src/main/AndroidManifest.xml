@@ -39,6 +39,10 @@
         <activity
             android:name=".module.menu.StatsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.menu.TutosActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
