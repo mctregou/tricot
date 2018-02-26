@@ -44,5 +44,6 @@ dependencies {
     //View pager indicator
     implementation 'com.romandanylyk:pageindicatorview:1.0.0'
 
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
 }

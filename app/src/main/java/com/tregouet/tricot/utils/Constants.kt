@@ -9,4 +9,8 @@ class Constants {
     val STEP_ID = "step_id"
     val TUTO_TEXT = "tuto_text"
     val TUTO_IMAGE_RESOURCE = "tuto_image_resource"
+
+    val ACTION_PLUS = "action_plus"
+    val ACTION_MINUS = "action_minus"
+    val MAIN_ACTION = "main_action"
 }

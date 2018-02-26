@@ -2,6 +2,7 @@ package com.tregouet.tricot.module.step
 
 import android.animation.ValueAnimator
 import android.app.Dialog
+import android.app.Notification
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,12 +13,14 @@ import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
 import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.module.base.BaseActivity
+import com.tregouet.tricot.module.base.UpdateNotification
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import com.tregouet.tricot.utils.Utils
 import kotlinx.android.synthetic.main.activity_step.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
+import org.greenrobot.eventbus.EventBus
 
 class StepActivity : BaseActivity() {
 
@@ -92,6 +95,21 @@ class StepActivity : BaseActivity() {
 
         rules_recyclerview.isFocusable = false
         constraint_layout.requestFocus()
+
+        showNotification()
+    }
+
+    /**
+     * Show or hide notification
+     */
+    fun showNotification(){
+        notification.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
+                EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
+            } else {
+                EventBus.getDefault().post(UpdateNotification(false))
+            }
+        }
     }
 
     fun getRules() {
@@ -103,7 +121,7 @@ class StepActivity : BaseActivity() {
         adapter = RulesAdapter(this, rules)
         rules_recyclerview.adapter = adapter
 
-        if (rules.isEmpty()){
+        if (rules.isEmpty()) {
             no_step_layout.visibility = View.VISIBLE
             startAnimation()
         } else {
@@ -133,13 +151,13 @@ class StepActivity : BaseActivity() {
                 RealmManager().open()
                 val index = RealmManager().createRuleDao().nextId()
                 RealmManager().createRuleDao().save(Rule(index,
-                        intent.getIntExtra(Constants().STEP_ID,0),
-                        intent.getIntExtra(Constants().PROJECT_ID,0),
+                        intent.getIntExtra(Constants().STEP_ID, 0),
+                        intent.getIntExtra(Constants().PROJECT_ID, 0),
                         dialog.rule_title.text.toString(),
                         dialog.rule_frequence.text.toString().toInt(),
                         dialog.rule_offset.text.toString().toInt(),
                         dialog.rule_description.text.toString()
-                        ))
+                ))
                 RealmManager().close()
 
                 getRules()
@@ -180,7 +198,7 @@ class StepActivity : BaseActivity() {
         currentRuleAdapter = CurrentRulesAdapter(currentRules)
         current_rules_recyclerview.adapter = currentRuleAdapter
 
-        if (currentRules.isEmpty()){
+        if (currentRules.isEmpty()) {
             special_title.visibility = View.GONE
             current_rules_recyclerview.visibility = View.GONE
         } else {

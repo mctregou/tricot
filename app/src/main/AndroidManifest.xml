@@ -43,6 +43,8 @@
         <activity
             android:name=".module.menu.TutosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <service android:name=".utils.NotificationService" />
     </application>
 
 </manifest>

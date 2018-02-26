@@ -4,11 +4,15 @@ import android.app.Application
 import com.instabug.library.Instabug
 import com.instabug.library.invocation.InstabugInvocationEvent
 import com.tregouet.tricot.R
+import com.tregouet.tricot.utils.NotificationService
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.DynamicRealm
 import io.realm.RealmMigration
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import android.content.Intent
+
+
 
 
 /**
@@ -24,6 +28,8 @@ class Tricot : Application() {
         initInstabug()
 
         initDefaultFont()
+
+        startNotificationService()
     }
 
     /**
@@ -59,6 +65,13 @@ class Tricot : Application() {
     }
 
     /**
+     * Start notification service
+     */
+    private fun startNotificationService() {
+        startService(Intent(this, NotificationService::class.java))
+    }
+
+    /**
      * Database migration
      */
     inner class MyMigration : RealmMigration {
@@ -68,6 +81,18 @@ class Tricot : Application() {
 
             System.out.println("MyMigration " + oldVersion + "," + newVersion)
         }
+    }
+
+    /**
+     * OnTerminate
+     * Stop notification service
+     */
+    override fun onTerminate() {
+        if (NotificationService.isRunning){
+            stopService(Intent(this, NotificationService::class.java))
+        }
+
+        super.onTerminate()
     }
 
 }
