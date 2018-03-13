@@ -14,6 +14,7 @@ import com.tregouet.tricot.model.Rule
 import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.module.base.BaseActivity
 import com.tregouet.tricot.module.base.UpdateNotification
+import com.tregouet.tricot.module.base.UpdateStep
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.RealmManager
 import com.tregouet.tricot.utils.Utils
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_step.*
 import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class StepActivity : BaseActivity() {
 
@@ -35,24 +37,18 @@ class StepActivity : BaseActivity() {
 
         minus.setOnClickListener { minus() }
         plus.setOnClickListener { plus() }
+        add_rule.setOnClickListener { addRule() }
+        showNotification()
     }
 
     override fun onResume() {
         super.onResume()
 
-        RealmManager().open()
-        step = RealmManager().createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
-        RealmManager().close()
-
-        //toolbar.title = step?.name
-        step_name.text = getString(R.string.step, step?.name)
-
-        current_rank.text = step!!.currentRank.toString()
-        end.text = getString(R.string.step_length, step?.end.toString())
-
-        add_rule.setOnClickListener { _ ->
-            addRule()
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this)
         }
+
+        updateStep()
 
         settings.setOnClickListener {
             val dialog = Dialog(this)
@@ -88,6 +84,25 @@ class StepActivity : BaseActivity() {
             }
             dialog.show()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if (EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this)
+        }
+    }
+
+    fun updateStep() {
+        RealmManager().open()
+        step = RealmManager().createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
+        RealmManager().close()
+
+        //toolbar.title = step?.name
+        step_name.text = getString(R.string.step, step?.name)
+        current_rank.text = step!!.currentRank.toString()
+        end.text = getString(R.string.step_length, step?.end.toString())
 
         getRules()
 
@@ -95,8 +110,11 @@ class StepActivity : BaseActivity() {
 
         rules_recyclerview.isFocusable = false
         constraint_layout.requestFocus()
+    }
 
-        showNotification()
+    @Subscribe
+    fun onUpdateStepEventReceived(event: UpdateStep) {
+        updateStep()
     }
 
     /**
@@ -176,6 +194,8 @@ class StepActivity : BaseActivity() {
             current_rank.text = step!!.currentRank.toString()
 
             checkRule()
+
+            EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
         }
     }
 
@@ -187,6 +207,8 @@ class StepActivity : BaseActivity() {
         current_rank.text = step!!.currentRank.toString()
 
         checkRule()
+
+        EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
     }
 
     private fun checkRule() {

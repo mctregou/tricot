@@ -16,6 +16,7 @@ import android.view.View
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
 import com.tregouet.tricot.module.base.UpdateNotification
+import com.tregouet.tricot.module.base.UpdateStep
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -25,8 +26,8 @@ import org.greenrobot.eventbus.Subscribe
  */
 class NotificationService : Service() {
 
-    var projectId : Int = -1
-    var stepId : Int = -1
+    var projectId: Int = -1
+    var stepId: Int = -1
 
 
     override fun onCreate() {
@@ -71,6 +72,7 @@ class NotificationService : Service() {
         RealmManager().createStepDao().save(step)
         RealmManager().close()
         showNotification()
+        EventBus.getDefault().post(UpdateStep())
     }
 
     private fun minus() {
@@ -81,10 +83,11 @@ class NotificationService : Service() {
             RealmManager().createStepDao().save(step)
             RealmManager().close()
             showNotification()
+            EventBus.getDefault().post(UpdateStep())
         }
     }
 
-        @Subscribe
+    @Subscribe
     fun onUpdateNotificationEventReceived(event: UpdateNotification) {
         if (event.mustShowNotification) {
             projectId = event.projectId
@@ -135,14 +138,14 @@ class NotificationService : Service() {
         views.setTextViewText(R.id.title, project.name)
         bigViews.setTextViewText(R.id.title, project.name)
 
-        views.setTextViewText(R.id.current_rank, (step.currentRank + 1).toString())
-        bigViews.setTextViewText(R.id.current_rank, (step.currentRank + 1).toString())
+        views.setTextViewText(R.id.current_rank, step.currentRank.toString())
+        bigViews.setTextViewText(R.id.current_rank, step.currentRank.toString())
 
         val currentRules = ArrayList<Rule>()
         val rules = RealmManager().createRuleDao().loadByStepId(stepId)
         rules.filterTo(currentRules) { (step?.currentRank!! - it.offset!!) % it.frequency!! == 0 }
 
-        if (currentRules.isEmpty()){
+        if (currentRules.isEmpty()) {
             views.setViewVisibility(R.id.warning, View.GONE)
             bigViews.setViewVisibility(R.id.warning, View.GONE)
         } else {
