@@ -17,6 +17,7 @@ import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Rule
 import com.tregouet.tricot.module.base.UpdateNotification
 import com.tregouet.tricot.module.base.UpdateStep
+import com.tregouet.tricot.module.step.StepActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -109,7 +110,9 @@ class NotificationService : Service() {
         var step = RealmManager().createStepDao().loadBy(stepId)
         var project = RealmManager().createProjectDao().loadBy(projectId)
 
-        val notificationIntent = Intent(this, MainActivity::class.java)
+        val notificationIntent = Intent(this, StepActivity::class.java)
+        notificationIntent.putExtra(Constants().STEP_ID, step?.id)
+        notificationIntent.putExtra(Constants().PROJECT_ID, step?.projectId)
         notificationIntent.action = Constants().MAIN_ACTION
         notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val pendingIntent = PendingIntent.getActivity(this, 0,
