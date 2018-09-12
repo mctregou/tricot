@@ -37,6 +37,13 @@
     <string name="ranks_number_0">Aucun rang? Allez! C\'est l\'heure de passer à l\'action</string>
     <string name="ranks_number_10">Pas mal ! Tu as tricoté %d rangs. Il faut passez à la vitesse supérieure maintenant !</string>
 
+    //Home
+    <string name="my_rules">Mes points</string>
+    <string name="current">En cours</string>
+    <string name="project_title">Projet : </string>
+    <string name="step_title">Étape : </string>
+    <string name="current_rank_title">Rang en cours : </string>
+
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>
@@ -51,6 +58,7 @@
     //Popup add step
     <string name="step_name">Nom de l\'étape</string>
     <string name="write_step_name">Entrez le nom de l\'étape</string>
+    <string name="write_description">Entre la description de l\'étape</string>
     <string name="length">Longueur : </string>
     <string name="length_example">10rangs, 10cm, etc...</string>
 
@@ -61,7 +69,8 @@
     <string name="step_length">Longueur de l\'étape : %s</string>
     <string name="frequence_ranks">%d rangs</string>
     <string name="rule_list">• %s</string>
-    <string name="here_to_add_project">Clique ici pour\najouter une étape !</string>
+    <string name="here_to_add_project">Clique ici pour\najouter un projet !</string>
+    <string name="description">Description</string>
 
     //Project popup
     <string name="delete_project_confirmation">Voulez-vous vraiment supprimer ce projet ?</string>
@@ -75,8 +84,13 @@
     <string name="rank_change_example">ex : 3</string>
     <string name="stitch_description">Description du point</string>
     <string name="stitch_description_example">ex: 2m. endroit puis 2m. envers</string>
+    <string name="select_a_stitch">Sélectionne un point</string>
+    <string name="no_stitch">Bizarre, nous ne trouvons aucun point... Si seulement quelqu\'un pouvait en ajouter en cliquant ici...</string>
 
     //Delete
     <string name="stitch_delete_confirmation">Voulez-vous vraiment supprimer ce point ?</string>
     <string name="step_delete_confirmation">Voulez-vous vraiment supprimer cette étape ?</string>
+
+    //Stitch
+    <string name="here_to_add_stitch">Clique ici pour\najouter un point !</string>
 </resources>

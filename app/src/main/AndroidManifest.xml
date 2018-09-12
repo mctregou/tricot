@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tregouet.tricot">
+    package="com.tregouet.knitting">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -25,11 +28,19 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
+            android:name=".module.projects.ProjectsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
             android:name=".module.project.ProjectActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".module.step.StepActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.stitches.StitchesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

@@ -1,4 +1,4 @@
-package com.tregouet.tricot
+package com.tregouet.knitting
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.tregouet.tricot", appContext.packageName)
+        assertEquals("com.tregouet.knitting", appContext.packageName)
     }
 }
