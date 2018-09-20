@@ -47,6 +47,10 @@
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>
+    <string name="new_project">Nouveau projet</string>
+    <string name="storage_permission_rationale_title">Permissions</string>
+    <string name="storage_permition_rationale_message">Accepter ?</string>
+    <string name="storage_permission_denied_message">Vous n\'avez pas accepté les permissions</string>
 
     //Popup add project
     <string name="name_project">Nom du projet</string>
@@ -70,6 +74,7 @@
     <string name="frequence_ranks">%d rangs</string>
     <string name="rule_list">• %s</string>
     <string name="here_to_add_project">Clique ici pour\najouter un projet !</string>
+    <string name="here_to_add_step">Clique ici pour\najouter une étape !</string>
     <string name="description">Description</string>
 
     //Project popup
@@ -92,5 +97,6 @@
     <string name="step_delete_confirmation">Voulez-vous vraiment supprimer cette étape ?</string>
 
     //Stitch
+    <string name="here_to_add_stitch_or_reduction">Clique ici pour\najouter un point ou une diminution !</string>
     <string name="here_to_add_stitch">Clique ici pour\najouter un point !</string>
 </resources>

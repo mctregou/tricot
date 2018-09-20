@@ -89,7 +89,7 @@
             android:id="@+id/no_step"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/here_to_add_project"
+            android:text="@string/here_to_add_step"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />

@@ -2,4 +2,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="title_text_size">25sp</dimen>
     <dimen name="text_size">20sp</dimen>
+    <dimen name="photo_height">100dp</dimen>
+    <dimen name="photo_width">100dp</dimen>
 </resources>
