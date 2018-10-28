@@ -42,7 +42,12 @@ class ProjectsAdapter(private val context: Context, private var projects: ArrayL
          */
         fun bind(project: Project) = with(itemView) {
             itemView.title.text = project.name
-            itemView.ranks.text = context.getString(R.string.ranks_number, project.getRanksNumber())
+            if (project.getRanksNumber() > -1){
+                itemView.ranks.text = context.getString(R.string.ranks_number, project.getRanksNumber())
+            } else {
+                itemView.ranks.text = context.getString(R.string.rank_number, 0)
+            }
+
             setOnClickListener { openProject(project.id) }
         }
 

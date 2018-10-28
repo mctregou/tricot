@@ -41,7 +41,11 @@ class StepsAdapter(private val context: Context, private var steps: ArrayList<St
          */
         fun bind(step: Step) = with(itemView) {
             itemView.title.text = step.name
-            itemView.ranks.text = context.getString(R.string.ranks_number, step.currentRank.minus(1))
+            if (step.currentRank != 0){
+                itemView.ranks.text = context.getString(R.string.ranks_number, step.currentRank.minus(1))
+            } else {
+                itemView.ranks.text = context.getString(R.string.rank_number, 0)
+            }
             setOnClickListener { openStep(step) }
         }
 

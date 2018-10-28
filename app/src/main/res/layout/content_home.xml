@@ -40,7 +40,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/project_layout"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/needle" />
+            android:src="@drawable/tricot" />
 
         <LinearLayout
             android:id="@+id/project_layout"
@@ -166,7 +166,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/ready_to_knittle"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/needle" />
+            android:src="@drawable/tricot" />
 
         <TextView
             android:id="@+id/ready_to_knittle"
@@ -198,7 +198,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:paddingTop="40dp"
@@ -233,7 +233,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
             android:paddingTop="40dp"
             android:paddingBottom="40dp"

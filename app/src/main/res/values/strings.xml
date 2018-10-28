@@ -51,6 +51,7 @@
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>
+    <string name="rank_number">%d rang</string>
     <string name="new_project">Nouveau projet</string>
     <string name="storage_permission_rationale_title">Permissions</string>
     <string name="storage_permition_rationale_message">Accepter ?</string>
