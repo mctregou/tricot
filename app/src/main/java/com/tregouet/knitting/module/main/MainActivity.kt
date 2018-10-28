@@ -82,10 +82,18 @@ class MainActivity : BaseActivity() {
         super.onResume()
 
         val step = getCurrentStep()
-        val project = getCurrentProject(step.projectId!!)
-        project_name.text = step.name
-        step_name.text = project.name
-        current_rank.text = step.currentRank.toString()
+        if (step != null){
+            welcome.visibility = View.GONE
+            current_step_layout.visibility = View.VISIBLE
+            val project = getCurrentProject(step.projectId!!)
+            project_name.text = step.name
+            step_name.text = project.name
+            current_rank.text = step.currentRank.toString()
+        } else {
+            welcome.visibility = View.VISIBLE
+            current_step_layout.visibility = View.GONE
+        }
+
     }
 
     override fun onBackPressed() {
@@ -112,7 +120,7 @@ class MainActivity : BaseActivity() {
         startActivity(Intent(this, InfosActivity::class.java))
     }
 
-    private fun getCurrentStep(): Step {
+    private fun getCurrentStep(): Step? {
         RealmManager().open()
         val step = RealmManager().createStepDao().loadLastStep()
         RealmManager().close()
@@ -127,12 +135,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showCurrentStep() {
-        //TODO
+
         RealmManager().open()
         var step = RealmManager().createStepDao().loadLastStep()
         RealmManager().close()
-
-        println("Test " + step.name + " / " + step.lastSeen)
 
         if (step != null) {
             val intent = Intent(Intent(this, StepActivity::class.java))

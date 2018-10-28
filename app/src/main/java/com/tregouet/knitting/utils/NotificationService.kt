@@ -9,7 +9,7 @@ import android.app.Service
 import android.content.Context
 import android.os.IBinder
 import android.support.annotation.Nullable
-import android.support.v7.app.NotificationCompat
+import android.support.v4.app.NotificationCompat
 import android.util.Log
 import android.view.View
 import com.tregouet.knitting.R
@@ -157,7 +157,7 @@ class NotificationService : Service() {
             bigViews.setImageViewResource(R.id.warning, R.drawable.ic_warning)
         }
 
-        val notificationBuilder = NotificationCompat.Builder(this)
+        val notificationBuilder = NotificationCompat.Builder(this, "test")
         notificationBuilder.setSmallIcon(R.drawable.tricot)
         notificationBuilder.setCustomContentView(views)
         notificationBuilder.setCustomBigContentView(bigViews)

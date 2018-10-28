@@ -44,6 +44,10 @@
     <string name="step_title">Étape : </string>
     <string name="current_rank_title">Rang en cours : </string>
 
+    Home Welcome
+    <string name="welcome_title">Bienvenue</string>
+    <string name="ready_to_knittle">Prêt(e) à tricoter ?</string>
+
     //Main
     <string name="my_projects">Mes projets</string>
     <string name="ranks_number">%d rangs</string>

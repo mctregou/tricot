@@ -109,7 +109,7 @@ public class StepDao {
             System.out.println("Test " + step.getName() + " / " + step.getLastSeen());
         }
 
-        Step step = mRealm.where(Step.class).sort("lastSeen", Sort.DESCENDING).findAll().first();
+        Step step = mRealm.where(Step.class).sort("lastSeen", Sort.DESCENDING).findFirst();
         if (step != null) {
             return mRealm.copyFromRealm(step);
         } else {

@@ -134,6 +134,54 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/welcome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/step_and_activity_layout"
+        android:background="@drawable/shape_rectangle_white">
+
+        <TextView
+            android:id="@+id/welcome_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_title"
+            android:textAllCaps="true"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/welcome_title"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/ready_to_knittle"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/needle" />
+
+        <TextView
+            android:id="@+id/ready_to_knittle"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@string/ready_to_knittle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/step_and_activity_layout"

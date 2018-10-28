@@ -29,11 +29,11 @@
         android:gravity="center_vertical"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal">
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/picture"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:src="@drawable/instagram_logo"
+            android:src="@drawable/tricot"
             android:layout_weight="1"/>
         <EditText
             android:id="@+id/project_title"
