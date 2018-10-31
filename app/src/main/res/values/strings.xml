@@ -8,6 +8,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="warning">Attention</string>
+    <string name="add">Ajouter</string>
 
     //Menu
     <string name="how_it_works">• Comment ça marche ?</string>
@@ -46,7 +47,7 @@
 
     Home Welcome
     <string name="welcome_title">Bienvenue</string>
-    <string name="ready_to_knittle">Prêt(e) à tricoter ?</string>
+    <string name="ready_to_knit">Prêt(e) à tricoter ?</string>
 
     //Main
     <string name="my_projects">Mes projets</string>
@@ -96,6 +97,12 @@
     <string name="stitch_description_example">ex: 2m. endroit puis 2m. envers</string>
     <string name="select_a_stitch">Sélectionne un point</string>
     <string name="no_stitch">Bizarre, nous ne trouvons aucun point... Si seulement quelqu\'un pouvait en ajouter en cliquant ici...</string>
+
+    //Reduction popup
+    <string name="reduction_popup_title">Diminution</string>
+    <string name="begin_with_rank">Commencer au rang...</string>
+    <string name="frequency">Fréquence</string>
+
 
     //Delete
     <string name="stitch_delete_confirmation">Voulez-vous vraiment supprimer ce point ?</string>

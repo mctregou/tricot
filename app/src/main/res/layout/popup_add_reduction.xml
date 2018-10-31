@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="310dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    android:background="@drawable/shape_rectangle_white">
+
+    <TextView
+        android:id="@+id/reduction_popup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/reduction_popup_title"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/offset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="@string/begin_with_rank"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/reduction_popup_title" />
+
+    <EditText
+        android:id="@+id/frequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:hint="@string/frequency"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        android:singleLine="true"
+        android:textSize="@dimen/title_text_size"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/offset" />
+
+    <LinearLayout
+        android:id="@+id/reduction_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/frequency"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Position"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Répéter"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mailles"
+            android:gravity="center"
+            android:textSize="@dimen/title_text_size"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Côté"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/reduction_item_title"
+        android:id="@+id/reduction_items_layout">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reduction_items_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/new_reduction_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/reduction_items_layout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textview_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="@dimen/title_text_size"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edittext_times"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="ex:3"
+            android:textSize="@dimen/title_text_size"
+            android:inputType="number"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edittext_numberOfMesh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="ex:3"
+            android:textSize="@dimen/title_text_size"
+            android:inputType="number"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edittext_side"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="ex:droit"
+            android:textSize="@dimen/title_text_size"
+            android:inputType="text"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:tint="@color/colorAccent"
+            android:gravity="center"
+            android:background="@android:color/white"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_reduction_item">
+
+        <TextView
+            android:id="@+id/cancel_reduction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rectangle_pink"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/update_reduction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rectangle_pink"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/add"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

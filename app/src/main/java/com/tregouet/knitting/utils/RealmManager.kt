@@ -1,8 +1,6 @@
 package com.tregouet.knitting.utils
 
-import com.tregouet.knitting.dao.ProjectDao
-import com.tregouet.knitting.dao.RuleDao
-import com.tregouet.knitting.dao.StepDao
+import com.tregouet.knitting.dao.*
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.exceptions.RealmMigrationNeededException
@@ -57,6 +55,18 @@ class RealmManager {
         open()
         checkForOpenRealm()
         return RuleDao(mRealm!!)
+    }
+
+    fun createReductionDao(): ReductionDao {
+        open()
+        checkForOpenRealm()
+        return ReductionDao(mRealm!!)
+    }
+
+    fun createReductionItemDao(): ReductionItemDao {
+        open()
+        checkForOpenRealm()
+        return ReductionItemDao(mRealm!!)
     }
 
     fun clear() {

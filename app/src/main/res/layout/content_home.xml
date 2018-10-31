@@ -164,16 +164,16 @@
             android:layout_height="100dp"
             android:layout_below="@+id/welcome_title"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/ready_to_knittle"
+            android:layout_above="@+id/ready_to_knit"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/tricot" />
 
         <TextView
-            android:id="@+id/ready_to_knittle"
+            android:id="@+id/ready_to_knit"
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="@string/ready_to_knittle"
+            android:text="@string/ready_to_knit"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="5dp"
             android:textSize="@dimen/text_size"

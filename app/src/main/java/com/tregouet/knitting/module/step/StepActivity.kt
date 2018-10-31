@@ -27,13 +27,16 @@ import org.greenrobot.eventbus.Subscribe
 import android.support.v4.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
+import android.util.Log
+import com.tregouet.knitting.model.ReductionItem
 import com.tregouet.knitting.module.stitches.StitchesActivity
-import io.realm.RealmList
 import java.util.*
 import kotlin.collections.ArrayList
 import com.tregouet.knitting.utils.realm.RealmInt
-
-
+import kotlinx.android.synthetic.main.popup_add_reduction.*
+import android.view.WindowManager
+import com.tregouet.knitting.model.Reduction
+import io.realm.RealmList
 
 
 class StepActivity : BaseActivity() {
@@ -42,7 +45,10 @@ class StepActivity : BaseActivity() {
     private var currentRuleAdapter: CurrentRulesAdapter? = null
     private var step: Step? = null
     private var rules: ArrayList<Rule> = ArrayList()
+    private var reductionItems: ArrayList<ReductionItem> = ArrayList()
     private val REQUEST_CAMERA = 100
+    private var reductionDialog : Dialog? = null
+    private var reductionItemsAdapter : ReductionItemsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,7 @@ class StepActivity : BaseActivity() {
         minus.setOnClickListener { minus() }
         plus.setOnClickListener { plus() }
         add_rule.setOnClickListener { addRule() }
+        add_reduction.setOnClickListener { addReduction() }
         showNotification()
 
         updateVisibilityDescription()
@@ -180,6 +187,7 @@ class StepActivity : BaseActivity() {
     }
 
     private fun addRule() {
+        fam.close(true)
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.popup_add_rule)
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -190,9 +198,11 @@ class StepActivity : BaseActivity() {
 
         if (allStitches.isEmpty()) {
             dialog.no_stitch.visibility = View.VISIBLE
+            dialog.update_stitches.visibility = View.GONE
             dialog.no_stitch.setOnClickListener { startActivity(Intent(this, StitchesActivity::class.java)) }
         } else {
             dialog.no_stitch.visibility = View.GONE
+            dialog.update_stitches.visibility = View.VISIBLE
         }
 
         dialog.cancel.setOnClickListener { dialog.dismiss() }
@@ -210,6 +220,62 @@ class StepActivity : BaseActivity() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    private fun addReduction(){
+        fam.close(true)
+        reductionItems = ArrayList()
+        reductionDialog = Dialog(this)
+        reductionDialog?.setContentView(R.layout.popup_add_reduction)
+        reductionDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        reductionDialog?.reduction_items_recyclerview?.layoutManager = LinearLayoutManager(this)
+        reductionItemsAdapter = ReductionItemsAdapter(this,reductionItems)
+        reductionDialog?.reduction_items_recyclerview?.adapter = reductionItemsAdapter
+
+        reductionDialog?.add?.setOnClickListener { addReductionItem() }
+        reductionDialog?.cancel_reduction?.setOnClickListener { reductionDialog?.dismiss() }
+        reductionDialog?.update_reduction?.setOnClickListener {
+            //TODO save Reduction and ReductionItems
+            reductionDialog?.dismiss()
+        }
+
+        reductionDialog?.show()
+    }
+    private fun addReductionItem() {
+        if (reductionDialog?.edittext_times?.text!!.isEmpty() || reductionDialog?.edittext_numberOfMesh?.text!!.isEmpty() || reductionDialog?.edittext_side?.text!!.isEmpty()){
+            return
+        }
+
+        val index = reductionItems.size + 1
+        val reductionItem = ReductionItem(0, null, index, Integer.parseInt(reductionDialog?.edittext_times?.text.toString()), Integer.parseInt(reductionDialog?.edittext_numberOfMesh?.text.toString()), reductionDialog?.edittext_side?.text.toString())
+        reductionItems.add(reductionItem)
+        Log.i("TESTMC", reductionItems.size.toString())
+        reductionItemsAdapter?.setReductionItems(reductionItems)
+        reductionDialog?.textview_position?.text = (index + 1).toString()
+        reductionDialog?.edittext_times?.setText("")
+        reductionDialog?.edittext_numberOfMesh?.setText("")
+        reductionDialog?.edittext_side?.setText("")
+
+    }
+
+    private fun saveReduction() {
+        var reduction = Reduction()
+        val index = RealmManager().createReductionDao().nextId()
+        reduction.id = index
+        reduction.frequency = Integer.parseInt(reductionDialog?.frequency?.text.toString())
+        reduction.offsetRank = Integer.parseInt(reductionDialog?.offset?.text.toString())
+        reduction.stepId = step?.id
+        RealmManager().createReductionDao().save(reduction)
+        RealmManager().close()
+
+        for (reductionItem in reductionItems){
+            val reductionItemIndex = RealmManager().createReductionItemDao().nextId()
+            reductionItem.reductionId = index
+            reductionItem.id = reductionItemIndex
+            RealmManager().createReductionItemDao().save(reductionItem)
+            RealmManager().close()
+        }
+
     }
 
     private fun checkPermissions() {

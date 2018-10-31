@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryDark"
     android:layout_height="match_parent">
@@ -207,8 +208,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_toLeftOf="@+id/add_rule"
-        android:layout_toStartOf="@+id/add_rule">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="60dp">
 
         <TextView
             android:id="@+id/no_step"
@@ -229,18 +232,51 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_rule"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add"
         android:tint="@android:color/white"
-        app:rippleColor="@color/colorAccent"
+        fab:menu_fab_size="normal"
+        fab:menu_colorNormal="@color/colorAccent"
+        fab:menu_colorPressed="@color/colorAccent"
+        fab:menu_colorRipple="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        tools:ignore="VectorDrawableCompat" />
+        fab:menu_openDirection="up"
+        tools:ignore="VectorDrawableCompat">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/add_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/fab_add"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorAccent"
+            android:tint="@android:color/white"
+            fab:fab_size="mini"
+            fab:fab_label="Ajouter un point"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/add_reduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/fab_add"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorAccent"
+            android:tint="@android:color/white"
+            fab:fab_size="mini"
+            fab:fab_label="Ajouter une diminution"
+            tools:ignore="VectorDrawableCompat" />
+    </com.github.clans.fab.FloatingActionMenu>
 
 </RelativeLayout>
