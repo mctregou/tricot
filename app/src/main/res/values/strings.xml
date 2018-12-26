@@ -60,7 +60,7 @@
 
     //Popup add project
     <string name="name_project">Nom du projet</string>
-    <string name="write_project_name">Entrez le nom de votre projet</string>
+    <string name="write_project_name">Nom du projet</string>
 
     //Project
     <string name="steps_project">Etapes du projet</string>
