@@ -5,6 +5,7 @@
     //Global
     <string name="delete">Supprimer</string>
     <string name="update">Modifier</string>
+    <string name="save">Enregistrer</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="warning">Attention</string>

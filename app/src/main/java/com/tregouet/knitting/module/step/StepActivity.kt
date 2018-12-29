@@ -199,13 +199,21 @@ class StepActivity : BaseActivity() {
         if (allStitches.isEmpty()) {
             dialog.no_stitch.visibility = View.VISIBLE
             dialog.update_stitches.visibility = View.GONE
-            dialog.no_stitch.setOnClickListener { startActivity(Intent(this, StitchesActivity::class.java)) }
+            dialog.new_stitch.visibility = View.GONE
+            dialog.no_stitch.setOnClickListener {
+                dialog.dismiss()
+                startActivity(Intent(this, StitchesActivity::class.java)) }
         } else {
             dialog.no_stitch.visibility = View.GONE
             dialog.update_stitches.visibility = View.VISIBLE
+            dialog.new_stitch.visibility = View.VISIBLE
         }
 
         dialog.cancel.setOnClickListener { dialog.dismiss() }
+
+        dialog.new_stitch.setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, StitchesActivity::class.java)) }
 
         dialog.update_stitches.setOnClickListener {
                 RealmManager().open()
