@@ -42,13 +42,16 @@ import io.realm.RealmList
 class StepActivity : BaseActivity() {
 
     private var adapter: RulesAdapter? = null
+    private var reductionAdapter : ReductionItemsAdapter? =null
     private var currentRuleAdapter: CurrentRulesAdapter? = null
     private var step: Step? = null
     private var rules: ArrayList<Rule> = ArrayList()
+    private var reduction: Reduction? = null
     private var reductionItems: ArrayList<ReductionItem> = ArrayList()
+    private var reductionItemsPopup: ArrayList<ReductionItem> = ArrayList()
     private val REQUEST_CAMERA = 100
     private var reductionDialog : Dialog? = null
-    private var reductionItemsAdapter : ReductionItemsAdapter? = null
+    private var reductionItemsAdapter : ReductionItemsForPopupAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +139,10 @@ class StepActivity : BaseActivity() {
 
         checkRule()
 
+        getReductions()
+
+        checkReductions()
+
         rules_recyclerview.isFocusable = false
         constraint_layout.requestFocus()
     }
@@ -168,6 +175,49 @@ class StepActivity : BaseActivity() {
         rules_recyclerview.adapter = adapter
 
         if (rules.isEmpty()) {
+            stitches_title.visibility = View.GONE
+        } else {
+            stitches_title.visibility = View.VISIBLE
+        }
+
+        displayInfoAnimation()
+    }
+
+    /**
+     * Get reductions for this step
+     */
+    fun getReductions() {
+        RealmManager().open()
+        reduction = RealmManager().createReductionDao().loadByStepId(step?.id!!)
+        RealmManager().close()
+
+        reductionItems = ArrayList()
+        if (reduction != null){
+            reductions_description.text = String.format("Tous les %s rangs, à partir du rang %s", reduction?.frequency.toString(), reduction?.offsetRank.toString())
+
+            RealmManager().open()
+            val reductionItemsDB = RealmManager().createReductionItemDao().loadByReductionId(reduction?.id!!)
+            RealmManager().close()
+            if (reductionItemsDB != null){
+                reductionItems = ArrayList(reductionItemsDB.toList())
+            }
+        }
+
+        reductions_recyclerview.layoutManager = LinearLayoutManager(this)
+        reductionAdapter = ReductionItemsAdapter(reductionItems)
+        reductions_recyclerview.adapter = reductionAdapter
+
+        if (reductionItems.isEmpty()){
+            reductions_layout.visibility = View.GONE
+        } else {
+            reductions_layout.visibility = View.VISIBLE
+        }
+
+        displayInfoAnimation()
+    }
+
+    fun displayInfoAnimation() {
+        if (rules.isEmpty() && reductionItems.isEmpty()) {
             no_step_layout.visibility = View.VISIBLE
             startAnimation()
         } else {
@@ -232,19 +282,24 @@ class StepActivity : BaseActivity() {
 
     private fun addReduction(){
         fam.close(true)
-        reductionItems = ArrayList()
         reductionDialog = Dialog(this)
         reductionDialog?.setContentView(R.layout.popup_add_reduction)
         reductionDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         reductionDialog?.reduction_items_recyclerview?.layoutManager = LinearLayoutManager(this)
-        reductionItemsAdapter = ReductionItemsAdapter(this,reductionItems)
+
+        if (reduction != null){
+            reductionDialog?.frequency?.setText(reduction?.frequency.toString())
+            reductionDialog?.offset?.setText(reduction?.offsetRank.toString())
+        }
+
+        reductionItemsPopup = reductionItems
+        reductionItemsAdapter = ReductionItemsForPopupAdapter(this, reductionItemsPopup)
         reductionDialog?.reduction_items_recyclerview?.adapter = reductionItemsAdapter
 
         reductionDialog?.add?.setOnClickListener { addReductionItem() }
         reductionDialog?.cancel_reduction?.setOnClickListener { reductionDialog?.dismiss() }
         reductionDialog?.update_reduction?.setOnClickListener {
-            //TODO save Reduction and ReductionItems
-            reductionDialog?.dismiss()
+            saveReduction()
         }
 
         reductionDialog?.show()
@@ -256,8 +311,8 @@ class StepActivity : BaseActivity() {
 
         val index = reductionItems.size + 1
         val reductionItem = ReductionItem(0, null, index, Integer.parseInt(reductionDialog?.edittext_times?.text.toString()), Integer.parseInt(reductionDialog?.edittext_numberOfMesh?.text.toString()), reductionDialog?.edittext_side?.text.toString())
-        reductionItems.add(reductionItem)
-        Log.i("TESTMC", reductionItems.size.toString())
+        reductionItemsPopup.add(reductionItem)
+        Log.i("TESTMC", reductionItemsPopup.size.toString())
         reductionItemsAdapter?.setReductionItems(reductionItems)
         reductionDialog?.textview_position?.text = (index + 1).toString()
         reductionDialog?.edittext_times?.setText("")
@@ -267,23 +322,40 @@ class StepActivity : BaseActivity() {
     }
 
     private fun saveReduction() {
-        var reduction = Reduction()
-        val index = RealmManager().createReductionDao().nextId()
-        reduction.id = index
-        reduction.frequency = Integer.parseInt(reductionDialog?.frequency?.text.toString())
-        reduction.offsetRank = Integer.parseInt(reductionDialog?.offset?.text.toString())
-        reduction.stepId = step?.id
+        Log.i("StepActivity", "saveReduction")
+
+        if (reduction == null){
+            Log.i("StepActivity", "reduction not null")
+            reduction = Reduction()
+            val index = RealmManager().createReductionDao().nextId()
+            reduction?.id = index
+            reduction?.stepId = step?.id
+        }
+
+        reduction?.frequency = Integer.parseInt(reductionDialog?.frequency?.text.toString())
+        reduction?.offsetRank = Integer.parseInt(reductionDialog?.offset?.text.toString())
+
+        RealmManager().open()
         RealmManager().createReductionDao().save(reduction)
         RealmManager().close()
 
-        for (reductionItem in reductionItems){
+        RealmManager().open()
+        RealmManager().createReductionItemDao().removeByReductionId(reduction?.id!!)
+        RealmManager().close()
+
+        Log.v("StepActivity", "size reductionItemsPopup=" + reductionItemsPopup.size +" / " + reductionItems.size)
+        for (reductionItem in reductionItemsPopup){
             val reductionItemIndex = RealmManager().createReductionItemDao().nextId()
-            reductionItem.reductionId = index
+            reductionItem.reductionId = reduction?.id
             reductionItem.id = reductionItemIndex
+            Log.v("StepActivity create ReductionItem", "reductionItemId = " + reductionItemIndex)
             RealmManager().createReductionItemDao().save(reductionItem)
             RealmManager().close()
         }
 
+        getReductions()
+
+        reductionDialog?.dismiss()
     }
 
     private fun checkPermissions() {
@@ -307,6 +379,7 @@ class StepActivity : BaseActivity() {
             current_rank.text = step!!.currentRank.toString()
 
             checkRule()
+            checkReductions()
 
             EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
         }
@@ -320,6 +393,7 @@ class StepActivity : BaseActivity() {
         current_rank.text = step!!.currentRank.toString()
 
         checkRule()
+        checkReductions()
 
         EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
     }
@@ -350,6 +424,35 @@ class StepActivity : BaseActivity() {
             special_title.visibility = View.VISIBLE
             current_rules_recyclerview.visibility = View.VISIBLE
         }
+    }
+
+    private fun checkReductions() {
+        Log.i("checkReductions", "start")
+        if (reduction != null
+                && reductionItems.isNotEmpty()
+                && step!!.currentRank - reduction?.offsetRank!! >= 0
+                && ((step!!.currentRank - reduction?.offsetRank!!) % reduction?.frequency!! == 0)){
+            Log.i("checkReductions", "conditions ok")
+            val position = (step!!.currentRank - reduction?.offsetRank!!) / reduction?.frequency!!
+            Log.i("checkReductions", "position = " + position.toString())
+            var count = 0
+            for (reductionItem in reductionItems){
+                if ( position >= (count + reductionItem.times)){
+                    Log.i("checkReductions", "position sup => count =  " + count.toString() + " / size = " + reductionItem.times)
+                    count += reductionItem.times
+                } else {
+                    Log.i("checkReductions", "position not sup => count =  " + count.toString() + " / size = " + reductionItem.times)
+                    current_reduction_title.visibility = View.VISIBLE
+                    current_reduction_description.visibility = View.VISIBLE
+                    current_reduction_description.text = String.format("• %d fois %d mailles du côté %s", reductionItem.times, reductionItem.numberOfMesh, reductionItem.side)
+                    break
+                }
+            }
+        } else {
+            current_reduction_title.visibility = View.GONE
+            current_reduction_description.visibility = View.GONE
+        }
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

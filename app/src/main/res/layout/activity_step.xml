@@ -22,6 +22,7 @@
             android:id="@+id/constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="50dp"
             android:background="@color/colorPrimaryDark">
 
             <Switch
@@ -144,6 +145,34 @@
                     android:layout_marginBottom="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/special_title" />
 
+                <TextView
+                    android:id="@+id/current_reduction_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_warning"
+                    android:drawableStart="@drawable/ic_warning"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Augmentation / Diminution"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/title_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/current_rules_recyclerview" />
+
+                <TextView
+                    android:id="@+id/current_reduction_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/title_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/current_reduction_title" />
+
             </LinearLayout>
 
             <TextView
@@ -189,14 +218,62 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/stitches_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:textAllCaps="true"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/title_text_size"
+                android:text="Points utilisés"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/description_layout"
+                android:textStyle="bold"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rules_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:paddingBottom="50dp"
-                app:layout_constraintTop_toBottomOf="@+id/description_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/stitches_title" />
+
+            <LinearLayout
+                android:id="@+id/reductions_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/rules_recyclerview"
+                android:padding="20dp">
+            <TextView
+                android:id="@+id/reductions_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/title_text_size"
+                android:text="Réduction / Augmentation"
+                android:drawablePadding="10dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/reductions_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reductions_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:background="@drawable/shape_rectangle_white" />
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

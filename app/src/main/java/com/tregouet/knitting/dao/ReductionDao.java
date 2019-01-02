@@ -21,6 +21,24 @@ public class ReductionDao {
         mRealm = realm;
     }
 
+    public Reduction loadBy(int id) {
+        Reduction reduction = mRealm.where(Reduction.class).equalTo("id", id).findFirst();
+        if (reduction != null){
+            return mRealm.copyFromRealm(reduction);
+        } else {
+            return null;
+        }
+    }
+
+    public Reduction loadByStepId(int id) {
+        Reduction reduction = mRealm.where(Reduction.class).equalTo("stepId", id).findFirst();
+        if (reduction != null){
+            return mRealm.copyFromRealm(reduction);
+        } else {
+            return null;
+        }
+    }
+
     public void save(final Reduction reduction) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override

@@ -8,44 +8,10 @@
     app:layout_constraintTop_toBottomOf="@+id/frequency">
 
     <TextView
-        android:id="@+id/position"
+        android:id="@+id/reduction_item_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@+id/times"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@+id/nb_mesh"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@+id/side"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@android:color/white"
-        android:gravity="center" />
-
-    <ImageView
-        android:id="@+id/remove"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_remove"
-        android:tint="@color/colorAccent"
-        android:gravity="center"
-        android:background="@android:color/white"
-        android:layout_weight="0.5"/>
+        android:textSize="@dimen/text_size" />
 </LinearLayout>
 
