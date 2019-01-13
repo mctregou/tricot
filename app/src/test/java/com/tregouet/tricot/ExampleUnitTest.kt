@@ -1,4 +1,4 @@
-package com.tregouet.knitting
+package com.tregouet.knitting_images
 
 import org.junit.Test
 

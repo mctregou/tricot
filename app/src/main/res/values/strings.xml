@@ -112,4 +112,11 @@
     //Stitch
     <string name="here_to_add_stitch_or_reduction">Clique ici pour\najouter un point ou une diminution !</string>
     <string name="here_to_add_stitch">Clique ici pour\najouter un point !</string>
+
+    //Picture
+    <string name="picture_option_title">Que voulez-vous faire ?</string>
+    <string name="take_picture">> Prendre une photo</string>
+    <string name="choose_picture">> Choisir une photo</string>
+    <string name="image_delete_confirmation">Voulez-vous vraiment supprimer cette image ?</string>
+
 </resources>

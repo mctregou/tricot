@@ -1,4 +1,4 @@
-package com.tregouet.knitting
+package com.tregouet.knitting_images
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

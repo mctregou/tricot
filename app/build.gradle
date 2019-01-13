@@ -9,8 +9,8 @@ apply plugin: 'realm-android'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.tregouet.knitting"
-        minSdkVersion 15
+        applicationId "com.tregouet.knitting_images"
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -51,5 +51,14 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.10.0'
 
     compile 'com.github.clans:fab:1.6.4'
+
+    //Carousel
+    compile "com.android.support:support-v4:26.1.0"
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+
+    //Image
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
 }
