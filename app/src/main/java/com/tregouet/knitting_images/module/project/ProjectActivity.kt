@@ -7,10 +7,13 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
@@ -43,7 +46,12 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.module.image.ImageActivity
 import kotlinx.android.synthetic.main.popup_picture_option.*
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.net.URI
+import java.nio.file.Files
 
 class ProjectActivity : BaseActivity() {
 
@@ -142,6 +150,7 @@ class ProjectActivity : BaseActivity() {
             sliderView.image(File(image.url))
                     .setOnSliderClickListener { openZoomCarousel() }
             sliderView.scaleType = BaseSliderView.ScaleType.CenterInside
+            Log.i("test image", image.url)
             project_images.addSlider(sliderView)
         }
 
@@ -275,6 +284,7 @@ class ProjectActivity : BaseActivity() {
                 .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         values)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        
         if(intent.resolveActivity(packageManager) != null) {
             mCurrentPhotoPath = fileUri.toString()
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
@@ -316,15 +326,35 @@ class ProjectActivity : BaseActivity() {
     }
 
     private fun processAlbumPhoto(data : Intent?) {
-        val values = ContentValues(1)
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-        val fileUri = contentResolver
-                .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        values)
-        val newFile = File(data?.data?.path).copyTo(File(fileUri.path))
+        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, data?.data)
+        val path = saveImage(bitmap)
+
 
         RealmManager().open()
-        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().PROJECT_IMAGE, intent.getIntExtra(Constants().PROJECT_ID, 0), newFile.absolutePath))
+        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().PROJECT_IMAGE, intent.getIntExtra(Constants().PROJECT_ID, 0), path))
         RealmManager().close()
+    }
+
+    private fun saveImage(myBitmap : Bitmap) : String {
+        val bytes = ByteArrayOutputStream()
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+
+        try {
+            val f = File(filesDir, Calendar.getInstance().timeInMillis.toString() + ".jpg")
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+            MediaScannerConnection.scanFile(this,
+                    arrayOf(f.path),
+                    arrayOf("image/jpeg"), null)
+            fo.close()
+            Log.d("TAG", "File Saved::--->" + f.absolutePath)
+            Log.i("test image", f.path + " / " + f.absolutePath)
+
+            return f.absolutePath
+        } catch (e1 : IOException) {
+            e1.printStackTrace()
+        }
+        return ""
     }
 }
