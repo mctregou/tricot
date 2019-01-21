@@ -27,12 +27,24 @@
         android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <TextView
-        android:id="@+id/description"
+    <LinearLayout
+        android:id="@+id/hidden_options"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/title_text_size"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/frequency" />
+        app:layout_constraintTop_toBottomOf="@+id/frequency"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/stitch_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

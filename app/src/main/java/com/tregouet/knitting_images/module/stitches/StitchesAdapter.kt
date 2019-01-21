@@ -3,12 +3,15 @@ package com.tregouet.knitting_images.module.stitches
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tregouet.knitting_images.R
+import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.model.Rule
+import com.tregouet.knitting_images.utils.Constants
 import com.tregouet.knitting_images.utils.RealmManager
 import kotlinx.android.synthetic.main.item_rule.view.*
 import kotlinx.android.synthetic.main.popup_create_rule.*
@@ -46,11 +49,13 @@ class StitchesAdapter(private val stitchesActivity: StitchesActivity, private va
             itemView.frequency.text = stitchesActivity.getString(R.string.frequence_ranks, rule.frequency)
             itemView.description.text = rule.description
 
+            getStitches(rule)
+
             itemView.setOnClickListener {
-                if (itemView.description.visibility == View.VISIBLE){
-                    itemView.description.visibility = View.GONE
+                if (itemView.hidden_options.visibility == View.VISIBLE){
+                    itemView.hidden_options.visibility = View.GONE
                 } else {
-                    itemView.description.visibility = View.VISIBLE
+                    itemView.hidden_options.visibility = View.VISIBLE
                 }
             }
 
@@ -90,6 +95,17 @@ class StitchesAdapter(private val stitchesActivity: StitchesActivity, private va
                 dialog.show()
                 true
             }
+        }
+
+        fun getStitches(rule : Rule) {
+            RealmManager().open()
+            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().STITCH_IMAGE, rule.id!!).toList())
+            RealmManager().close()
+            images.add(Image(-1))
+
+            itemView.stitch_images.layoutManager = LinearLayoutManager(stitchesActivity, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = StitchImagesAdapter(stitchesActivity, rule.id!!, images)
+            itemView.stitch_images.adapter = adapter
         }
     }
 }
