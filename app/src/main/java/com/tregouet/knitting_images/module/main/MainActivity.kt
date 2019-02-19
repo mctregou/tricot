@@ -11,9 +11,14 @@ import com.tregouet.knitting_images.module.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
+import android.util.Log
 import android.view.View
+import com.daimajia.slider.library.SliderLayout
+import com.daimajia.slider.library.SliderTypes.BaseSliderView
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView
 import com.tregouet.knitting_images.model.Project
 import com.tregouet.knitting_images.model.Step
+import com.tregouet.knitting_images.module.image.ImageActivity
 import com.tregouet.knitting_images.module.menu.InfosActivity
 import com.tregouet.knitting_images.module.menu.StatsActivity
 import com.tregouet.knitting_images.module.menu.TutosActivity
@@ -24,6 +29,7 @@ import com.tregouet.knitting_images.utils.Constants
 import com.tregouet.knitting_images.utils.RealmManager
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.menu.*
+import java.io.File
 
 
 class MainActivity : BaseActivity() {
@@ -40,7 +46,7 @@ class MainActivity : BaseActivity() {
         materialMenu = MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN)
         burger.setImageDrawable(materialMenu)
         burger.setOnClickListener {
-            if (drawer_layout.isDrawerOpen(GravityCompat.START)){
+            if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
                 materialMenu!!.animateIconState(MaterialMenuDrawable.IconState.BURGER)
                 drawer_layout.closeDrawers()
             } else {
@@ -58,8 +64,8 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDrawerStateChanged(newState: Int) {
-                if(newState == DrawerLayout.STATE_IDLE) {
-                    if (drawer_layout.isDrawerOpen(GravityCompat.START)){
+                if (newState == DrawerLayout.STATE_IDLE) {
+                    if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
                         materialMenu?.iconState = MaterialMenuDrawable.IconState.ARROW
                     } else {
                         materialMenu?.iconState = MaterialMenuDrawable.IconState.BURGER
@@ -81,13 +87,15 @@ class MainActivity : BaseActivity() {
         super.onResume()
 
         val step = getCurrentStep()
-        if (step != null){
+        if (step != null) {
             welcome.visibility = View.GONE
             current_step_layout.visibility = View.VISIBLE
             val project = getCurrentProject(step.projectId!!)
             project_name.text = step.name
             step_name.text = project.name
             current_rank.text = step.currentRank.toString()
+
+            getProjectImages(step.projectId!!)
         } else {
             welcome.visibility = View.VISIBLE
             current_step_layout.visibility = View.GONE
@@ -95,8 +103,44 @@ class MainActivity : BaseActivity() {
 
     }
 
+    /**
+     * Get project images
+     */
+    private fun getProjectImages(projectId: Int) {
+        RealmManager().open()
+        val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().PROJECT_IMAGE, projectId).toList())
+        RealmManager().close()
+
+        if (images.size == 0) {
+            default_image.visibility = View.VISIBLE
+            project_images.visibility = View.GONE
+        } else {
+            default_image.visibility = View.GONE
+            project_images.visibility = View.VISIBLE
+            project_images.removeAllSliders()
+            for (image in images) {
+                val sliderView = DefaultSliderView(this)
+                sliderView.image(File(image.url))
+                        .setOnSliderClickListener { openZoomCarousel(projectId) }
+                sliderView.scaleType = BaseSliderView.ScaleType.CenterInside
+                Log.i("test image", image.url)
+                project_images.addSlider(sliderView)
+            }
+
+            project_images.setPresetTransformer(SliderLayout.Transformer.Default)
+            project_images.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+        }
+    }
+
+    private fun openZoomCarousel(projectId: Int) {
+        val intent = Intent(Intent(this, ImageActivity::class.java))
+        intent.putExtra(Constants().IMAGE_TYPE, Constants().PROJECT_IMAGE)
+        intent.putExtra(Constants().ELEMENT_ID, projectId)
+        startActivity(intent)
+    }
+
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)){
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawers()
             return
         }

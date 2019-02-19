@@ -18,6 +18,7 @@ class Constants {
     val IMAGE_TYPE = "image_type"
     val ELEMENT_ID = "element_id"
     val IMAGE = "image"
+    val POSITION = "position"
     val PROJECT_IMAGE = 1
     val STEP_IMAGE = 2
     val STITCH_IMAGE = 3

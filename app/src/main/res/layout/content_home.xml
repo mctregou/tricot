@@ -33,7 +33,21 @@
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
+
+        <com.daimajia.slider.library.SliderLayout
+            android:id="@+id/project_images"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:layout_below="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/project_layout"
+            />
+
         <ImageView
+            android:id="@+id/default_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_below="@+id/title"

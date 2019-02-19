@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.popup_create_rule.*
 /**
  * Created by mariececile.tregouet on 06/01/2018.
  */
-class StitchImagesAdapter(private val activity: StitchesActivity, private val stitchId : Int, private val stitchImages: ArrayList<Image>) : RecyclerView.Adapter<StitchImagesAdapter.ViewHolder>() {
+class StitchImagesAdapter(private val activity: Activity, private val stitchId : Int, private val stitchImages: ArrayList<Image>) : RecyclerView.Adapter<StitchImagesAdapter.ViewHolder>() {
 
     /**
      * onCreateViewHolder
@@ -36,7 +36,7 @@ class StitchImagesAdapter(private val activity: StitchesActivity, private val st
     /**
      * onBindViewHolder
      */
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(stitchImages[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(stitchImages[position], position)
 
     /**
      * getItemCount
@@ -46,29 +46,34 @@ class StitchImagesAdapter(private val activity: StitchesActivity, private val st
     /**
      * ViewHolder
      */
-    class ViewHolder(itemView: View, private val activity: StitchesActivity, private val stitchId: Int) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val activity: Activity, private val stitchId: Int) : RecyclerView.ViewHolder(itemView) {
 
         /**
          * Bind the rule with the ViewHolder
          */
-        fun bind(stitchImage: Image) = with(itemView) {
+        fun bind(stitchImage: Image, position: Int) = with(itemView) {
             if (stitchImage.id != -1) {
                 stitch_image.setImageURI(Uri.parse(stitchImage.url))
-                stitch_image.setOnClickListener { openZoomCarousel() }
+                stitch_image.setOnClickListener { openZoomCarousel(position) }
             } else {
                 stitch_image.setImageResource(R.drawable.ic_add)
-                stitch_image.setOnClickListener { addPicture() }
+                stitch_image.setOnClickListener {
+                    if (activity is StitchesActivity) {
+                        addPicture(activity)
+                    }
+                }
             }
         }
 
-        private fun openZoomCarousel() {
+        private fun openZoomCarousel(position: Int) {
             val intent = Intent(Intent(activity, ImageActivity::class.java))
             intent.putExtra(Constants().IMAGE_TYPE, Constants().STITCH_IMAGE)
             intent.putExtra(Constants().ELEMENT_ID, stitchId)
+            intent.putExtra(Constants().POSITION, position)
             activity.startActivity(intent)
         }
 
-        private fun addPicture() {
+        private fun addPicture(activity : StitchesActivity) {
             val values = ContentValues(1)
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
             activity.fileUri = activity.contentResolver

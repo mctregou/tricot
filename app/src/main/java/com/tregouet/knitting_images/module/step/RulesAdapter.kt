@@ -1,11 +1,16 @@
 package com.tregouet.knitting_images.module.step
 
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tregouet.knitting_images.R
+import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.model.Rule
+import com.tregouet.knitting_images.module.stitches.StitchImagesAdapter
+import com.tregouet.knitting_images.utils.Constants
+import com.tregouet.knitting_images.utils.RealmManager
 import kotlinx.android.synthetic.main.item_rule.view.*
 
 /**
@@ -41,13 +46,25 @@ class RulesAdapter(private val rulesActivity: StepActivity, private val projects
             itemView.frequency.text = rulesActivity.getString(R.string.frequence_ranks, rule.frequency)
             itemView.description.text = rule.description
 
+            getImages(rule)
+
             itemView.setOnClickListener {
-                if (itemView.description.visibility == View.VISIBLE){
-                    itemView.description.visibility = View.GONE
+                if (itemView.hidden_options.visibility == View.VISIBLE){
+                    itemView.hidden_options.visibility = View.GONE
                 } else {
-                    itemView.description.visibility = View.VISIBLE
+                    itemView.hidden_options.visibility = View.VISIBLE
                 }
             }
+        }
+
+        fun getImages(rule : Rule) {
+            RealmManager().open()
+            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().STITCH_IMAGE, rule.id!!).toList())
+            RealmManager().close()
+
+            itemView.stitch_images.layoutManager = LinearLayoutManager(rulesActivity, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = StitchImagesAdapter(rulesActivity, rule.id!!, images)
+            itemView.stitch_images.adapter = adapter
         }
     }
 }

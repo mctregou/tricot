@@ -30,5 +30,6 @@ class ImageActivity : BaseActivity() {
 
         val pagerAdapter = ImagePageAdapter(supportFragmentManager, images)
         imagesViewPager.adapter = pagerAdapter
+        imagesViewPager.currentItem = intent.getIntExtra(Constants().POSITION, 0)
     }
 }

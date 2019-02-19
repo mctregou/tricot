@@ -100,23 +100,19 @@ class StitchesActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int,
                                   data: Intent?) {
-        Log.i("StitchActivity-stitchId", stitchId.toString())
         if (resultCode == Activity.RESULT_OK
                 && requestCode == Constants().TAKE_PHOTO_REQUEST) {
-            var file = ImageUtils.processCapturedPhoto(this, fileUri.toString())
-            Log.i("StitchActivity-appareil", file.absolutePath)
+            val file = ImageUtils.processCapturedPhoto(this, fileUri.toString())
             RealmManager().open()
             RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().STITCH_IMAGE, stitchId, file.absolutePath))
             RealmManager().close()
         } else if (resultCode == Activity.RESULT_OK
                 && requestCode == Constants().CHOOSE_PHOTO_REQUEST) {
-            var path = ImageUtils.processAlbumPhoto(this, data)
-            Log.i("StitchActivity - folder", path)
+            val path = ImageUtils.processAlbumPhoto(this, data)
             RealmManager().open()
             RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().STITCH_IMAGE, stitchId, path))
             RealmManager().close()
         } else {
-            Log.i("StitchActivity-appareil", "other")
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
