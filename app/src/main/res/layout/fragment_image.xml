@@ -8,7 +8,8 @@
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imagePhotoView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"/>
 
     <ImageView
         android:id="@+id/delete"
@@ -17,5 +18,15 @@
         android:layout_margin="10dp"
         android:src="@drawable/delete_button"
         android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:id="@+id/turn_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/turn_right_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

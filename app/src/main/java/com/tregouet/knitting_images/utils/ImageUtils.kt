@@ -28,6 +28,7 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.model.Image
 import kotlinx.android.synthetic.main.activity_project.*
+import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.android.synthetic.main.popup_picture_option.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -218,9 +219,93 @@ class ImageUtils {
                 return BitmapFactory.decodeStream(input)
             } catch (e: IOException) {
                 // Log exception
+                e.printStackTrace()
                 return null
             }
 
+        }
+
+        fun rotateImage(url: String): Bitmap? {
+            val file = File(url)
+            var exifInterface: ExifInterface? = null
+            try {
+                exifInterface =  ExifInterface(file.path)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            val orientation = exifInterface!!.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+            if ( (orientation == ExifInterface.ORIENTATION_NORMAL) || (orientation == 0) ) {
+                exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION, ""+ExifInterface.ORIENTATION_ROTATE_90)
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION, ""+ExifInterface.ORIENTATION_ROTATE_180)
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+                exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION, ""+ExifInterface.ORIENTATION_ROTATE_270)
+            } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION, ""+ExifInterface.ORIENTATION_NORMAL)
+            }
+            try {
+                exifInterface.saveAttributes()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            return ImageUtils.getBitmap(url)
+        }
+
+        fun getBitmap(path: String): Bitmap? {
+            Log.e("inside of", "getBitmap = " + path)
+            try {
+                var b: Bitmap? = null
+                val o = BitmapFactory.Options()
+                o.inJustDecodeBounds = true
+
+                val matrix = Matrix()
+                val exifReader = ExifInterface(path)
+                val orientation = exifReader.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1)
+                var rotate = 0
+                if (orientation == ExifInterface.ORIENTATION_NORMAL) {
+                    // Do nothing. The original image is fine.
+                } else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+                    rotate = 90
+                } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+                    rotate = 180
+                } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+                    rotate = 270
+                }
+                matrix.postRotate(rotate.toFloat())
+                try {
+                    b = loadBitmap(path, rotate)
+                } catch (e: OutOfMemoryError) {
+                    e.printStackTrace()
+                }
+
+                System.gc()
+                return b
+            } catch (e: Exception) {
+                Log.e("my tag", e.message, e)
+                e.printStackTrace()
+                return null
+            }
+
+        }
+
+        fun loadBitmap(path: String, orientation: Int): Bitmap? {
+            var bitmap: Bitmap? = null
+            try {
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                BitmapFactory.decodeFile(path, options)
+                bitmap = BitmapFactory.decodeFile(path)
+                if (orientation > 0) {
+                    val matrix = Matrix()
+                    matrix.postRotate(orientation.toFloat())
+                    bitmap = Bitmap.createBitmap(bitmap!!, 0, 0, bitmap.width, bitmap.height, matrix, true)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return bitmap
         }
     }
 }

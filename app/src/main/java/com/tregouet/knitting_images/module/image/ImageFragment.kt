@@ -1,7 +1,9 @@
 package com.tregouet.knitting_images.module.image
 
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +11,12 @@ import android.view.ViewGroup
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.utils.Constants
+import com.tregouet.knitting_images.utils.ImageUtils
 import com.tregouet.knitting_images.utils.RealmManager
 import com.tregouet.knitting_images.utils.Utils
 import kotlinx.android.synthetic.main.fragment_image.*
+import java.io.File
+import java.io.IOException
 
 class ImageFragment : Fragment() {
 
@@ -34,7 +39,7 @@ class ImageFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         image = arguments?.get(Constants().IMAGE) as Image
-        imagePhotoView.setImageURI(Uri.parse(image?.url))
+        imagePhotoView.setImageBitmap(ImageUtils.getBitmap(image?.url!!))
         imagePhotoView.setZoomable(true)
 
         delete.setOnClickListener {
@@ -46,6 +51,11 @@ class ImageFragment : Fragment() {
             })
             confirmationDialog.show()
         }
+
+        turn_image.setOnClickListener {
+            imagePhotoView.setImageBitmap(ImageUtils.rotateImage(image?.url!!))
+        }
+
     }
 
 }

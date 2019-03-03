@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +54,7 @@ class StitchImagesAdapter(private val activity: Activity, private val stitchId :
          */
         fun bind(stitchImage: Image, position: Int) = with(itemView) {
             if (stitchImage.id != -1) {
-                stitch_image.setImageURI(Uri.parse(stitchImage.url))
+                stitch_image.setImageBitmap(ImageUtils.getBitmap(stitchImage.url!!))
                 stitch_image.setOnClickListener { openZoomCarousel(position) }
             } else {
                 stitch_image.setImageResource(R.drawable.ic_add)
