@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.ExifInterface
 import java.io.IOException
 import android.graphics.Bitmap
@@ -17,7 +15,6 @@ import android.graphics.drawable.ColorDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.design.widget.Snackbar
 import android.util.Log
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -26,9 +23,6 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.tregouet.knitting_images.R
-import com.tregouet.knitting_images.model.Image
-import kotlinx.android.synthetic.main.activity_project.*
-import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.android.synthetic.main.popup_picture_option.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -58,7 +52,7 @@ class ImageUtils {
                 val intent = Intent(Intent.ACTION_GET_CONTENT)
                 intent.type = "image/*"
                 if (intent.resolveActivity(activity.packageManager) != null) {
-                    activity.startActivityForResult(intent, Constants().CHOOSE_PHOTO_REQUEST)
+                    activity.startActivityForResult(intent, Constants.CHOOSE_PHOTO_REQUEST)
                 }
             }
 
@@ -119,7 +113,7 @@ class ImageUtils {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                         or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                activity.startActivityForResult(intent, Constants().TAKE_PHOTO_REQUEST)
+                activity.startActivityForResult(intent, Constants.TAKE_PHOTO_REQUEST)
             }
         }
 

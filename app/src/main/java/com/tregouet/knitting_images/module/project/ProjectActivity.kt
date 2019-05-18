@@ -74,7 +74,7 @@ class ProjectActivity : BaseActivity() {
                 if (dialog.step_title.text.toString() != "" && dialog.size.text.toString() != "") {
                     RealmManager().open()
                     val index = RealmManager().createStepDao().nextId()
-                    RealmManager().createStepDao().save(Step(index, intent.getIntExtra(Constants().PROJECT_ID, 0), dialog.step_title.text.toString(), dialog.size.text.toString(), 0, Date().time, RealmList(), dialog.description_texte.text.toString()))
+                    RealmManager().createStepDao().save(Step(index, intent.getIntExtra(Constants.PROJECT_ID, 0), dialog.step_title.text.toString(), dialog.size.text.toString(), 0, Date().time, RealmList(), dialog.description_texte.text.toString()))
                     RealmManager().close()
                     getSteps()
                 }
@@ -91,7 +91,7 @@ class ProjectActivity : BaseActivity() {
         super.onResume()
 
         RealmManager().open()
-        project = RealmManager().createProjectDao().loadBy(intent.getIntExtra(Constants().PROJECT_ID, 0))
+        project = RealmManager().createProjectDao().loadBy(intent.getIntExtra(Constants.PROJECT_ID, 0))
         RealmManager().close()
         subtitle.text = project?.name
 
@@ -124,9 +124,9 @@ class ProjectActivity : BaseActivity() {
 
                 val confirmationPopup = Utils().showDialog(this, R.string.warning, R.string.delete_project_confirmation, View.OnClickListener {
                     RealmManager().open()
-                    RealmManager().createRuleDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
-                    RealmManager().createStepDao().removeByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0))
-                    RealmManager().createProjectDao().removeById(intent.getIntExtra(Constants().PROJECT_ID, 0))
+                    RealmManager().createRuleDao().removeByProjectId(intent.getIntExtra(Constants.PROJECT_ID, 0))
+                    RealmManager().createStepDao().removeByProjectId(intent.getIntExtra(Constants.PROJECT_ID, 0))
+                    RealmManager().createProjectDao().removeById(intent.getIntExtra(Constants.PROJECT_ID, 0))
                     RealmManager().close()
                     onBackPressed()
                 })
@@ -141,16 +141,15 @@ class ProjectActivity : BaseActivity() {
      */
     private fun getImages() {
         RealmManager().open()
-        val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().PROJECT_IMAGE, intent.getIntExtra(Constants().PROJECT_ID, 0)).toList())
+        val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants.PROJECT_IMAGE, intent.getIntExtra(Constants.PROJECT_ID, 0)).toList())
         RealmManager().close()
 
         project_images.removeAllSliders()
-        for (image in images){
+        for (index in images.indices){
             val sliderView = DefaultSliderView(this)
-            sliderView.image(File(image.url))
-                    .setOnSliderClickListener { openZoomCarousel() }
+            sliderView.image(File(images[index].url))
+                    .setOnSliderClickListener { openZoomCarousel(index) }
             sliderView.scaleType = BaseSliderView.ScaleType.CenterInside
-            Log.i("test image", image.url)
             project_images.addSlider(sliderView)
         }
 
@@ -165,10 +164,11 @@ class ProjectActivity : BaseActivity() {
         project_images.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
     }
 
-    private fun openZoomCarousel() {
+    private fun openZoomCarousel(position: Int) {
         val intent = Intent(Intent(this, ImageActivity::class.java))
-        intent.putExtra(Constants().IMAGE_TYPE, Constants().PROJECT_IMAGE)
-        intent.putExtra(Constants().ELEMENT_ID, project?.id)
+        intent.putExtra(Constants.IMAGE_TYPE, Constants.PROJECT_IMAGE)
+        intent.putExtra(Constants.ELEMENT_ID, project?.id)
+        intent.putExtra(Constants.POSITION, position)
         startActivity(intent)
     }
 
@@ -177,7 +177,7 @@ class ProjectActivity : BaseActivity() {
      */
     private fun getSteps() {
         RealmManager().open()
-        val steps = ArrayList(RealmManager().createStepDao().loadByProjectId(intent.getIntExtra(Constants().PROJECT_ID, 0)).toList())
+        val steps = ArrayList(RealmManager().createStepDao().loadByProjectId(intent.getIntExtra(Constants.PROJECT_ID, 0)).toList())
         RealmManager().close()
 
         steps_recyclerview.layoutManager = LinearLayoutManager(this)
@@ -223,7 +223,7 @@ class ProjectActivity : BaseActivity() {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             if (intent.resolveActivity(packageManager) != null) {
-                startActivityForResult(intent, Constants().CHOOSE_PHOTO_REQUEST)
+                startActivityForResult(intent, Constants.CHOOSE_PHOTO_REQUEST)
             }
         }
 
@@ -290,17 +290,17 @@ class ProjectActivity : BaseActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            startActivityForResult(intent, Constants().TAKE_PHOTO_REQUEST)
+            startActivityForResult(intent, Constants.TAKE_PHOTO_REQUEST)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int,
                                   data: Intent?) {
         if (resultCode == Activity.RESULT_OK
-                && requestCode == Constants().TAKE_PHOTO_REQUEST) {
+                && requestCode == Constants.TAKE_PHOTO_REQUEST) {
             processCapturedPhoto()
         } else if (resultCode == Activity.RESULT_OK
-                && requestCode == Constants().CHOOSE_PHOTO_REQUEST) {
+                && requestCode == Constants.CHOOSE_PHOTO_REQUEST) {
             processAlbumPhoto(data)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -321,7 +321,7 @@ class ProjectActivity : BaseActivity() {
         val width = resources.getDimensionPixelSize(R.dimen.photo_width)*/
 
         RealmManager().open()
-        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().PROJECT_IMAGE, intent.getIntExtra(Constants().PROJECT_ID, 0), file.absolutePath))
+        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants.PROJECT_IMAGE, intent.getIntExtra(Constants.PROJECT_ID, 0), file.absolutePath))
         RealmManager().close()
     }
 
@@ -331,7 +331,7 @@ class ProjectActivity : BaseActivity() {
 
 
         RealmManager().open()
-        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().PROJECT_IMAGE, intent.getIntExtra(Constants().PROJECT_ID, 0), path))
+        RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants.PROJECT_IMAGE, intent.getIntExtra(Constants.PROJECT_ID, 0), path))
         RealmManager().close()
     }
 

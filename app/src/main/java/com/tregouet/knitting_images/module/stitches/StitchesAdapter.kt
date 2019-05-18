@@ -99,7 +99,7 @@ class StitchesAdapter(private val stitchesActivity: StitchesActivity, private va
 
         fun getStitches(rule : Rule) {
             RealmManager().open()
-            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().STITCH_IMAGE, rule.id!!).toList())
+            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants.STITCH_IMAGE, rule.id!!).toList())
             RealmManager().close()
             images.add(Image(-1))
 

@@ -11,7 +11,6 @@ import com.tregouet.knitting_images.module.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
-import android.util.Log
 import android.view.View
 import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
@@ -108,7 +107,7 @@ class MainActivity : BaseActivity() {
      */
     private fun getProjectImages(projectId: Int) {
         RealmManager().open()
-        val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().PROJECT_IMAGE, projectId).toList())
+        val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants.PROJECT_IMAGE, projectId).toList())
         RealmManager().close()
 
         if (images.size == 0) {
@@ -118,12 +117,11 @@ class MainActivity : BaseActivity() {
             default_image.visibility = View.GONE
             project_images.visibility = View.VISIBLE
             project_images.removeAllSliders()
-            for (image in images) {
+            for (index in images.indices) {
                 val sliderView = DefaultSliderView(this)
-                sliderView.image(File(image.url))
-                        .setOnSliderClickListener { openZoomCarousel(projectId) }
+                sliderView.image(File(images[index].url))
+                        .setOnSliderClickListener { openZoomCarousel(projectId, index) }
                 sliderView.scaleType = BaseSliderView.ScaleType.CenterInside
-                Log.i("test image", image.url)
                 project_images.addSlider(sliderView)
             }
 
@@ -132,10 +130,11 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun openZoomCarousel(projectId: Int) {
+    private fun openZoomCarousel(projectId: Int, position : Int) {
         val intent = Intent(Intent(this, ImageActivity::class.java))
-        intent.putExtra(Constants().IMAGE_TYPE, Constants().PROJECT_IMAGE)
-        intent.putExtra(Constants().ELEMENT_ID, projectId)
+        intent.putExtra(Constants.IMAGE_TYPE, Constants.PROJECT_IMAGE)
+        intent.putExtra(Constants.ELEMENT_ID, projectId)
+        intent.putExtra(Constants.POSITION, position)
         startActivity(intent)
     }
 
@@ -185,8 +184,8 @@ class MainActivity : BaseActivity() {
 
         if (step != null) {
             val intent = Intent(Intent(this, StepActivity::class.java))
-            intent.putExtra(Constants().STEP_ID, step.id)
-            intent.putExtra(Constants().PROJECT_ID, step.projectId)
+            intent.putExtra(Constants.STEP_ID, step.id)
+            intent.putExtra(Constants.PROJECT_ID, step.projectId)
             startActivity(intent)
         }
     }

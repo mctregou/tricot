@@ -59,7 +59,7 @@ class RulesAdapter(private val rulesActivity: StepActivity, private val projects
 
         fun getImages(rule : Rule) {
             RealmManager().open()
-            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants().STITCH_IMAGE, rule.id!!).toList())
+            val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants.STITCH_IMAGE, rule.id!!).toList())
             RealmManager().close()
 
             itemView.stitch_images.layoutManager = LinearLayoutManager(rulesActivity, LinearLayoutManager.HORIZONTAL, false)

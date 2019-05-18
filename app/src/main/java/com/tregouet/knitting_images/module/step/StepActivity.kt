@@ -101,8 +101,8 @@ class StepActivity : BaseActivity() {
 
                 val confirmationDialog = Utils().showDialog(this, R.string.warning, R.string.step_delete_confirmation, View.OnClickListener {
                     RealmManager().open()
-                    RealmManager().createRuleDao().removeByStepId(intent.getIntExtra(Constants().STEP_ID, 0))
-                    RealmManager().createStepDao().removeById(intent.getIntExtra(Constants().STEP_ID, 0))
+                    RealmManager().createRuleDao().removeByStepId(intent.getIntExtra(Constants.STEP_ID, 0))
+                    RealmManager().createStepDao().removeById(intent.getIntExtra(Constants.STEP_ID, 0))
                     RealmManager().close()
                     onBackPressed()
                 })
@@ -122,7 +122,7 @@ class StepActivity : BaseActivity() {
 
     fun updateStep() {
         RealmManager().open()
-        step = RealmManager().createStepDao().loadBy(intent.getIntExtra(Constants().STEP_ID, 0))
+        step = RealmManager().createStepDao().loadBy(intent.getIntExtra(Constants.STEP_ID, 0))
         step?.lastSeen = Date().time
         RealmManager().createStepDao().save(step)
         RealmManager().close()
@@ -156,7 +156,7 @@ class StepActivity : BaseActivity() {
     fun showNotification(){
         notification.setOnCheckedChangeListener { compoundButton, isChecked ->
             if (isChecked) {
-                EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
+                EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants.PROJECT_ID, 0), step?.id!!))
             } else {
                 EventBus.getDefault().post(UpdateNotification(false))
             }
@@ -341,12 +341,10 @@ class StepActivity : BaseActivity() {
         RealmManager().createReductionItemDao().removeByReductionId(reduction?.id!!)
         RealmManager().close()
 
-        Log.v("StepActivity", "size reductionItemsPopup=" + reductionItemsPopup.size +" / " + reductionItems.size)
         for (reductionItem in reductionItemsPopup){
             val reductionItemIndex = RealmManager().createReductionItemDao().nextId()
             reductionItem.reductionId = reduction?.id
             reductionItem.id = reductionItemIndex
-            Log.v("StepActivity create ReductionItem", "reductionItemId = " + reductionItemIndex)
             RealmManager().createReductionItemDao().save(reductionItem)
             RealmManager().close()
         }
@@ -372,6 +370,7 @@ class StepActivity : BaseActivity() {
         if (step?.currentRank!! > 1) {
             RealmManager().open()
             step!!.currentRank = (step!!.currentRank - 1)
+            step?.lastSeen = Date().time
             RealmManager().createStepDao().save(step)
             RealmManager().close()
             current_rank.text = step!!.currentRank.toString()
@@ -379,13 +378,14 @@ class StepActivity : BaseActivity() {
             checkRule()
             checkReductions()
 
-            EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
+            EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants.PROJECT_ID, 0), step?.id!!))
         }
     }
 
     private fun plus() {
         RealmManager().open()
         step?.currentRank = (step?.currentRank!! + 1)
+        step?.lastSeen = Date().time
         RealmManager().createStepDao().save(step)
         RealmManager().close()
         current_rank.text = step!!.currentRank.toString()
@@ -393,7 +393,7 @@ class StepActivity : BaseActivity() {
         checkRule()
         checkReductions()
 
-        EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants().PROJECT_ID, 0), step?.id!!))
+        EventBus.getDefault().post(UpdateNotification(true, intent.getIntExtra(Constants.PROJECT_ID, 0), step?.id!!))
     }
 
     private fun updateVisibilityDescription() {

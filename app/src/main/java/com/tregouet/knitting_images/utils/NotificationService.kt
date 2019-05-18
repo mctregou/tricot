@@ -54,11 +54,11 @@ class NotificationService : Service() {
         if (intent == null || intent.action == null) {
             return START_STICKY
         }
-        if (intent.action == Constants().ACTION_MINUS) {
+        if (intent.action == Constants.ACTION_MINUS) {
             Log.i("PlayerService", "Clicked Previous")
             minus()
 
-        } else if (intent.action == Constants().ACTION_PLUS) {
+        } else if (intent.action == Constants.ACTION_PLUS) {
             Log.i("PlayerService", "Clicked Play")
             plus()
         }
@@ -110,20 +110,20 @@ class NotificationService : Service() {
         var project = RealmManager().createProjectDao().loadBy(projectId)
 
         val notificationIntent = Intent(this, StepActivity::class.java)
-        notificationIntent.putExtra(Constants().STEP_ID, step?.id)
-        notificationIntent.putExtra(Constants().PROJECT_ID, step?.projectId)
-        notificationIntent.action = Constants().MAIN_ACTION
+        notificationIntent.putExtra(Constants.STEP_ID, step?.id)
+        notificationIntent.putExtra(Constants.PROJECT_ID, step?.projectId)
+        notificationIntent.action = Constants.MAIN_ACTION
         notificationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0)
 
         val minusIntent = Intent(this, NotificationService::class.java)
-        minusIntent.action = Constants().ACTION_MINUS
+        minusIntent.action = Constants.ACTION_MINUS
         val pminusIntent = PendingIntent.getService(this, 0,
                 minusIntent, 0)
 
         val plusIntent = Intent(this, NotificationService::class.java)
-        plusIntent.action = Constants().ACTION_PLUS
+        plusIntent.action = Constants.ACTION_PLUS
         val pplusIntent = PendingIntent.getService(this, 0,
                 plusIntent, 0)
 

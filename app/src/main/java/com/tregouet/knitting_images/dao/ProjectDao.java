@@ -3,6 +3,7 @@ package com.tregouet.knitting_images.dao;
 import android.support.annotation.NonNull;
 
 import com.tregouet.knitting_images.model.Project;
+import com.tregouet.knitting_images.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ProjectDao {
     public void save(final Project project) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 realm.copyToRealmOrUpdate(project);
             }
         });
@@ -43,7 +44,7 @@ public class ProjectDao {
 
 
     public Project loadBy(int id) {
-        Project project = mRealm.where(Project.class).equalTo("id", id).findFirst();
+        Project project = mRealm.where(Project.class).equalTo(Constants.TABLE_PROJECT_ID, id).findFirst();
         if (project != null){
             return mRealm.copyFromRealm(project);
         } else {
@@ -51,21 +52,12 @@ public class ProjectDao {
         }
     }
 
-    public void remove(@NonNull final RealmObject object) {
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                object.deleteFromRealm();
-            }
-        });
-    }
-
     public void removeById(int id) {
-        final RealmObject project = mRealm.where(Project.class).equalTo("id", id).findFirst();
+        final RealmObject project = mRealm.where(Project.class).equalTo(Constants.TABLE_PROJECT_ID, id).findFirst();
         if (project != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     project.deleteFromRealm();
                 }
             });
@@ -74,10 +66,9 @@ public class ProjectDao {
 
     public int nextId() {
         try {
-            Project project = mRealm.where(Project.class).sort("id", Sort.DESCENDING).findAll().first();
-            if (project != null) {
-                int index = project.getId() + 1;
-                return index;
+            Project project = mRealm.where(Project.class).sort(Constants.TABLE_PROJECT_ID, Sort.DESCENDING).findAll().first();
+            if (project != null && project.getId() != null) {
+                return project.getId() + 1;
             } else {
                 return 0;
             }

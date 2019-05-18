@@ -54,7 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/project_layout"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/tricot" />
+            android:src="@drawable/app_icon" />
 
         <LinearLayout
             android:id="@+id/project_layout"
@@ -180,7 +180,7 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/ready_to_knit"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/tricot" />
+            android:src="@drawable/app_icon" />
 
         <TextView
             android:id="@+id/ready_to_knit"

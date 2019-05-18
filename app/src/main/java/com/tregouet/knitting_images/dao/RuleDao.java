@@ -3,6 +3,7 @@ package com.tregouet.knitting_images.dao;
 import android.support.annotation.NonNull;
 
 import com.tregouet.knitting_images.model.Rule;
+import com.tregouet.knitting_images.utils.Constants;
 import com.tregouet.knitting_images.utils.realm.RealmInt;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class RuleDao {
     public void save(final Rule rule) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 realm.copyToRealmOrUpdate(rule);
             }
         });
@@ -44,18 +45,14 @@ public class RuleDao {
     }
 
 
-    public Rule loadBy(int id) {
-        return mRealm.where(Rule.class).equalTo("id", id).findFirst();
-    }
-
     public List<Rule> loadByStepId(int id) {
-        return mRealm.copyFromRealm(mRealm.where(Rule.class).equalTo("stepId", id).findAll());
+        return mRealm.copyFromRealm(mRealm.where(Rule.class).equalTo(Constants.TABLE_RULE_STEP_ID, id).findAll());
     }
 
     public ArrayList<Rule> loadByIds(List<RealmInt> ids) {
         ArrayList<Rule> stitches = new ArrayList<>();
         for (RealmInt stitchId : ids){
-            Rule stitch = mRealm.where(Rule.class).equalTo("id", stitchId.getVal()).findFirst();
+            Rule stitch = mRealm.where(Rule.class).equalTo(Constants.TABLE_RULE_ID, stitchId.getVal()).findFirst();
             if (stitch != null) {
                 stitches.add(mRealm.copyFromRealm(stitch));
             }
@@ -64,21 +61,12 @@ public class RuleDao {
     }
 
 
-    public void remove(@NonNull final RealmObject object) {
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                object.deleteFromRealm();
-            }
-        });
-    }
-
     public void removeById(int id) {
-        final RealmObject rule = mRealm.where(Rule.class).equalTo("id", id).findFirst();
+        final RealmObject rule = mRealm.where(Rule.class).equalTo(Constants.TABLE_RULE_ID, id).findFirst();
         if (rule != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     rule.deleteFromRealm();
                 }
             });
@@ -86,11 +74,11 @@ public class RuleDao {
     }
 
     public void removeByProjectId(int id) {
-        final RealmResults<Rule> rule = mRealm.where(Rule.class).equalTo("projectId", id).findAll();
+        final RealmResults<Rule> rule = mRealm.where(Rule.class).equalTo(Constants.TABLE_RULE_PROJECT_ID, id).findAll();
         if (rule != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     rule.deleteAllFromRealm();
                 }
             });
@@ -98,11 +86,11 @@ public class RuleDao {
     }
 
     public void removeByStepId(int id) {
-        final RealmResults<Rule> rule = mRealm.where(Rule.class).equalTo("stepId", id).findAll();
+        final RealmResults<Rule> rule = mRealm.where(Rule.class).equalTo(Constants.TABLE_RULE_STEP_ID, id).findAll();
         if (rule != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     rule.deleteAllFromRealm();
                 }
             });
@@ -111,9 +99,8 @@ public class RuleDao {
 
     public int nextId() {
         try {
-            Rule rule = mRealm.where(Rule.class).sort("id", Sort.DESCENDING).findAll().first();
-            if (rule != null) {
-                System.out.println("nextId=" + rule.getId());
+            Rule rule = mRealm.where(Rule.class).sort(Constants.TABLE_RULE_ID, Sort.DESCENDING).findAll().first();
+            if (rule != null && rule.getId() != null) {
                 return (rule.getId() + 1);
             } else {
                 return 1;

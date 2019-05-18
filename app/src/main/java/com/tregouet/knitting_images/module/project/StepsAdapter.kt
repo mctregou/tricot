@@ -54,8 +54,8 @@ class StepsAdapter(private val context: Context, private var steps: ArrayList<St
          */
         private fun openStep(step:Step?){
             val intent = Intent(Intent(context, StepActivity::class.java))
-            intent.putExtra(Constants().STEP_ID, step?.id)
-            intent.putExtra(Constants().PROJECT_ID, step?.projectId)
+            intent.putExtra(Constants.STEP_ID, step?.id)
+            intent.putExtra(Constants.PROJECT_ID, step?.projectId)
             context.startActivity(intent)
         }
     }

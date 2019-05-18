@@ -3,6 +3,7 @@ package com.tregouet.knitting_images.dao;
 import android.support.annotation.NonNull;
 
 import com.tregouet.knitting_images.model.Step;
+import com.tregouet.knitting_images.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class StepDao {
     public void save(final Step step) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 realm.copyToRealmOrUpdate(step);
             }
         });
@@ -44,7 +45,7 @@ public class StepDao {
 
 
     public Step loadBy(int id) {
-        Step step = mRealm.where(Step.class).equalTo("id", id).findFirst();
+        Step step = mRealm.where(Step.class).equalTo(Constants.TABLE_STEP_ID, id).findFirst();
         if (step != null){
             return mRealm.copyFromRealm(step);
         } else {
@@ -53,24 +54,15 @@ public class StepDao {
     }
 
     public List<Step> loadByProjectId(int id) {
-        return mRealm.copyFromRealm(mRealm.where(Step.class).equalTo("projectId", id).findAll());
-    }
-
-    public void remove(@NonNull final RealmObject object) {
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                object.deleteFromRealm();
-            }
-        });
+        return mRealm.copyFromRealm(mRealm.where(Step.class).equalTo(Constants.TABLE_STEP_PROJECT_ID, id).findAll());
     }
 
     public void removeByProjectId(int id) {
-        final RealmResults<Step> step = mRealm.where(Step.class).equalTo("projectId", id).findAll();
+        final RealmResults<Step> step = mRealm.where(Step.class).equalTo(Constants.TABLE_STEP_PROJECT_ID, id).findAll();
         if (step != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     step.deleteAllFromRealm();
                 }
             });
@@ -78,11 +70,11 @@ public class StepDao {
     }
 
     public void removeById(int id) {
-        final RealmObject step = mRealm.where(Step.class).equalTo("id", id).findFirst();
+        final RealmObject step = mRealm.where(Step.class).equalTo(Constants.TABLE_STEP_ID, id).findFirst();
         if (step != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     step.deleteFromRealm();
                 }
             });
@@ -91,8 +83,8 @@ public class StepDao {
 
     public int nextId() {
         try {
-            Step step = mRealm.where(Step.class).sort("id", Sort.DESCENDING).findAll().first();
-            if (step != null) {
+            Step step = mRealm.where(Step.class).sort(Constants.TABLE_STEP_ID, Sort.DESCENDING).findAll().first();
+            if (step != null && step.getId() != null) {
                 return (step.getId() + 1);
             } else {
                 return 0;
@@ -104,14 +96,9 @@ public class StepDao {
     }
 
     public Step loadLastStep() {
-        List<Step> steps = loadAll();
-        for (Step step : steps){
-            System.out.println("Test " + step.getName() + " / " + step.getLastSeen());
-        }
-
-        Step step = mRealm.where(Step.class).sort("lastSeen", Sort.DESCENDING).findFirst();
-        if (step != null) {
-            return mRealm.copyFromRealm(step);
+        List<Step> steps = mRealm.where(Step.class).sort(Constants.TABLE_STEP_LAST_SEEN_FIELD, Sort.DESCENDING).findAll();
+        if (steps != null && steps.size() > 0) {
+            return mRealm.copyFromRealm(steps.get(0));
         } else {
             return null;
         }

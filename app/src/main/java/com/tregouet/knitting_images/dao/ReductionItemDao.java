@@ -1,9 +1,9 @@
 package com.tregouet.knitting_images.dao;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.tregouet.knitting_images.model.ReductionItem;
+import com.tregouet.knitting_images.utils.Constants;
 
 import java.util.List;
 
@@ -20,24 +20,24 @@ public class ReductionItemDao {
     }
 
     public List<ReductionItem> loadByReductionId(int id) {
-        return mRealm.copyFromRealm(mRealm.where(ReductionItem.class).equalTo("reductionId", id).findAll());
+        return mRealm.copyFromRealm(mRealm.where(ReductionItem.class).equalTo(Constants.TABLE_REDUCTION_ITEM_REDUCTION_ID, id).findAll());
     }
 
     public void save(final ReductionItem reductionItem) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 realm.copyToRealmOrUpdate(reductionItem);
             }
         });
     }
 
     public void removeByReductionId(int id) {
-        final RealmResults<ReductionItem> reductionItems = mRealm.where(ReductionItem.class).equalTo("reductionId", id).findAll();
+        final RealmResults<ReductionItem> reductionItems = mRealm.where(ReductionItem.class).equalTo(Constants.TABLE_REDUCTION_ITEM_REDUCTION_ID, id).findAll();
         if (reductionItems != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     reductionItems.deleteAllFromRealm();
                 }
             });
@@ -46,9 +46,8 @@ public class ReductionItemDao {
 
     public int nextId() {
         try {
-            ReductionItem reductionItem = mRealm.where(ReductionItem.class).sort("id", Sort.DESCENDING).findAll().first();
-            if (reductionItem != null) {
-                Log.i("ReductionDao", "nextId=" + reductionItem.getId());
+            ReductionItem reductionItem = mRealm.where(ReductionItem.class).sort(Constants.TABLE_REDUCTION_ITEM_ID, Sort.DESCENDING).findAll().first();
+            if (reductionItem != null && reductionItem.getId() != null) {
                 return (reductionItem.getId() + 1);
             } else {
                 return 1;

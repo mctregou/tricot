@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.animation.TranslateAnimation
 import com.tregouet.knitting_images.R
@@ -82,8 +81,8 @@ class StitchesActivity : BaseActivity() {
                 RealmManager().open()
                 val index = RealmManager().createRuleDao().nextId()
                 RealmManager().createRuleDao().save(Rule(index,
-                        intent.getIntExtra(Constants().STEP_ID, 0),
-                        intent.getIntExtra(Constants().PROJECT_ID, 0),
+                        intent.getIntExtra(Constants.STEP_ID, 0),
+                        intent.getIntExtra(Constants.PROJECT_ID, 0),
                         dialog.rule_title.text.toString(),
                         dialog.rule_frequence.text.toString().toInt(),
                         dialog.rule_offset.text.toString().toInt(),
@@ -101,16 +100,16 @@ class StitchesActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int,
                                   data: Intent?) {
         if (resultCode == Activity.RESULT_OK
-                && requestCode == Constants().TAKE_PHOTO_REQUEST) {
+                && requestCode == Constants.TAKE_PHOTO_REQUEST) {
             val file = ImageUtils.processCapturedPhoto(this, fileUri.toString())
             RealmManager().open()
-            RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().STITCH_IMAGE, stitchId, file.absolutePath))
+            RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants.STITCH_IMAGE, stitchId, file.absolutePath))
             RealmManager().close()
         } else if (resultCode == Activity.RESULT_OK
-                && requestCode == Constants().CHOOSE_PHOTO_REQUEST) {
+                && requestCode == Constants.CHOOSE_PHOTO_REQUEST) {
             val path = ImageUtils.processAlbumPhoto(this, data)
             RealmManager().open()
-            RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants().STITCH_IMAGE, stitchId, path))
+            RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants.STITCH_IMAGE, stitchId, path))
             RealmManager().close()
         } else {
             super.onActivityResult(requestCode, resultCode, data)

@@ -1,10 +1,8 @@
 package com.tregouet.knitting_images.module.image
 
-import android.media.ExifInterface
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +13,6 @@ import com.tregouet.knitting_images.utils.ImageUtils
 import com.tregouet.knitting_images.utils.RealmManager
 import com.tregouet.knitting_images.utils.Utils
 import kotlinx.android.synthetic.main.fragment_image.*
-import java.io.File
-import java.io.IOException
 
 class ImageFragment : Fragment() {
 
@@ -29,7 +25,7 @@ class ImageFragment : Fragment() {
     companion object{
         fun newInstance(image: Image):ImageFragment{
             val args = Bundle()
-            args.putSerializable(Constants().IMAGE, image)
+            args.putSerializable(Constants.IMAGE, image)
             val fragment = ImageFragment()
             fragment.arguments = args
             return fragment
@@ -38,8 +34,9 @@ class ImageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        image = arguments?.get(Constants().IMAGE) as Image
+        image = arguments?.get(Constants.IMAGE) as Image
         imagePhotoView.setImageBitmap(ImageUtils.getBitmap(image?.url!!))
+        Log.i("TESTMC", image?.url)
         imagePhotoView.setZoomable(true)
 
         delete.setOnClickListener {

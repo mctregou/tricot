@@ -56,7 +56,7 @@ class ProjectsAdapter(private val context: Context, private var projects: ArrayL
          */
         private fun openProject(projectId:Int?){
             val intent = Intent(Intent(context, ProjectActivity::class.java))
-            intent.putExtra(Constants().PROJECT_ID, projectId)
+            intent.putExtra(Constants.PROJECT_ID, projectId)
             context.startActivity(intent)
         }
     }

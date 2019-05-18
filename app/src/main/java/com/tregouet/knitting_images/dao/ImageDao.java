@@ -3,6 +3,7 @@ package com.tregouet.knitting_images.dao;
 import android.support.annotation.NonNull;
 
 import com.tregouet.knitting_images.model.Image;
+import com.tregouet.knitting_images.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ImageDao {
     public void save(final Image image) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 realm.copyToRealmOrUpdate(image);
             }
         });
@@ -38,34 +39,15 @@ public class ImageDao {
     }
 
     public List<Image> loadAllForElement(final int type, final int elementId) {
-        return mRealm.copyFromRealm(mRealm.where(Image.class).equalTo("type", type).equalTo("elementId", elementId).findAll());
-    }
-
-
-    public Image loadBy(int id) {
-        Image image = mRealm.where(Image.class).equalTo("id", id).findFirst();
-        if (image != null){
-            return mRealm.copyFromRealm(image);
-        } else {
-            return null;
-        }
-    }
-
-    public void remove(@NonNull final RealmObject object) {
-        mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                object.deleteFromRealm();
-            }
-        });
+        return mRealm.copyFromRealm(mRealm.where(Image.class).equalTo(Constants.TABLE_IMAGE_TYPE, type).equalTo(Constants.TABLE_IMAGE_ELEMENT_ID, elementId).findAll());
     }
 
     public void removeById(int id) {
-        final RealmObject image = mRealm.where(Image.class).equalTo("id", id).findFirst();
+        final RealmObject image = mRealm.where(Image.class).equalTo(Constants.TABLE_IMAGE_ID, id).findFirst();
         if (image != null) {
             mRealm.executeTransaction(new Realm.Transaction() {
                 @Override
-                public void execute(Realm realm) {
+                public void execute(@NonNull Realm realm) {
                     image.deleteFromRealm();
                 }
             });
@@ -74,10 +56,9 @@ public class ImageDao {
 
     public int nextId() {
         try {
-            Image image = mRealm.where(Image.class).sort("id", Sort.DESCENDING).findAll().first();
-            if (image != null) {
-                int index = image.getId() + 1;
-                return index;
+            Image image = mRealm.where(Image.class).sort(Constants.TABLE_IMAGE_ID, Sort.DESCENDING).findAll().first();
+            if (image != null && image.getId() != null) {
+                return image.getId() + 1;
             } else {
                 return 0;
             }

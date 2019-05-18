@@ -3,10 +3,12 @@
 
     <item android:drawable="@color/colorPrimaryDark" />
 
-    <item>
+    <item
+        android:left="50dp"
+        android:right="50dp">
         <bitmap
             android:gravity="center"
-            android:src="@drawable/tricot" />
+            android:src="@drawable/app_icon_miniature" />
     </item>
 
 </layer-list>
