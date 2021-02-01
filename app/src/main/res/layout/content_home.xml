@@ -215,8 +215,8 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:orientation="vertical"
@@ -225,7 +225,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/bonnet" />
+                android:src="@drawable/tricot_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                 android:text="@string/my_projects"
                 android:layout_gravity="center"
                 android:textAllCaps="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:textSize="@dimen/text_size"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
@@ -249,8 +249,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="40dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_weight="1"
@@ -261,13 +261,13 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/rules" />
+                android:src="@drawable/stitches" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/my_rules"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"

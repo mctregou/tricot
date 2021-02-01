@@ -80,18 +80,18 @@ class ImageUtils {
                                     .setMessage(
                                             R.string.storage_permition_rationale_message)
                                     .setNegativeButton(
-                                            android.R.string.cancel,
-                                            { dialog, _ ->
-                                                dialog.dismiss()
-                                                token?.cancelPermissionRequest()
-                                            })
-                                    .setPositiveButton(android.R.string.ok,
-                                            { dialog, _ ->
-                                                dialog.dismiss()
-                                                token?.continuePermissionRequest()
-                                            })
-                                    .setOnDismissListener({
-                                        token?.cancelPermissionRequest() })
+                                            android.R.string.cancel
+                                    ) { dialog, _ ->
+                                        dialog.dismiss()
+                                        token?.cancelPermissionRequest()
+                                    }
+                                    .setPositiveButton(android.R.string.ok
+                                    ) { dialog, _ ->
+                                        dialog.dismiss()
+                                        token?.continuePermissionRequest()
+                                    }
+                                    .setOnDismissListener {
+                                        token?.cancelPermissionRequest() }
                                     .show()
                         }
 

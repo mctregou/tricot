@@ -4,39 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/shape_rectangle_white"
+    android:background="@drawable/shape_rectangle_primary"
     android:padding="20dp">
 
     <LinearLayout
         android:id="@+id/title_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/rule_title_label"
+            style="@style/popupTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/new_stitch"
-            android:textAllCaps="true"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <EditText
             android:id="@+id/rule_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/customEdittext"
             android:layout_marginTop="10dp"
-            android:background="@android:color/white"
             android:hint="@string/stitch_to_add"
             android:imeOptions="actionNext"
             android:inputType="textCapSentences"
             android:lines="1"
             android:singleLine="true"
-            android:textSize="@dimen/title_text_size"
             app:layout_constraintTop_toBottomOf="@+id/title_layout" />
     </LinearLayout>
 
@@ -44,75 +41,66 @@
         android:id="@+id/rule_frequence_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/popupTitle"
         android:layout_marginTop="10dp"
         android:text="@string/stitch_frequency"
-        android:textAllCaps="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/title_layout" />
 
     <EditText
         android:id="@+id/rule_frequence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/customEdittext"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:hint="@string/stitch_frequency_example"
         android:imeOptions="actionNext"
         android:inputType="number"
         android:lines="1"
         android:singleLine="true"
-        android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/rule_frequence_label" />
 
     <TextView
         android:id="@+id/rule_offset_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/popupTitle"
         android:layout_marginTop="10dp"
         android:text="@string/rank_change"
-        android:textAllCaps="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/rule_frequence" />
 
     <EditText
         android:id="@+id/rule_offset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/customEdittext"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:hint="@string/rank_change_example"
         android:imeOptions="actionNext"
         android:inputType="number"
         android:lines="1"
         android:singleLine="true"
-        android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/rule_offset_label" />
 
     <TextView
         android:id="@+id/rule_description_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/popupTitle"
         android:layout_marginTop="10dp"
         android:text="@string/stitch_description"
-        android:textAllCaps="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/rule_offset" />
 
     <EditText
         android:id="@+id/rule_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/customEdittext"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:gravity="start"
         android:hint="@string/stitch_description_example"
         android:imeOptions="actionDone"
-        android:inputType="textCapSentences"
+        android:inputType="textCapSentences|textMultiLine"
         android:lines="4"
-        android:textSize="@dimen/title_text_size"
         app:layout_constraintTop_toBottomOf="@+id/rule_description_label" />
 
     <LinearLayout
@@ -129,46 +117,32 @@
             android:id="@+id/delete_rule"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:theme="@style/popupButton"
             android:layout_margin="15dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_rectangle_pink"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
+            android:text="@string/delete" />
 
         <TextView
             android:id="@+id/update_rule"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:theme="@style/popupButton"
             android:layout_margin="15dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:background="@drawable/shape_rectangle_pink"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/update"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
+            android:text="@string/update" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/validate_rule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/popupButton"
         android:layout_margin="15dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/shape_rectangle_pink"
-        android:gravity="center"
         android:padding="10dp"
         android:text="@string/ok"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rule_description" />

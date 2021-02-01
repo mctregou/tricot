@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/shape_rectangle_white"
+    android:background="@drawable/shape_rectangle_primary"
     android:padding="20dp">
 
     <TextView
@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/new_project"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:textStyle="bold"
+        style="@style/popupTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="@dimen/title_text_size" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="10dp"/>
 
 
     <LinearLayout
@@ -33,23 +32,21 @@
             android:id="@+id/picture"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:src="@drawable/tricot"
+            android:src="@drawable/tricot_blue"
             android:layout_weight="1"/>
         <EditText
             android:id="@+id/project_title"
+            style="@style/customEdittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:gravity="center"
             android:inputType="textCapSentences"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:lines="1"
-            android:hint="@string/write_project_name"
-            android:textStyle="italic"
-            android:textSize="@dimen/title_text_size"
-            android:background="@android:color/white"/>
+            android:hint="@string/write_project_name"/>
     </LinearLayout>
 
     <LinearLayout
@@ -69,14 +66,9 @@
             android:layout_margin="10dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/shape_rectangle_pink"
-            android:padding="10dp"
+            style="@style/popupButton"
             android:singleLine="true"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"/>
+            android:text="@string/delete"/>
 
         <TextView
             android:id="@+id/update_project"
@@ -85,32 +77,22 @@
             android:layout_margin="10dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:singleLine="true"
-            android:background="@drawable/shape_rectangle_pink"
-            android:padding="10dp"
-            android:text="@string/update"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"/>
+            style="@style/popupButton"
+            android:text="@string/update"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/validate_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/popupButton"
         android:layout_margin="15dp"
         android:layout_marginTop="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/project_layout"
-        android:gravity="center"
-        android:background="@drawable/shape_rectangle_pink"
-        android:padding="10dp"
         android:text="@string/ok"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size"
-        android:textStyle="bold"
         android:layout_gravity="center_horizontal"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -55,6 +55,7 @@
     <string name="ranks_number">%d rangs</string>
     <string name="rank_number">%d rang</string>
     <string name="new_project">Nouveau projet</string>
+    <string name="edit_project">Éditer le projet</string>
     <string name="storage_permission_rationale_title">Permissions</string>
     <string name="storage_permition_rationale_message">Accepter ?</string>
     <string name="storage_permission_denied_message">Vous n\'avez pas accepté les permissions</string>

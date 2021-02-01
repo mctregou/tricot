@@ -1,17 +1,15 @@
 package com.tregouet.knitting_images.utils
 
-import android.app.Notification
-import android.content.Intent
-import android.widget.RemoteViews
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.support.annotation.Nullable
 import android.support.v4.app.NotificationCompat
 import android.util.Log
 import android.view.View
+import android.widget.RemoteViews
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.model.Rule
 import com.tregouet.knitting_images.module.base.UpdateNotification
@@ -157,11 +155,37 @@ class NotificationService : Service() {
             bigViews.setImageViewResource(R.id.warning, R.drawable.ic_warning)
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            // The id of the channel.
+            val id = "count"
+            // The user-visible name of the channel.
+            val name: CharSequence = "Compteur"
+            // The user-visible description of the channel.
+            val description = "Description"
+            val importance = NotificationManager.IMPORTANCE_LOW
+            val mChannel = NotificationChannel(id, name, importance)
+            // Configure the notification channel.
+            mChannel.description = description
+            mChannel.enableLights(true)
+            // Sets the notification light color for notifications posted to this
+            // channel, if the device supports this feature.
+            mChannel.lightColor = R.color.colorPrimary
+
+            mChannel.enableVibration(true)
+            mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+
+            mNotificationManager.createNotificationChannel(mChannel)
+        }
+
         val notificationBuilder = NotificationCompat.Builder(this, "test")
         notificationBuilder.setSmallIcon(R.drawable.tricot)
         notificationBuilder.setCustomContentView(views)
         notificationBuilder.setCustomBigContentView(bigViews)
         notificationBuilder.setContentIntent(pendingIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationBuilder.setChannelId("count")
+        }
         notificationBuilder.setOngoing(true)
 
         val status = notificationBuilder.build()

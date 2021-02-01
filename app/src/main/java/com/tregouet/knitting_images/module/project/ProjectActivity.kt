@@ -7,19 +7,25 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
+import android.support.annotation.RequiresApi
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.animation.TranslateAnimation
+import android.widget.TextView
+import android.widget.Toast
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.model.Project
 import com.tregouet.knitting_images.model.Step
@@ -33,7 +39,6 @@ import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.popup_add_step.*
 import java.util.*
 import kotlin.collections.ArrayList
-import com.daimajia.slider.library.Animations.DescriptionAnimation
 import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
@@ -45,6 +50,8 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.module.image.ImageActivity
+import com.tregouet.knitting_images.module.stitches.StitchesActivity
+import com.tregouet.knitting_images.utils.ImageUtils
 import kotlinx.android.synthetic.main.popup_picture_option.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -58,6 +65,7 @@ class ProjectActivity : BaseActivity() {
     var adapter: StepsAdapter? = null
     var project: Project? = null
     var mCurrentPhotoPath : String? = null
+    var fileUri : Uri ? = null
 
     /**
      * onCreate
@@ -102,6 +110,7 @@ class ProjectActivity : BaseActivity() {
         settings.setOnClickListener {
             val dialog = Dialog(this)
             dialog.setContentView(R.layout.popup_add_project)
+            dialog.findViewById<TextView>(R.id.title).text = getString(R.string.edit_project)
             dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.project_title.setText(project?.name)
             dialog.update_project_buttons.visibility = View.VISIBLE
@@ -215,7 +224,7 @@ class ProjectActivity : BaseActivity() {
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.take_picture.setOnClickListener {
             dialog.dismiss()
-            validatePermissions()
+            addPicture(this)
         }
 
         dialog.choose_picture.setOnClickListener {
@@ -233,64 +242,63 @@ class ProjectActivity : BaseActivity() {
         dialog.show()
     }
 
-    private fun validatePermissions() {
-        Dexter.withActivity(this)
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(object: PermissionListener {
-                    override fun onPermissionGranted(
-                            response: PermissionGrantedResponse?) {
-                        launchCamera()
-                    }
+    private fun addPicture(activity : ProjectActivity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            //    requestPermission();
+            requestAppPermissions(arrayOf<String>(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    R.string.app_name, 1)
 
-                    override fun onPermissionRationaleShouldBeShown(
-                            permission: PermissionRequest?,
-                            token: PermissionToken?) {
-                        AlertDialog.Builder(this@ProjectActivity)
-                                .setTitle(
-                                        R.string.storage_permission_rationale_title)
-                                .setMessage(
-                                        R.string.storage_permition_rationale_message)
-                                .setNegativeButton(
-                                        android.R.string.cancel,
-                                        { dialog, _ ->
-                                            dialog.dismiss()
-                                            token?.cancelPermissionRequest()
-                                        })
-                                .setPositiveButton(android.R.string.ok,
-                                        { dialog, _ ->
-                                            dialog.dismiss()
-                                            token?.continuePermissionRequest()
-                                        })
-                                .setOnDismissListener({
-                                    token?.cancelPermissionRequest() })
-                                .show()
-                    }
-
-                    override fun onPermissionDenied(
-                            response: PermissionDeniedResponse?) {
-                        Snackbar.make(subtitle,
-                                R.string.storage_permission_denied_message,
-                                Snackbar.LENGTH_LONG)
-                                .show()
-                    }
-                })
-                .check()
+            //this code will be executed on devices running ICS or later
+        } else {
+            openCameraActivity(this)
+        }
     }
 
-    private fun launchCamera() {
+    private fun openCameraActivity(activity : ProjectActivity) {
         val values = ContentValues(1)
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-        val fileUri = contentResolver
-                .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        values)
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        
-        if(intent.resolveActivity(packageManager) != null) {
-            mCurrentPhotoPath = fileUri.toString()
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            startActivityForResult(intent, Constants.TAKE_PHOTO_REQUEST)
+        fileUri = activity.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        mCurrentPhotoPath = fileUri.toString()
+        ImageUtils.openCameraOrFolders(activity, activity.fileUri!!)
+    }
+
+    private fun requestAppPermissions(requestedPermissions: Array<String>,
+                                      stringId: Int, requestCode: Int) {
+        var permissionCheck = PackageManager.PERMISSION_GRANTED
+        var shouldShowRequestPermissionRationale = false
+        for (permission in requestedPermissions) {
+            permissionCheck += ContextCompat.checkSelfPermission(this, permission)
+            shouldShowRequestPermissionRationale = shouldShowRequestPermissionRationale || ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+        }
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale) {
+                Toast.makeText(this, "shouldShowRequestPermissionRationale", Toast.LENGTH_LONG).show()
+            } else {
+                ActivityCompat.requestPermissions(this, requestedPermissions, requestCode)
+            }
+        } else {
+            onPermissionsGranted(requestCode)
+        }
+    }
+
+    fun onPermissionsGranted(requestCode: Int) {
+        openCameraActivity(this)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        var permissionCheck = PackageManager.PERMISSION_GRANTED
+        for (permission in grantResults) {
+            permissionCheck += permission
+        }
+        if (grantResults.size > 0 && permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            onPermissionsGranted(requestCode)
+        } else {
+            Toast.makeText(this, "not granted", Toast.LENGTH_LONG).show()
         }
     }
 

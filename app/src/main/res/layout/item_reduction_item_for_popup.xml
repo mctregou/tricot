@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@android:color/white"
         android:gravity="center" />
 
     <TextView
@@ -19,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:textColor="@android:color/white"
         android:gravity="center" />
 
     <TextView
@@ -27,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:textColor="@android:color/white"
         android:gravity="center" />
 
     <TextView
@@ -35,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/white"
+        android:textColor="@android:color/white"
         android:gravity="center" />
 
     <ImageView
@@ -43,9 +44,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_remove"
-        android:tint="@color/colorAccent"
+        android:tint="@color/colorPrimaryDark"
         android:gravity="center"
-        android:background="@android:color/white"
+        android:layout_gravity="center"
         android:layout_weight="0.5"/>
 </LinearLayout>
 

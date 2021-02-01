@@ -327,11 +327,11 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/add_rule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/stitch"
+            android:src="@drawable/stitches_icon"
             fab:fab_colorNormal="@color/colorAccent"
             fab:fab_colorPressed="@color/colorAccent"
             fab:fab_colorRipple="@color/colorAccent"
@@ -342,8 +342,8 @@
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/add_reduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/reduction"

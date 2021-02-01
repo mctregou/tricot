@@ -4,49 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/shape_rectangle_white"
+    android:background="@drawable/shape_rectangle_primary"
     android:padding="20dp">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/step_name"
-        android:textAllCaps="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/step_title"
+        style="@style/customEdittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:hint="@string/write_step_name"
-        android:inputType="textCapSentences"
         android:imeOptions="actionDone"
+        android:inputType="textCapSentences"
         android:lines="1"
         android:singleLine="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <EditText
         android:id="@+id/description_texte"
+        style="@style/customEdittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:inputType="textCapSentences"
+        android:layout_marginTop="15dp"
         android:hint="@string/write_description"
         android:imeOptions="actionDone"
-        android:lines="1"
-        android:singleLine="true"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="italic"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:gravity="top"
         app:layout_constraintTop_toBottomOf="@+id/step_title" />
+
+    <LinearLayout
+        android:id="@+id/update_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/size_layout">
+
+        <TextView
+            android:id="@+id/delete_step"
+            style="@style/popupButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:text="@string/delete" />
+
+        <TextView
+            android:id="@+id/update_step"
+            style="@style/popupButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_weight="1"
+            android:text="@string/update" />
+
+
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -56,6 +74,20 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/description_texte">
 
+        <EditText
+            android:id="@+id/size"
+            style="@style/customEdittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/size_label"
+            android:layout_toRightOf="@+id/size_label"
+            android:hint="@string/length_example"
+            android:imeOptions="actionDone"
+            android:lines="1" />
+
         <TextView
             android:id="@+id/size_label"
             android:layout_width="wrap_content"
@@ -63,86 +95,28 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:text="@string/length"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
-        <EditText
-            android:id="@+id/size"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/size_label"
-            android:layout_toRightOf="@+id/size_label"
-            android:background="@android:color/white"
-            android:hint="@string/length_example"
-            android:imeOptions="actionDone"
-            android:lines="1"
-            android:singleLine="true"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="italic" />
-
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/update_buttons"
+    <TextView
+        android:id="@+id/title"
+        style="@style/popupTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/size_layout">
-
-        <TextView
-            android:id="@+id/delete_step"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/shape_rectangle_pink"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/update_step"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:layout_weight="1"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/shape_rectangle_pink"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/update"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+        android:text="@string/step_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/validate_step"
+        style="@style/popupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginTop="4dp"
-        android:visibility="visible"
-        android:background="@drawable/shape_rectangle_pink"
-        android:gravity="center"
-        android:padding="10dp"
         android:text="@string/ok"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/title_text_size"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/size_layout" />
