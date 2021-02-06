@@ -30,7 +30,7 @@ class AddStitchesAdapter(private val stitches: ArrayList<Rule>, private val sele
 
 
     fun getSelectedStitchIds(): ArrayList<Int> {
-        var stitchIds  = ArrayList<Int>()
+        val stitchIds  = ArrayList<Int>()
         selectedStitches.mapTo(stitchIds) { it.id!! }
         return stitchIds
     }

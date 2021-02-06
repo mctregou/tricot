@@ -75,12 +75,9 @@ class StitchImagesAdapter(private val activity: Activity, private val stitchId :
 
         private fun addPicture(activity : StitchesActivity) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                //    requestPermission();
                 requestAppPermissions(arrayOf<String>(
                         Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
                         R.string.app_name, 1)
-
-                //this code will be executed on devices running ICS or later
             } else {
                 openCameraActivity(activity)
             }

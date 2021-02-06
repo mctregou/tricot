@@ -3,7 +3,6 @@ package com.tregouet.knitting_images.module.menu
 import android.os.Bundle
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.module.base.BaseActivity
-
 import com.tregouet.knitting_images.utils.RealmManager
 import kotlinx.android.synthetic.main.activity_stats.*
 
@@ -26,7 +25,6 @@ class StatsActivity : BaseActivity() {
         val steps = RealmManager().createStepDao().loadAll()
         var ranksNumber = 0
         for (step in steps){
-            System.out.println("step.currentRank=" + step.currentRank)
             ranksNumber += step.currentRank-1
         }
         if (ranksNumber == 0){

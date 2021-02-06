@@ -27,6 +27,7 @@
                 android:id="@+id/title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -34,7 +35,8 @@
                     android:layout_height="96dp"
                     android:layout_margin="10dp"
                     android:paddingTop="10dp"
-                    android:src="@drawable/stitches_brown" />
+                    android:src="@drawable/stitches_brown"
+                    tools:ignore="ContentDescription" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -82,7 +84,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_toLeftOf="@+id/add_stitch"
         android:layout_toStartOf="@+id/add_stitch">
 
         <TextView
@@ -100,7 +101,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/arrow"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -114,7 +116,6 @@
         android:tint="@android:color/white"
         app:rippleColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:ignore="VectorDrawableCompat" />
 

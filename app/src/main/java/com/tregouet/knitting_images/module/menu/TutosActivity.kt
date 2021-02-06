@@ -3,7 +3,6 @@ package com.tregouet.knitting_images.module.menu
 import android.os.Bundle
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.module.base.BaseActivity
-
 import android.support.v4.view.ViewPager
 import kotlinx.android.synthetic.main.activity_tutos.*
 

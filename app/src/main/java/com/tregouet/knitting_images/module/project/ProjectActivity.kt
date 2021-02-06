@@ -3,7 +3,6 @@ package com.tregouet.knitting_images.module.project
 import android.Manifest
 import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Intent
@@ -17,7 +16,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.annotation.RequiresApi
-import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -42,23 +40,14 @@ import kotlin.collections.ArrayList
 import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.module.image.ImageActivity
-import com.tregouet.knitting_images.module.stitches.StitchesActivity
 import com.tregouet.knitting_images.utils.ImageUtils
 import kotlinx.android.synthetic.main.popup_picture_option.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.net.URI
-import java.nio.file.Files
 
 class ProjectActivity : BaseActivity() {
 
@@ -273,10 +262,8 @@ class ProjectActivity : BaseActivity() {
             shouldShowRequestPermissionRationale = shouldShowRequestPermissionRationale || ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
         }
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale) {
-                Toast.makeText(this, "shouldShowRequestPermissionRationale", Toast.LENGTH_LONG).show()
-            } else {
-                ActivityCompat.requestPermissions(this, requestedPermissions, requestCode)
+            if (!shouldShowRequestPermissionRationale) {
+                 ActivityCompat.requestPermissions(this, requestedPermissions, requestCode)
             }
         } else {
             onPermissionsGranted(requestCode)
@@ -297,8 +284,6 @@ class ProjectActivity : BaseActivity() {
         }
         if (grantResults.size > 0 && permissionCheck == PackageManager.PERMISSION_GRANTED) {
             onPermissionsGranted(requestCode)
-        } else {
-            Toast.makeText(this, "not granted", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -323,10 +308,6 @@ class ProjectActivity : BaseActivity() {
         val photoPath = cursor.getString(0)
         cursor.close()
         val file = File(photoPath)
-       /* val uri = Uri.fromFile(file)
-
-        val height = resources.getDimensionPixelSize(R.dimen.photo_height)
-        val width = resources.getDimensionPixelSize(R.dimen.photo_width)*/
 
         RealmManager().open()
         RealmManager().createImageDao().save(Image(RealmManager().createImageDao().nextId(), Constants.PROJECT_IMAGE, intent.getIntExtra(Constants.PROJECT_ID, 0), file.absolutePath))
@@ -356,8 +337,6 @@ class ProjectActivity : BaseActivity() {
                     arrayOf(f.path),
                     arrayOf("image/jpeg"), null)
             fo.close()
-            Log.d("TAG", "File Saved::--->" + f.absolutePath)
-            Log.i("test image", f.path + " / " + f.absolutePath)
 
             return f.absolutePath
         } catch (e1 : IOException) {

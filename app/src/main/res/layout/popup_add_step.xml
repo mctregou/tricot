@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -18,7 +19,8 @@
         android:inputType="textCapSentences"
         android:lines="1"
         android:singleLine="true"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/description_texte"
@@ -31,7 +33,8 @@
         android:inputType="textMultiLine"
         android:lines="6"
         android:gravity="top"
-        app:layout_constraintTop_toBottomOf="@+id/step_title" />
+        app:layout_constraintTop_toBottomOf="@+id/step_title"
+        tools:ignore="Autofill" />
 
     <LinearLayout
         android:id="@+id/update_buttons"
@@ -80,13 +83,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/size_label"
-            android:layout_toRightOf="@+id/size_label"
             android:hint="@string/length_example"
             android:imeOptions="actionDone"
-            android:lines="1" />
+            android:lines="1"
+            tools:ignore="Autofill,TextFields" />
 
         <TextView
             android:id="@+id/size_label"

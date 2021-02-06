@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_above="@+id/text" />
+        android:layout_above="@+id/text"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/text"

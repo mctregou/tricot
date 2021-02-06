@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat
 import com.balysv.materialmenu.MaterialMenuDrawable
 import com.tregouet.knitting_images.R
 import com.tregouet.knitting_images.module.base.BaseActivity
-
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.top_bar.*
 import android.support.v4.widget.DrawerLayout
@@ -179,7 +178,7 @@ class MainActivity : BaseActivity() {
     private fun showCurrentStep() {
 
         RealmManager().open()
-        var step = RealmManager().createStepDao().loadLastStep()
+        val step = RealmManager().createStepDao().loadLastStep()
         RealmManager().close()
 
         if (step != null) {

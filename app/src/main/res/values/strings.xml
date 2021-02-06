@@ -84,6 +84,9 @@
     <string name="here_to_add_project">Clique ici pour\najouter un projet !</string>
     <string name="here_to_add_step">Clique ici pour\najouter une étape !</string>
     <string name="description">Description</string>
+    <string name="frequence_description">Tous les %s rangs, à partir du rang %s</string>
+    <string name="reduction_title">Augmentation / Diminution</string>
+    <string name="stitches_used">Points utilisés</string>
 
     //Project popup
     <string name="delete_project_confirmation">Voulez-vous vraiment supprimer ce projet ?</string>
@@ -104,6 +107,12 @@
     <string name="reduction_popup_title">Diminution</string>
     <string name="begin_with_rank">Commencer au rang...</string>
     <string name="frequency">Fréquence</string>
+    <string name="position">Position</string>
+    <string name="repeat">Répéter</string>
+    <string name="mailles">Mailles</string>
+    <string name="side">Côté</string>
+    <string name="times_hint">ex:3</string>
+    <string name="side_hint">ex:droit</string>
 
 
     //Delete

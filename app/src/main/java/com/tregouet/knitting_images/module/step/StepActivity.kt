@@ -1,6 +1,5 @@
 package com.tregouet.knitting_images.module.step
 
-import android.Manifest
 import android.animation.ValueAnimator
 import android.app.Dialog
 import android.content.Intent
@@ -24,9 +23,6 @@ import kotlinx.android.synthetic.main.popup_add_rule.*
 import kotlinx.android.synthetic.main.popup_add_step.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import android.support.v4.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.tregouet.knitting_images.model.ReductionItem
 import com.tregouet.knitting_images.module.stitches.StitchesActivity
@@ -47,7 +43,6 @@ class StepActivity : BaseActivity() {
     private var reduction: Reduction? = null
     private var reductionItems: ArrayList<ReductionItem> = ArrayList()
     private var reductionItemsPopup: ArrayList<ReductionItem> = ArrayList()
-    private val REQUEST_CAMERA = 100
     private var reductionDialog : Dialog? = null
     private var reductionItemsAdapter : ReductionItemsForPopupAdapter? = null
 
@@ -191,7 +186,7 @@ class StepActivity : BaseActivity() {
 
         reductionItems = ArrayList()
         if (reduction != null){
-            reductions_description.text = String.format("Tous les %s rangs, à partir du rang %s", reduction?.frequency.toString(), reduction?.offsetRank.toString())
+            reductions_description.text = String.format(getString(R.string.frequence_description), reduction?.frequency.toString(), reduction?.offsetRank.toString())
 
             RealmManager().open()
             val reductionItemsDB = RealmManager().createReductionItemDao().loadByReductionId(reduction?.id!!)
@@ -310,7 +305,6 @@ class StepActivity : BaseActivity() {
         val index = reductionItems.size + 1
         val reductionItem = ReductionItem(0, null, index, Integer.parseInt(reductionDialog?.edittext_times?.text.toString()), Integer.parseInt(reductionDialog?.edittext_numberOfMesh?.text.toString()), reductionDialog?.edittext_side?.text.toString())
         reductionItemsPopup.add(reductionItem)
-        Log.i("TESTMC", reductionItemsPopup.size.toString())
         reductionItemsAdapter?.setReductionItems(reductionItems)
         reductionDialog?.textview_position?.text = (index + 1).toString()
         reductionDialog?.edittext_times?.setText("")
@@ -320,10 +314,8 @@ class StepActivity : BaseActivity() {
     }
 
     private fun saveReduction() {
-        Log.i("StepActivity", "saveReduction")
 
         if (reduction == null){
-            Log.i("StepActivity", "reduction not null")
             reduction = Reduction()
             val index = RealmManager().createReductionDao().nextId()
             reduction?.id = index
@@ -352,18 +344,6 @@ class StepActivity : BaseActivity() {
         getReductions()
 
         reductionDialog?.dismiss()
-    }
-
-    private fun checkPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA)
-        } else {
-            launchCamera()
-        }
-    }
-
-    private fun launchCamera() {
-
     }
 
     private fun minus() {
@@ -425,21 +405,16 @@ class StepActivity : BaseActivity() {
     }
 
     private fun checkReductions() {
-        Log.i("checkReductions", "start")
         if (reduction != null
                 && reductionItems.isNotEmpty()
                 && step!!.currentRank - reduction?.offsetRank!! >= 0
                 && ((step!!.currentRank - reduction?.offsetRank!!) % reduction?.frequency!! == 0)){
-            Log.i("checkReductions", "conditions ok")
             val position = (step!!.currentRank - reduction?.offsetRank!!) / reduction?.frequency!!
-            Log.i("checkReductions", "position = " + position.toString())
             var count = 0
             for (reductionItem in reductionItems){
                 if ( position >= (count + reductionItem.times)){
-                    Log.i("checkReductions", "position sup => count =  " + count.toString() + " / size = " + reductionItem.times)
                     count += reductionItem.times
                 } else {
-                    Log.i("checkReductions", "position not sup => count =  " + count.toString() + " / size = " + reductionItem.times)
                     current_reduction_title.visibility = View.VISIBLE
                     current_reduction_description.visibility = View.VISIBLE
                     current_reduction_description.text = String.format("• %d fois %d mailles du côté %s", reductionItem.times, reductionItem.numberOfMesh, reductionItem.side)
@@ -451,17 +426,6 @@ class StepActivity : BaseActivity() {
             current_reduction_description.visibility = View.GONE
         }
 
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            REQUEST_CAMERA -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    launchCamera()
-                }
-                return
-            }
-        }
     }
 
 }

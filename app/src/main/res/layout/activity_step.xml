@@ -31,7 +31,10 @@
                 android:layout_height="50dp"
                 android:paddingTop="10dp"
                 android:thumbTint="@color/colorAccent"
-                android:layout_margin="10dp"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_margin="10dp"
+                tools:ignore="UnusedAttribute" />
 
             <ImageView
                 android:id="@+id/settings"
@@ -40,7 +43,9 @@
                 android:paddingTop="10dp"
                 android:layout_margin="10dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/settings"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/settings"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/step_name"
@@ -50,6 +55,7 @@
                 android:padding="20dp"
                 app:layout_constraintRight_toRightOf="@+id/notification"
                 app:layout_constraintLeft_toLeftOf="@+id/settings"
+                app:layout_constraintTop_toTopOf="parent"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
@@ -95,7 +101,7 @@
                         android:background="@drawable/shape_round_pink"
                         android:tint="@android:color/white"
                         app:srcCompat="@drawable/ic_remove"
-                        tools:ignore="VectorDrawableCompat" />
+                        tools:ignore="ContentDescription,VectorDrawableCompat" />
 
                     <TextView
                         android:id="@+id/current_rank"
@@ -119,14 +125,13 @@
                         android:background="@drawable/shape_round_pink"
                         android:tint="@android:color/white"
                         app:srcCompat="@drawable/ic_add"
-                        tools:ignore="VectorDrawableCompat" />
+                        tools:ignore="ContentDescription,VectorDrawableCompat" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/special_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_warning"
                     android:drawableStart="@drawable/ic_warning"
                     android:drawableTint="@color/colorPrimaryDark"
                     android:paddingTop="20dp"
@@ -136,7 +141,8 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/count_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/count_layout"
+                    tools:ignore="UnusedAttribute" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/current_rules_recyclerview"
@@ -149,17 +155,17 @@
                     android:id="@+id/current_reduction_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_warning"
                     android:drawableStart="@drawable/ic_warning"
                     android:drawableTint="@color/colorPrimaryDark"
                     android:paddingTop="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="Augmentation / Diminution"
+                    android:text="@string/reduction_title"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/current_rules_recyclerview" />
+                    app:layout_constraintTop_toBottomOf="@+id/current_rules_recyclerview"
+                    tools:ignore="UnusedAttribute" />
 
                 <TextView
                     android:id="@+id/current_reduction_description"
@@ -171,7 +177,8 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@+id/current_reduction_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/current_reduction_title"
+                    tools:ignore="UnusedAttribute" />
 
             </LinearLayout>
 
@@ -202,7 +209,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/title_text_size"
                     android:text="@string/description"
-                    android:drawableRight="@drawable/down_arrow"
+                    android:drawableEnd="@drawable/down_arrow"
                     android:drawablePadding="10dp"
                     android:textStyle="bold"/>
 
@@ -228,9 +235,11 @@
                 android:paddingLeft="20dp"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
-                android:text="Points utilisés"
+                android:text="@string/stitches_used"
                 android:drawablePadding="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/description_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:textStyle="bold"/>
 
             <android.support.v7.widget.RecyclerView
@@ -255,7 +264,7 @@
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
-                android:text="Réduction / Augmentation"
+                android:text="@string/reduction_title"
                 android:drawablePadding="10dp"
                 android:textStyle="bold"/>
 
@@ -285,10 +294,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="60dp"
-        android:layout_marginEnd="60dp">
+        android:layout_marginEnd="60dp"
+        tools:ignore="UseCompoundDrawables">
 
         <TextView
             android:id="@+id/no_step"
@@ -305,7 +313,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/arrow"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -320,7 +329,6 @@
         fab:menu_colorPressed="@color/colorAccent"
         fab:menu_colorRipple="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         fab:menu_openDirection="up"
         tools:ignore="VectorDrawableCompat">

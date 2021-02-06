@@ -2,7 +2,6 @@ package com.tregouet.knitting_images.module.image
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +35,6 @@ class ImageFragment : Fragment() {
         super.onResume()
         image = arguments?.get(Constants.IMAGE) as Image
         imagePhotoView.setImageBitmap(ImageUtils.getBitmap(image?.url!!))
-        Log.i("TESTMC", image?.url)
         imagePhotoView.setZoomable(true)
 
         delete.setOnClickListener {

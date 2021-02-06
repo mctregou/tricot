@@ -8,10 +8,7 @@ import com.tregouet.knitting_images.R
 /**
  * Created by mariececile.tregouet on 03/02/2018.
  */
-/**
- * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
- * sequence.
- */
+
 class TutoAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     val texts = listOf(R.string.tuto1, R.string.tuto2, R.string.tuto3, R.string.tuto4)

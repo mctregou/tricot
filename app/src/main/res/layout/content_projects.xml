@@ -17,7 +17,6 @@
         android:gravity="center"
         android:textAllCaps="true"
         android:textStyle="bold"
-        android:drawableLeft="@drawable/tricot"
         android:drawableStart="@drawable/tricot"
         android:textColor="@android:color/white"
         android:textSize="@dimen/title_text_size" />

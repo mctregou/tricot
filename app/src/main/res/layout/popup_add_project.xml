@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -33,20 +34,22 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:src="@drawable/tricot_blue"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            tools:ignore="ContentDescription" />
         <EditText
             android:id="@+id/project_title"
             style="@style/customEdittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:inputType="textCapSentences"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:lines="1"
-            android:hint="@string/write_project_name"/>
+            android:hint="@string/write_project_name"
+            tools:ignore="Autofill" />
     </LinearLayout>
 
     <LinearLayout

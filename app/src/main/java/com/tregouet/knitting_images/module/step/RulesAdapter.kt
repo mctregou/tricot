@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tregouet.knitting_images.R
-import com.tregouet.knitting_images.model.Image
 import com.tregouet.knitting_images.model.Rule
 import com.tregouet.knitting_images.module.stitches.StitchImagesAdapter
 import com.tregouet.knitting_images.utils.Constants

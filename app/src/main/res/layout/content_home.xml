@@ -54,7 +54,8 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/project_layout"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/app_icon" />
+            android:src="@drawable/app_icon"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:id="@+id/project_layout"
@@ -79,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:textSize="@dimen/text_size"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -109,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:textSize="@dimen/text_size"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -139,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:textSize="@dimen/text_size"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -180,7 +181,8 @@
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/ready_to_knit"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/app_icon" />
+            android:src="@drawable/app_icon"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/ready_to_knit"
@@ -203,14 +205,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="DisableBaselineAlignment">
         <LinearLayout
             android:id="@+id/projects_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
@@ -225,7 +226,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/tricot_blue" />
+                android:src="@drawable/tricot_blue"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -243,9 +245,7 @@
             android:id="@+id/rules_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
@@ -261,7 +261,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/stitches" />
+                android:src="@drawable/stitches"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
