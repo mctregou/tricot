@@ -158,6 +158,8 @@ class ProjectActivity : BaseActivity() {
         sliderView.scaleType = BaseSliderView.ScaleType.CenterInside
         project_images.addSlider(sliderView)
 
+        project_images.stopAutoCycle()
+        project_images.currentPosition = 0
         project_images.setPresetTransformer(SliderLayout.Transformer.Default)
         project_images.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
     }

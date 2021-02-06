@@ -158,7 +158,7 @@ class StepActivity : BaseActivity() {
         }
     }
 
-    fun getRules() {
+    private fun getRules() {
         RealmManager().open()
         rules = ArrayList(RealmManager().createRuleDao().loadByIds(step?.stitches?.toList()).toList())
         RealmManager().close()
@@ -179,7 +179,7 @@ class StepActivity : BaseActivity() {
     /**
      * Get reductions for this step
      */
-    fun getReductions() {
+    private fun getReductions() {
         RealmManager().open()
         reduction = RealmManager().createReductionDao().loadByStepId(step?.id!!)
         RealmManager().close()
@@ -209,7 +209,7 @@ class StepActivity : BaseActivity() {
         displayInfoAnimation()
     }
 
-    fun displayInfoAnimation() {
+    private fun displayInfoAnimation() {
         if (rules.isEmpty() && reductionItems.isEmpty()) {
             no_step_layout.visibility = View.VISIBLE
             startAnimation()

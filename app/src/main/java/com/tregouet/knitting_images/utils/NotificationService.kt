@@ -15,6 +15,7 @@ import com.tregouet.knitting_images.model.Rule
 import com.tregouet.knitting_images.module.base.UpdateNotification
 import com.tregouet.knitting_images.module.base.UpdateStep
 import com.tregouet.knitting_images.module.step.StepActivity
+import kotlinx.android.synthetic.main.activity_step.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -104,8 +105,8 @@ class NotificationService : Service() {
     private fun showNotification() {
         val views = RemoteViews(packageName, R.layout.notification_ranks)
         val bigViews = RemoteViews(packageName, R.layout.big_notification_ranks)
-        var step = RealmManager().createStepDao().loadBy(stepId)
-        var project = RealmManager().createProjectDao().loadBy(projectId)
+        val step = RealmManager().createStepDao().loadBy(stepId)
+        val project = RealmManager().createProjectDao().loadBy(projectId)
 
         val notificationIntent = Intent(this, StepActivity::class.java)
         notificationIntent.putExtra(Constants.STEP_ID, step?.id)
@@ -141,11 +142,36 @@ class NotificationService : Service() {
         views.setTextViewText(R.id.current_rank, step.currentRank.toString())
         bigViews.setTextViewText(R.id.current_rank, step.currentRank.toString())
 
+        // Check rules
         val currentRules = ArrayList<Rule>()
-        val rules = RealmManager().createRuleDao().loadByStepId(stepId)
+        val rules = ArrayList(RealmManager().createRuleDao().loadByIds(step?.stitches?.toList()).toList())
+        System.out.println("rules size = " + rules.size)
+        System.out.println("stepId = " + stepId)
         rules.filterTo(currentRules) { (step?.currentRank!! - it.offset!!) % it.frequency!! == 0 }
+        System.out.println("currentRules size = " + currentRules.size)
 
-        if (currentRules.isEmpty()) {
+        val mustDoRule = !currentRules.isEmpty()
+        var mustDoReduction = false
+
+        // Check reductions
+        val reduction = RealmManager().createReductionDao().loadByStepId(step?.id!!)
+        val reductionItems = RealmManager().createReductionItemDao().loadByReductionId(reduction?.id!!)
+        if (reductionItems.isNotEmpty()
+                && step.currentRank - reduction.offsetRank!! >= 0
+                && ((step.currentRank - reduction.offsetRank!!) % reduction.frequency!! == 0)){
+            val position = (step.currentRank - reduction.offsetRank!!) / reduction.frequency!!
+            var count = 0
+            for (reductionItem in reductionItems){
+                if ( position >= (count + reductionItem.times)){
+                    count += reductionItem.times
+                } else {
+                    mustDoReduction = true
+                    break
+                }
+            }
+        }
+
+        if (!mustDoRule && !mustDoReduction) {
             views.setViewVisibility(R.id.warning, View.GONE)
             bigViews.setViewVisibility(R.id.warning, View.GONE)
         } else {

@@ -78,8 +78,6 @@ class Tricot : Application() {
         override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
             // DynamicRealm exposes an editable schema
             val schema = realm.schema
-
-            System.out.println("MyMigration " + oldVersion + "," + newVersion)
         }
     }
 

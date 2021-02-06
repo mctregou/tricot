@@ -25,7 +25,9 @@ import com.tregouet.knitting_images.module.step.StepActivity
 import com.tregouet.knitting_images.module.stitches.StitchesActivity
 import com.tregouet.knitting_images.utils.Constants
 import com.tregouet.knitting_images.utils.RealmManager
+import kotlinx.android.synthetic.main.activity_project.*
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.content_home.project_images
 import kotlinx.android.synthetic.main.menu.*
 import java.io.File
 
@@ -126,6 +128,7 @@ class MainActivity : BaseActivity() {
 
             project_images.setPresetTransformer(SliderLayout.Transformer.Default)
             project_images.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+            project_images.stopAutoCycle()
         }
     }
 
