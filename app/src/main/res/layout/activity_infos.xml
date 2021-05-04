@@ -24,19 +24,17 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="20dp"
-            fontPath="fonts/Bosk.ttf"
             android:text="@string/infos_titles"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
-             />
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            fontPath="fonts/Bosk.ttf"
             android:text="@string/version"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
@@ -56,7 +54,6 @@
             android:paddingTop="30dp"
             android:text="@string/realisation"
             android:textAllCaps="true"
-            fontPath="fonts/Bosk.ttf"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
@@ -74,7 +71,6 @@
             android:paddingTop="30dp"
             android:text="@string/contact"
             android:textAllCaps="true"
-            fontPath="fonts/Bosk.ttf"
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tregouet.knitting_images">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tregouet.tricot">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,11 +13,13 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
-        android:name="com.tregouet.knitting_images.module.Tricot"
-        android:theme="@style/AppTheme">
+        android:debuggable="false"
+        android:name="com.tregouet.tricot.module.Tricot"
+        android:theme="@style/AppTheme"
+        tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name="com.tregouet.knitting_images.module.SplashActivity"
+            android:name="com.tregouet.tricot.module.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,42 +28,46 @@
         </activity>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.main.MainActivity"
+            android:name="com.tregouet.tricot.module.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.projects.ProjectsActivity"
+            android:name="com.tregouet.tricot.module.projects.ProjectsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.project.ProjectActivity"
+            android:name="com.tregouet.tricot.module.project.ProjectActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.step.StepActivity"
+            android:name="com.tregouet.tricot.module.step.StepActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.stitches.StitchesActivity"
+            android:name="com.tregouet.tricot.module.stitches.StitchesActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.menu.InfosActivity"
+            android:name="com.tregouet.tricot.module.menu.InfosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.menu.StatsActivity"
+            android:name="com.tregouet.tricot.module.menu.DemoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.menu.TutosActivity"
+            android:name="com.tregouet.tricot.module.menu.StatsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.tregouet.knitting_images.module.image.ImageActivity"
+            android:name="com.tregouet.tricot.module.menu.TutosActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <service android:name="com.tregouet.knitting_images.utils.NotificationService" />
+        <activity
+            android:name="com.tregouet.tricot.module.image.ImageActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <service android:name="com.tregouet.tricot.utils.NotificationService" />
     </application>
 
 </manifest>

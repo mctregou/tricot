@@ -15,6 +15,7 @@
     <string name="how_it_works">• Comment ça marche ?</string>
     <string name="my_stats">• Mes stats</string>
     <string name="infos">• Informations</string>
+    <string name="demos">• Démos</string>
 
     //Tutos
     <string name="how_it_works_title">Comment ça marche ?</string>
@@ -31,6 +32,11 @@
     <string name="mc">Marie-Cécile Trégouët</string>
     <string name="contact">• Contact</string>
     <string name="contact_message">Une remarque ? Un soucis ? Bougez votre téléphone.\nPour comprendre, cliquez ici !</string>
+
+    //Demos
+    <string name="demos_title">Démos</string>
+    <string name="demos_text">Le fonctionnement n\'est toujours pas clair, ou vous voulez un petit projet pour tester l\'application ? Je vous propose ce petit tuto pour réaliser un headband. Pour l\'ajouter à l\'application, cliquez sur le bouton ci-dessous.</string>
+    <string name="demos_button">Ajouter le projet</string>
 
     //Stats
     <string name="my_profile">Mon profil</string>
@@ -59,6 +65,10 @@
     <string name="storage_permission_rationale_title">Permissions</string>
     <string name="storage_permition_rationale_message">Accepter ?</string>
     <string name="storage_permission_denied_message">Vous n\'avez pas accepté les permissions</string>
+    <string name="popup_message_title">Oups</string>
+    <string name="popup_message_text">Ce projet est déjà sur l\'application</string>
+    <string name="popup_message_title_confirmation">Bravo</string>
+    <string name="popup_message_text_confirmation">Le projet a été ajouté !</string>
 
     //Popup add project
     <string name="name_project">Nom du projet</string>

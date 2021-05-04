@@ -9,11 +9,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 29
     defaultConfig {
-        applicationId "com.tregouet.knitting_images"
+        applicationId "com.tregouet.tricot"
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,7 +37,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
 
     implementation 'com.instabug.library:instabug:4.9.0'
 
@@ -63,5 +64,6 @@ dependencies {
 
     //Image
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
 
 }

@@ -19,7 +19,6 @@
             android:gravity="center_horizontal"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            fontPath="fonts/Bosk.ttf"
             android:layout_below="@+id/top_bar"
             android:text="@string/how_it_works_title"
             android:textAllCaps="true"
