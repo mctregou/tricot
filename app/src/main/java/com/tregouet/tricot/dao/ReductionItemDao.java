@@ -1,6 +1,6 @@
 package com.tregouet.tricot.dao;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tregouet.tricot.model.ReductionItem;
 import com.tregouet.tricot.utils.Constants;

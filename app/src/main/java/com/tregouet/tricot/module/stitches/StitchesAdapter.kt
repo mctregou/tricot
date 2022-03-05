@@ -3,8 +3,8 @@ package com.tregouet.tricot.module.stitches
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,7 +103,12 @@ class StitchesAdapter(private val stitchesActivity: StitchesActivity, private va
             RealmManager().close()
             images.add(Image(-1))
 
-            itemView.stitch_images.layoutManager = LinearLayoutManager(stitchesActivity, LinearLayoutManager.HORIZONTAL, false)
+            itemView.stitch_images.layoutManager =
+                LinearLayoutManager(
+                    stitchesActivity,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
             val adapter = StitchImagesAdapter(stitchesActivity, rule.id!!, images)
             itemView.stitch_images.adapter = adapter
         }

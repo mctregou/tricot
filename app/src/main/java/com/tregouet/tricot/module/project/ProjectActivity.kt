@@ -15,10 +15,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
@@ -178,7 +178,8 @@ class ProjectActivity : BaseActivity() {
         val steps = ArrayList(RealmManager().createStepDao().loadByProjectId(intent.getIntExtra(Constants.PROJECT_ID, 0)).toList())
         RealmManager().close()
 
-        steps_recyclerview.layoutManager = LinearLayoutManager(this)
+        steps_recyclerview.layoutManager =
+            LinearLayoutManager(this)
         adapter = StepsAdapter(this, steps)
         steps_recyclerview.adapter = adapter
 

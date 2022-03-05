@@ -8,7 +8,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.TranslateAnimation
 import com.tregouet.tricot.R
@@ -47,7 +47,8 @@ class StitchesActivity : BaseActivity() {
         stitches = ArrayList(RealmManager().createRuleDao().loadAll().toList())
         RealmManager().close()
 
-        stitches_recyclerview.layoutManager = LinearLayoutManager(this)
+        stitches_recyclerview.layoutManager =
+            LinearLayoutManager(this)
         adapter = StitchesAdapter(this, stitches)
         stitches_recyclerview.adapter = adapter
 

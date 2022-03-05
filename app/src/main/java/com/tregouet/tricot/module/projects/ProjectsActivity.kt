@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.module.base.BaseActivity
@@ -63,7 +63,8 @@ class ProjectsActivity : BaseActivity() {
         projects = ArrayList(RealmManager().createProjectDao().loadAll().toList())
         RealmManager().close()
 
-        projects_recyclerview.layoutManager = LinearLayoutManager(this)
+        projects_recyclerview.layoutManager =
+            LinearLayoutManager(this)
         adapter = ProjectsAdapter(this, projects)
         projects_recyclerview.adapter = adapter
 

@@ -1,6 +1,6 @@
 package com.tregouet.tricot.dao;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tregouet.tricot.model.Rule;
 import com.tregouet.tricot.utils.Constants;
@@ -58,6 +58,12 @@ public class RuleDao {
             }
         }
         return stitches;
+    }
+
+    public void removeAllById(List<RealmInt> ids) {
+        for (RealmInt stitchId : ids){
+            removeById(stitchId.getVal());
+        }
     }
 
 

@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import android.view.View
 import com.balysv.materialmenu.MaterialMenuDrawable
 import com.daimajia.slider.library.SliderLayout

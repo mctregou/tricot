@@ -1,7 +1,7 @@
 package com.tregouet.tricot.module.step
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,7 +61,12 @@ class RulesAdapter(private val rulesActivity: StepActivity, private val projects
             val images = ArrayList(RealmManager().createImageDao().loadAllForElement(Constants.STITCH_IMAGE, rule.id!!).toList())
             RealmManager().close()
 
-            itemView.stitch_images.layoutManager = LinearLayoutManager(rulesActivity, LinearLayoutManager.HORIZONTAL, false)
+            itemView.stitch_images.layoutManager =
+                LinearLayoutManager(
+                    rulesActivity,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
             val adapter = StitchImagesAdapter(rulesActivity, rule.id!!, images)
             itemView.stitch_images.adapter = adapter
         }

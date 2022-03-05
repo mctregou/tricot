@@ -18,7 +18,7 @@
         android:background="@color/colorPrimaryDark"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/count_layout"
                     tools:ignore="UnusedAttribute" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/current_rules_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textStyle="bold"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rules_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                 android:textSize="@dimen/title_text_size"
                 android:textStyle="bold"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reductions_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                 android:background="@drawable/shape_rectangle_white" />
             </LinearLayout>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

@@ -3,7 +3,7 @@ package com.tregouet.tricot.module.menu
 import android.os.Bundle
 import com.tregouet.tricot.R
 import com.tregouet.tricot.module.base.BaseActivity
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_tutos.*
 
 

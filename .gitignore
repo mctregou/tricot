@@ -43,3 +43,11 @@ captures/
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 .idea/misc.xml
+.idea/assetWizardSettings.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/markdown-navigator-enh.xml
+.idea/markdown-navigator.xml
+.idea/modules.xml
+.idea/caches/build_file_checksums.ser
+.idea/codeStyles/Project.xml

@@ -43,8 +43,8 @@ class Tricot : Application() {
     private fun initDatabase() {
         Realm.init(this)
         val config = RealmConfiguration.Builder()
-                .schemaVersion(0)
-                .migration(MyMigration())
+                //.schemaVersion(0)
+                //.migration(MyMigration())
                 .initialData {realm ->
                     Log.i("Realm", "initialData");
                     realm.insert(Rule(1, "Point de riz", 1, 0, "Alternez une maille à l'endroit et une maille à l'envers. Pour le deuxième rang, inversez : au lieu de tricoter une maille à l'endroit puis une maille à l'envers, alternez une maille à l'envers et une maille à l'endroit"));
