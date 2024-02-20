@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.tregouet.tricot.R
 import com.tregouet.tricot.module.base.BaseActivity
 
-import com.instabug.library.Instabug
 import com.tregouet.tricot.BuildConfig
 import kotlinx.android.synthetic.main.activity_infos.*
 
@@ -17,18 +16,7 @@ class InfosActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_infos)
 
-        showInstabugTuto()
-
         setVersion()
-    }
-
-    /**
-     * Show instabug message
-     */
-    private fun showInstabugTuto() {
-        contact_message.setOnClickListener {
-            Instabug.showIntroMessage()
-        }
     }
 
     /**

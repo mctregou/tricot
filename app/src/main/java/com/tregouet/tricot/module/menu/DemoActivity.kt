@@ -7,16 +7,12 @@ import android.os.Bundle
 import com.tregouet.tricot.R
 import com.tregouet.tricot.module.base.BaseActivity
 
-import com.instabug.library.Instabug
-import com.tregouet.tricot.BuildConfig
 import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.utils.RealmManager
 import com.tregouet.tricot.utils.realm.RealmInt
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.activity_demos.*
-import kotlinx.android.synthetic.main.activity_infos.*
-import kotlinx.android.synthetic.main.popup_add_project.*
 import kotlinx.android.synthetic.main.popup_message.*
 import java.util.*
 

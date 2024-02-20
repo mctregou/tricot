@@ -3,21 +3,15 @@ package com.tregouet.tricot.module
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-import com.instabug.library.Instabug
-import com.instabug.library.invocation.InstabugInvocationEvent
 import com.tregouet.tricot.R
 import com.tregouet.tricot.model.Image
-import com.tregouet.tricot.model.Project
 import com.tregouet.tricot.model.Rule
-import com.tregouet.tricot.model.Step
 import com.tregouet.tricot.utils.Constants
 import com.tregouet.tricot.utils.NotificationService
-import com.tregouet.tricot.utils.realm.RealmInt
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
 import io.realm.*
-import java.util.*
 
 
 /**
@@ -29,8 +23,6 @@ class Tricot : Application() {
         super.onCreate()
 
         initDatabase()
-
-        initInstabug()
 
         initDefaultFont()
 
@@ -59,16 +51,6 @@ class Tricot : Application() {
                 }
                 .build()
         Realm.setDefaultConfiguration(config)
-    }
-
-    /**
-     * Initialization of Instabug
-     */
-    private fun initInstabug() {
-        Instabug.Builder(this, "46b14ea6fab9d61ac125ee11f32c049d")
-                .setInvocationEvent(InstabugInvocationEvent.SHAKE)
-                .build()
-        Instabug.setIntroMessageEnabled(false)
     }
 
     /**
