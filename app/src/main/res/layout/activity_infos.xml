@@ -65,24 +65,6 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/title_text_size" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dp"
-            android:text="@string/contact"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/contact_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/contact_message"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/title_text_size" />
-
     </LinearLayout>
 
 </LinearLayout>
